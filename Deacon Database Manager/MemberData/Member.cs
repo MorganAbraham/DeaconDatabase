@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Deacon_Database_Manager.Geographical;
+using System.Text.RegularExpressions;
 
 namespace Deacon_Database_Manager.MemberData
 {
@@ -182,6 +183,10 @@ namespace Deacon_Database_Manager.MemberData
             set
             {
                 homePhone = value;
+                if(!string.IsNullOrEmpty(homePhone))
+                {
+                    homePhone = Regex.Replace(homePhone, "[^0-9]", "");
+                }
             }
         }
 
@@ -208,6 +213,10 @@ namespace Deacon_Database_Manager.MemberData
             set
             {
                 emergencyNumber = value;
+                if(!string.IsNullOrEmpty(emergencyNumber))
+                {
+                    emergencyNumber = Regex.Replace(emergencyNumber, "[^0-9]", "");
+                }
             }
         }
     }

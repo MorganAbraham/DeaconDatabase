@@ -52,8 +52,8 @@
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.txtEmergencyPhone = new System.Windows.Forms.MaskedTextBox();
             this.txtHomePhone = new System.Windows.Forms.MaskedTextBox();
-            this.txtEmergencyPhone = new System.Windows.Forms.TextBox();
             this.label15 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
             this.txtEmergencyContact = new System.Windows.Forms.TextBox();
@@ -322,8 +322,8 @@
             // 
             // panel2
             // 
-            this.panel2.Controls.Add(this.txtHomePhone);
             this.panel2.Controls.Add(this.txtEmergencyPhone);
+            this.panel2.Controls.Add(this.txtHomePhone);
             this.panel2.Controls.Add(this.label15);
             this.panel2.Controls.Add(this.label16);
             this.panel2.Controls.Add(this.txtEmergencyContact);
@@ -335,6 +335,15 @@
             this.panel2.Size = new System.Drawing.Size(305, 328);
             this.panel2.TabIndex = 16;
             // 
+            // txtEmergencyPhone
+            // 
+            this.txtEmergencyPhone.Location = new System.Drawing.Point(21, 205);
+            this.txtEmergencyPhone.Mask = "(999) 000-0000";
+            this.txtEmergencyPhone.Name = "txtEmergencyPhone";
+            this.txtEmergencyPhone.Size = new System.Drawing.Size(231, 20);
+            this.txtEmergencyPhone.TabIndex = 14;
+            this.txtEmergencyPhone.TextChanged += new System.EventHandler(this.txtEmergencyPhone_TextChanged);
+            // 
             // txtHomePhone
             // 
             this.txtHomePhone.Location = new System.Drawing.Point(21, 95);
@@ -343,14 +352,7 @@
             this.txtHomePhone.Size = new System.Drawing.Size(231, 20);
             this.txtHomePhone.TabIndex = 11;
             this.txtHomePhone.MaskInputRejected += new System.Windows.Forms.MaskInputRejectedEventHandler(this.txtHomePhone_MaskInputRejected);
-            // 
-            // txtEmergencyPhone
-            // 
-            this.txtEmergencyPhone.Location = new System.Drawing.Point(21, 205);
-            this.txtEmergencyPhone.Name = "txtEmergencyPhone";
-            this.txtEmergencyPhone.Size = new System.Drawing.Size(231, 20);
-            this.txtEmergencyPhone.TabIndex = 13;
-            this.txtEmergencyPhone.TextChanged += new System.EventHandler(this.txtEmergencyPhone_TextChanged);
+            this.txtHomePhone.TextChanged += new System.EventHandler(this.txtHomePhone_TextChanged);
             // 
             // label15
             // 
@@ -672,10 +674,10 @@
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.TextBox txtHomeEmail;
-        private System.Windows.Forms.TextBox txtEmergencyPhone;
         private System.Windows.Forms.MaskedTextBox txtHomePhone;
         private System.Windows.Forms.MaskedTextBox txtBirthDate;
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.Button btnBack;
+        private System.Windows.Forms.MaskedTextBox txtEmergencyPhone;
     }
 }

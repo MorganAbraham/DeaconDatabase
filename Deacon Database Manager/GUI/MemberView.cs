@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using Deacon_Database_Manager.MemberData;
 using System.Resources;
 using Deacon_Database_Manager.DbTools;
+using Deacon_Database_Manager.Geographical;
 
 namespace Deacon_Database_Manager.GUI
 {
@@ -58,7 +59,7 @@ namespace Deacon_Database_Manager.GUI
             txtAddress1.Text = ChurchMember.Address.Street;
             txtAddress2.Text = ChurchMember.Address.Street2;
             txtCity.Text = ChurchMember.Address.City;
-            comboState.Text = ChurchMember.Address.State;
+            comboState.Text = StateInformation.GetStateName(ChurchMember.Address.State);
             txtZip.Text = ChurchMember.Address.Zip;
 
             txtHomeEmail.Text = ChurchMember.HomeEmail;
@@ -122,7 +123,7 @@ namespace Deacon_Database_Manager.GUI
 
         private void comboState_SelectedIndexChanged(object sender, EventArgs e)
         {
-            ChurchMember.Address.State = comboState.Text;
+            ChurchMember.Address.State = StateInformation.GetStateAbbreviation(comboState.Text);
         }
 
         private void txtZip_TextChanged(object sender, EventArgs e)
@@ -143,11 +144,6 @@ namespace Deacon_Database_Manager.GUI
         private void txtEmergencyContact_TextChanged(object sender, EventArgs e)
         {
             ChurchMember.EmergencyContact = txtEmergencyContact.Text;
-        }
-
-        private void txtEmergencyPhone_TextChanged(object sender, EventArgs e)
-        {
-            ChurchMember.EmergencyNumber = txtEmergencyContact.Text;
         }
 
         private void btnSave_Click(object sender, EventArgs e)
@@ -177,6 +173,17 @@ namespace Deacon_Database_Manager.GUI
                 ChurchMember.BirthDate = dt;
             }
 
+        }
+
+
+        private void txtEmergencyPhone_TextChanged(object sender, EventArgs e)
+        {
+            ChurchMember.EmergencyNumber = txtEmergencyPhone.Text;
+        }
+
+        private void txtHomePhone_TextChanged(object sender, EventArgs e)
+        {
+            ChurchMember.HomePhone = txtHomePhone.Text;
         }
     }
 }
