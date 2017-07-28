@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Deacon Database Manager", "Deacon Database Manager\Deacon Database Manager.csproj", "{11D39323-C45F-486A-910E-9D4F3031D246}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DatabaseManagerTests", "DatabaseManagerTests\DatabaseManagerTests.csproj", "{8D35AE02-0DC9-4EED-803E-8A54FE8CCE33}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{11D39323-C45F-486A-910E-9D4F3031D246}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{11D39323-C45F-486A-910E-9D4F3031D246}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{11D39323-C45F-486A-910E-9D4F3031D246}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{11D39323-C45F-486A-910E-9D4F3031D246}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8D35AE02-0DC9-4EED-803E-8A54FE8CCE33}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8D35AE02-0DC9-4EED-803E-8A54FE8CCE33}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8D35AE02-0DC9-4EED-803E-8A54FE8CCE33}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8D35AE02-0DC9-4EED-803E-8A54FE8CCE33}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

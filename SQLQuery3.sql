@@ -1,0 +1,10 @@
+﻿USE [C:\USERS\MORGAN\DOCUMENTS\VISUAL STUDIO 2015\PROJECTS\DEACON DATABASE MANAGER\DEACON DATABASE MANAGER\MEMBERDATABASE.MDF]
+GO
+
+DECLARE	@return_value Int
+
+EXEC	@return_value = [dbo].[GetUpcomingBirthDays]
+
+SELECT	@return_value as 'Return Value'
+
+GO
