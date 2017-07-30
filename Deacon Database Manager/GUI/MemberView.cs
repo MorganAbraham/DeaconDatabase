@@ -18,12 +18,15 @@ namespace Deacon_Database_Manager.GUI
         private Member ChurchMember;
         private HomeScreen homeScreen;
         private DataManager DM = new DataManager();
+        private bool CreateNewMember;
+        private bool MemberCreated = false;
 
-        public MemberView(HomeScreen homeScreen, Member ChurchMember)
+        public MemberView(HomeScreen homeScreen, Member ChurchMember, bool CreateNewMember)
         {
             InitializeComponent();
             this.ChurchMember = ChurchMember;
             this.homeScreen = homeScreen;
+            this.CreateNewMember = CreateNewMember;
         }
 
         private void panel1_Paint(object sender, PaintEventArgs e)
@@ -148,14 +151,13 @@ namespace Deacon_Database_Manager.GUI
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            if(DM.TryUpdateMember(ChurchMember))
+            if(TrySaveMember())
             {
-                MessageBox.Show("Member Data Saved");
+                MessageBox.Show("Member Saved", "Sucessful Save", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
             {
-                MessageBox.Show("There was an error while saving your member data. Your changes have not been saved", 
-                    "Save Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Member data could not be saved", "Saved Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -184,6 +186,34 @@ namespace Deacon_Database_Manager.GUI
         private void txtHomePhone_TextChanged(object sender, EventArgs e)
         {
             ChurchMember.HomePhone = txtHomePhone.Text;
+        }
+
+        private void btnSaveAndExit_Click(object sender, EventArgs e)
+        {
+            if (TrySaveMember())
+            {
+                MessageBox.Show("Member Data Saved");
+                this.homeScreen.LoadPanel(new HomePanel(this.homeScreen));
+                this.homeScreen.RemovePanel(this);
+            }
+            else
+            {
+                MessageBox.Show("There was an error while saving your member data. Your changes have not been saved",
+                    "Save Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private bool TrySaveMember()
+        {
+            if (CreateNewMember && !MemberCreated)
+            {
+                return DM.TryCreateMember(ChurchMember);
+            }
+            else
+            {
+                return DM.TryUpdateMember(ChurchMember);
+            }
+            
         }
     }
 }

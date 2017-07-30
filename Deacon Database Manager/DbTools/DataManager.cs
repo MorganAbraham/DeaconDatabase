@@ -12,6 +12,52 @@ namespace Deacon_Database_Manager.DbTools
     {
         private readonly string ConnecionString = global::Deacon_Database_Manager.Properties.Settings.Default.MemberDatabaseConnectionString;
 
+        public int GetNextId()
+        {
+            try
+            {
+                using (SqlConnection Conn = new SqlConnection(ConnecionString))
+                {
+                    SqlCommand Cmd = new SqlCommand("GetNextId");
+                    Cmd.CommandType = CommandType.StoredProcedure;
+                    SqlParameter ReturnValue = Cmd.Parameters.Add("@MemberId", SqlDbType.Int);
+                    ReturnValue.Direction = ParameterDirection.Output;
+                    Cmd.Connection = Conn;
+
+                    Conn.Open();
+                    Cmd.ExecuteNonQuery();
+                    return (int)Cmd.Parameters["@MemberId"].Value;
+                }
+            }
+            catch(Exception e)
+            {
+                System.Diagnostics.Debug.Print(e.Message);
+                return -1;
+            }
+        }
+        public bool TryCreateMember(Member member)
+        {
+            try
+            {
+                using (SqlConnection Conn = new SqlConnection(ConnecionString))
+                {
+                    SqlCommand Cmd = new SqlCommand("CreateMember");
+                    Cmd.CommandType = CommandType.StoredProcedure;
+                    Cmd.Connection = Conn;
+             
+                    Conn.Open();
+                    Cmd.ExecuteNonQuery();
+                }
+
+                TryUpdateMember(member);
+                return true;
+            }
+            catch(Exception e)
+            {
+                System.Diagnostics.Debug.Print(e.Message);
+                return false;
+            }
+        }
         public bool TryUpdateMember(Member member)
         {
             try
@@ -27,6 +73,7 @@ namespace Deacon_Database_Manager.DbTools
                     Cmd.Parameters.AddWithValue("@FirstName", member.FirstName);
                     Cmd.Parameters.AddWithValue("@MiddleName", member.MiddleName);
                     Cmd.Parameters.AddWithValue("@LastName", member.LastName);
+                    Cmd.Parameters.AddWithValue("@Suffix", member.Suffix);
                     Cmd.Parameters.AddWithValue("@BirthDate", member.BirthDate);
                     Cmd.Parameters.AddWithValue("@Ethnicity", member.Ethnicity);
                     Cmd.Parameters.AddWithValue("@Gender", member.Gender);

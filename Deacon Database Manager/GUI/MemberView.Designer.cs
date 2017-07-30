@@ -74,6 +74,7 @@
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.btnSave = new System.Windows.Forms.Button();
             this.btnBack = new System.Windows.Forms.Button();
+            this.btnSaveAndExit = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.picboxProfile)).BeginInit();
             this.panel3.SuspendLayout();
             this.panel4.SuspendLayout();
@@ -592,7 +593,7 @@
             // 
             // btnBack
             // 
-            this.btnBack.Location = new System.Drawing.Point(693, 56);
+            this.btnBack.Location = new System.Drawing.Point(693, 90);
             this.btnBack.Name = "btnBack";
             this.btnBack.Size = new System.Drawing.Size(143, 23);
             this.btnBack.TabIndex = 8;
@@ -600,11 +601,22 @@
             this.btnBack.UseVisualStyleBackColor = true;
             this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
             // 
+            // btnSaveAndExit
+            // 
+            this.btnSaveAndExit.Location = new System.Drawing.Point(693, 51);
+            this.btnSaveAndExit.Name = "btnSaveAndExit";
+            this.btnSaveAndExit.Size = new System.Drawing.Size(143, 23);
+            this.btnSaveAndExit.TabIndex = 9;
+            this.btnSaveAndExit.Text = "Save && Exit";
+            this.btnSaveAndExit.UseVisualStyleBackColor = true;
+            this.btnSaveAndExit.Click += new System.EventHandler(this.btnSaveAndExit_Click);
+            // 
             // MemberView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(867, 623);
+            this.Controls.Add(this.btnSaveAndExit);
             this.Controls.Add(this.btnBack);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.tabControl1);
@@ -679,5 +691,6 @@
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.Button btnBack;
         private System.Windows.Forms.MaskedTextBox txtEmergencyPhone;
+        private System.Windows.Forms.Button btnSaveAndExit;
     }
 }

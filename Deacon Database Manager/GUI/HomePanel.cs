@@ -186,8 +186,26 @@ namespace Deacon_Database_Manager.GUI
             {
                 DataManager DM = new DataManager();
                 Result = DM.GetMember(Result.Id);
-                homeScreen.LoadPanel(new MemberView(homeScreen, Result));
+                homeScreen.LoadPanel(new MemberView(homeScreen, Result, false));
                 homeScreen.RemovePanel(this);
+            }
+        }
+
+        private void btnCreateMember_Click(object sender, EventArgs e)
+        {
+            DataManager DM = new DataManager();
+            int MemberId = DM.GetNextId();
+            if(MemberId != -1)
+            {
+                Member member = new Member();
+                member.Id = MemberId;
+                homeScreen.LoadPanel(new MemberView(homeScreen, member, true));
+                homeScreen.RemovePanel(this);
+            }
+            else
+            {
+                MessageBox.Show("There was an error generating Member ID. New Member cannot be created.", "ID Creation Error", 
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }
