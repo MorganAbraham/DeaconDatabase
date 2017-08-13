@@ -84,6 +84,8 @@
             // 
             // panelResults
             // 
+            this.panelResults.AutoScroll = true;
+            this.panelResults.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panelResults.Location = new System.Drawing.Point(299, 82);
             this.panelResults.Name = "panelResults";
             this.panelResults.Size = new System.Drawing.Size(536, 509);
@@ -166,6 +168,7 @@
             // 
             // panel2
             // 
+            this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel2.Controls.Add(this.ckMembershipFilter);
             this.panel2.Controls.Add(this.ckAgeFilter);
             this.panel2.Controls.Add(this.ckAddressFilter);

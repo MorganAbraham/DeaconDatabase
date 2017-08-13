@@ -26,31 +26,14 @@ namespace Deacon_Database_Manager.GUI
             this.homeScreen = homeScreen;
         }
 
-        private void ckPicView_CheckedChanged(object sender, EventArgs e)
-        {
-            ChangeView();
-        }
-
-        private void ChangeView()
-        {
-            if(radioPictureView.Checked)
-            {
-                //TODO
-            }
-            else if(radioListView.Checked)
-            {
-                //TODO
-            }
-        }
-
         private void radioPictureView_CheckedChanged(object sender, EventArgs e)
         {
-            ChangeView();
+            LoadPictures();
         }
 
         private void radioListView_CheckedChanged(object sender, EventArgs e)
         {
-            ChangeView();
+            LoadTable();
         }
 
         private void btnSetFilter_Click(object sender, EventArgs e)
@@ -178,7 +161,7 @@ namespace Deacon_Database_Manager.GUI
             //{
             //    panelResults.Controls.Remove(Ctrl);
             //}
-            panelResults.Controls.Clear();
+            
             if(radioListView.Checked)
             {
                 LoadTable();
@@ -191,12 +174,47 @@ namespace Deacon_Database_Manager.GUI
 
         private void LoadTable()
         {
-            //TODO
+            panelResults.Controls.Clear();
+            DataGridView Grid = new DataGridView();
+            Grid.Visible = true;
+            Grid.Size = panelResults.Size;
+            Grid.ColumnCount = 5;
+            Grid.ReadOnly = true;
+
+            Grid.Columns[0].HeaderText = "Member Name";
+            Grid.Columns[1].HeaderText = "Deacon Name";
+            Grid.Columns[2].HeaderText = "Birth Date";
+            Grid.Columns[3].HeaderText = "Home Address";
+            Grid.Columns[4].HeaderText = "Anniversary Date";
+
+            int ColumnWidth = Grid.Width / Grid.ColumnCount;
+            for(int i = 0; i < Grid.ColumnCount; i++)
+            {
+                Grid.Columns[i].Width = ColumnWidth;
+            }
+
+            
+            foreach(Member SearchResult in SearchResults)
+            {
+                string BirthDate = SearchResult.BirthDate == 
+                    DateTime.MinValue ? "" : SearchResult.BirthDate.ToShortDateString();
+                string HomeAddress = Regex.Replace(SearchResult.Address.Street + ' ' + 
+                    SearchResult.Address.Street2 +
+                    ", " + SearchResult.Address.City + ", " + 
+                    SearchResult.Address.State + ' ' + SearchResult.Address.Zip, "[ ]{2,}", " ");
+                string AnniversaryDate = SearchResult.MembershipStart ==
+                    DateTime.MinValue ? "" : SearchResult.MembershipStart.ToShortDateString();
+                Grid.Rows.Add(Regex.Replace(SearchResult.FirstName + ' ' +
+                    SearchResult.MiddleName + ' ' + SearchResult.LastName, "[ ]{2,}", " "),
+                    SearchResult.DeaconName, BirthDate, HomeAddress, AnniversaryDate);
+            }
+            panelResults.Controls.Add(Grid);
         }
 
         private void LoadPictures()
         {
-            //TODO
+            panelResults.Controls.Clear();
+            
             int ColumnSpacing = 10;
             int RowSpacing = 10;
             int LabelHeight = 10;
