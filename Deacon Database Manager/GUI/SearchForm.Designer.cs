@@ -36,7 +36,7 @@
             this.txtMemberName = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.panel2 = new System.Windows.Forms.Panel();
+            this.panelFilter = new System.Windows.Forms.Panel();
             this.ckMembershipFilter = new System.Windows.Forms.CheckBox();
             this.ckAgeFilter = new System.Windows.Forms.CheckBox();
             this.ckAddressFilter = new System.Windows.Forms.CheckBox();
@@ -68,8 +68,9 @@
             this.label14 = new System.Windows.Forms.Label();
             this.trackMembership = new System.Windows.Forms.TrackBar();
             this.btnSetFilter = new System.Windows.Forms.Button();
+            this.btnSlideDrawer = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
-            this.panel2.SuspendLayout();
+            this.panelFilter.SuspendLayout();
             this.panelMemberName.SuspendLayout();
             this.panelDeacon.SuspendLayout();
             this.panelBirthMonth.SuspendLayout();
@@ -166,27 +167,27 @@
             this.label5.TabIndex = 12;
             this.label5.Text = "Minimum Membership Length";
             // 
-            // panel2
+            // panelFilter
             // 
-            this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel2.Controls.Add(this.ckMembershipFilter);
-            this.panel2.Controls.Add(this.ckAgeFilter);
-            this.panel2.Controls.Add(this.ckAddressFilter);
-            this.panel2.Controls.Add(this.ckBirthdateFilter);
-            this.panel2.Controls.Add(this.ckDeaconFilter);
-            this.panel2.Controls.Add(this.ckNameFilter);
-            this.panel2.Controls.Add(this.panelMemberName);
-            this.panel2.Controls.Add(this.panelDeacon);
-            this.panel2.Controls.Add(this.panelBirthMonth);
-            this.panel2.Controls.Add(this.panelAddress);
-            this.panel2.Controls.Add(this.panelAge);
-            this.panel2.Controls.Add(this.panelMembershipFilter);
-            this.panel2.Controls.Add(this.btnSetFilter);
-            this.panel2.Location = new System.Drawing.Point(12, 21);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(281, 570);
-            this.panel2.TabIndex = 14;
-            this.panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.panel2_Paint);
+            this.panelFilter.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelFilter.Controls.Add(this.ckMembershipFilter);
+            this.panelFilter.Controls.Add(this.ckAgeFilter);
+            this.panelFilter.Controls.Add(this.ckAddressFilter);
+            this.panelFilter.Controls.Add(this.ckBirthdateFilter);
+            this.panelFilter.Controls.Add(this.ckDeaconFilter);
+            this.panelFilter.Controls.Add(this.ckNameFilter);
+            this.panelFilter.Controls.Add(this.panelMemberName);
+            this.panelFilter.Controls.Add(this.panelDeacon);
+            this.panelFilter.Controls.Add(this.panelBirthMonth);
+            this.panelFilter.Controls.Add(this.panelAddress);
+            this.panelFilter.Controls.Add(this.panelAge);
+            this.panelFilter.Controls.Add(this.panelMembershipFilter);
+            this.panelFilter.Controls.Add(this.btnSetFilter);
+            this.panelFilter.Location = new System.Drawing.Point(12, 21);
+            this.panelFilter.Name = "panelFilter";
+            this.panelFilter.Size = new System.Drawing.Size(281, 570);
+            this.panelFilter.TabIndex = 14;
+            this.panelFilter.Paint += new System.Windows.Forms.PaintEventHandler(this.panel2_Paint);
             // 
             // ckMembershipFilter
             // 
@@ -517,12 +518,23 @@
             this.btnSetFilter.UseVisualStyleBackColor = true;
             this.btnSetFilter.Click += new System.EventHandler(this.btnSetFilter_Click);
             // 
+            // btnSlideDrawer
+            // 
+            this.btnSlideDrawer.Location = new System.Drawing.Point(564, 35);
+            this.btnSlideDrawer.Name = "btnSlideDrawer";
+            this.btnSlideDrawer.Size = new System.Drawing.Size(90, 23);
+            this.btnSlideDrawer.TabIndex = 15;
+            this.btnSlideDrawer.Text = "Show Filters";
+            this.btnSlideDrawer.UseVisualStyleBackColor = true;
+            this.btnSlideDrawer.Click += new System.EventHandler(this.btnSlideDrawer_Click);
+            // 
             // SearchForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(867, 623);
-            this.Controls.Add(this.panel2);
+            this.Controls.Add(this.btnSlideDrawer);
+            this.Controls.Add(this.panelFilter);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.panelResults);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -531,8 +543,8 @@
             this.Load += new System.EventHandler(this.SearchForm_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            this.panel2.ResumeLayout(false);
-            this.panel2.PerformLayout();
+            this.panelFilter.ResumeLayout(false);
+            this.panelFilter.PerformLayout();
             this.panelMemberName.ResumeLayout(false);
             this.panelMemberName.PerformLayout();
             this.panelDeacon.ResumeLayout(false);
@@ -563,7 +575,7 @@
         private System.Windows.Forms.TextBox txtMemberName;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Panel panelFilter;
         private System.Windows.Forms.Button btnSetFilter;
         private System.Windows.Forms.ComboBox cmboBirthMonth;
         private System.Windows.Forms.Label label6;
@@ -595,5 +607,6 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Button btnSlideDrawer;
     }
 }

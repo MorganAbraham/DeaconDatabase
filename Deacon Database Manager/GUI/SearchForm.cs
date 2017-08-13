@@ -19,6 +19,14 @@ namespace Deacon_Database_Manager.GUI
         private HomeScreen homeScreen;
         private List<Member> SearchResults;
         private UserFilter FilterSettings = new UserFilter();
+        private bool FilterVisible = false;
+
+        private int DrawerMaxWidth;
+        private int DrawerMinWidth;
+        private int ResultsPanelMinWidth;
+        private int ResultsPanelMaxWidth;
+        private int ResultsPanelMinLeft;
+        private int ShrinkAmount;
 
         public SearchForm(HomeScreen homeScreen)
         {
@@ -272,7 +280,109 @@ namespace Deacon_Database_Manager.GUI
 
         private void SearchForm_Load(object sender, EventArgs e)
         {
+            DrawerMaxWidth = 281;
+            DrawerMinWidth = 0;
+            ResultsPanelMinWidth = 536;
+            ResultsPanelMaxWidth = DrawerMaxWidth + ResultsPanelMinWidth;
+            ShrinkAmount = DrawerMaxWidth;
+            ResultsPanelMinLeft = 299;
+
+            panelFilter.Width = DrawerMinWidth;
+            panelResults.Width = ResultsPanelMaxWidth;
+            panelResults.Left = panelFilter.Left;
+
             SetFilter();
+        }
+
+        private void SlideDrawer()
+        {
+            BackgroundWorker bw = new BackgroundWorker();
+            bw.WorkerReportsProgress = true;
+            bw.WorkerReportsProgress = true;
+
+            bw.DoWork += new DoWorkEventHandler(bw_DoWork);
+            bw.ProgressChanged += new ProgressChangedEventHandler(bw_ProgressedChanged);
+            bw.RunWorkerCompleted += new RunWorkerCompletedEventHandler(bw_RunWorkerCompleted);
+
+            if(!bw.IsBusy)
+            {
+                bw.RunWorkerAsync();
+            }   
+        }
+
+        private void bw_ProgressedChanged(object sender, ProgressChangedEventArgs e)
+        {
+            int MoveAmount = ResultsPanelMinLeft - panelFilter.Left;
+            if (!FilterVisible)
+            {
+                //Show Filter Panel
+                panelFilter.Width = Convert.ToInt32(DrawerMaxWidth * 
+                    ((double)e.ProgressPercentage / 100));
+                panelResults.Width = ResultsPanelMaxWidth - Convert.ToInt32(ShrinkAmount * 
+                    ((double)e.ProgressPercentage / 100));
+                panelResults.Left = panelFilter.Left +
+                    Convert.ToInt32(MoveAmount * ((double)e.ProgressPercentage / 100));
+            }
+            else
+            {
+                //Hide Filter Panel
+                panelFilter.Width = DrawerMaxWidth - Convert.ToInt32((DrawerMaxWidth - DrawerMinWidth) *
+                    ((double)e.ProgressPercentage / 100));
+                panelResults.Width = ResultsPanelMinWidth + 
+                    Convert.ToInt32(ShrinkAmount * ((double)e.ProgressPercentage / 100));
+                panelResults.Left = ResultsPanelMinLeft - 
+                    Convert.ToInt32(MoveAmount * ((double)e.ProgressPercentage / 100));
+            }
+        }
+
+        private void bw_DoWork(object sender, DoWorkEventArgs e)
+        {
+            BackgroundWorker worker = sender as BackgroundWorker;
+
+
+            for (int i = 1; i <= 100; i++)
+            {
+                if(worker.CancellationPending)
+                {
+                    e.Cancel = true;
+                    break;
+                }
+                else
+                {
+                    //System.Threading.Thread.Sleep(5);
+                    worker.ReportProgress(i);
+                }
+            }
+        }
+
+        private void bw_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            if((e.Cancelled))
+            {
+                //TODO - Report Canceled
+            }
+            else if(!(e.Error == null))
+            {
+                //TODO - Report Error
+            }
+            else
+            {
+                FilterVisible = !FilterVisible;
+                if(FilterVisible)
+                {
+                    btnSlideDrawer.Text = "Hide Filter";
+                }
+                else
+                {
+                    btnSlideDrawer.Text = "Show Filter";
+                }
+                LoadResults();
+            }
+        }
+
+        private void btnSlideDrawer_Click(object sender, EventArgs e)
+        {
+            SlideDrawer();
         }
     }
 }
