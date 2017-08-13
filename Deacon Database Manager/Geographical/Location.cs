@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 
 namespace Deacon_Database_Manager.Geographical
@@ -132,7 +133,7 @@ namespace Deacon_Database_Manager.Geographical
         public Location(string Street, string Street2, string City, string State, string Zip)
         {
             this.Street = Street;
-            this.Street = Street2;
+            this.Street2 = Street2;
             this.City = City;
             this.State = State;
             this.Zip = Zip;
@@ -154,5 +155,30 @@ namespace Deacon_Database_Manager.Geographical
             Longitude = Coordinates[1];
         }
 
+        public override bool Equals(object obj)
+        {
+            if(obj == null && this != null)
+            {
+                return false;
+            }
+            else if(this == null && obj != null)
+            {
+                return false;
+            }
+            PropertyInfo[] MyFields = this.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance);
+            PropertyInfo[] ObjFields = obj.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance);
+            for(int i = 0; i < MyFields.Length; i++)
+            {
+                if(!MyFields[i].GetValue(this, null).Equals(ObjFields[i].GetValue(obj, null)))
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
     }
 }

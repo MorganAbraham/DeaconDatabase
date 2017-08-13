@@ -4,11 +4,12 @@ using System.Linq;
 using System.Text;
 using Deacon_Database_Manager.Geographical;
 using System.Text.RegularExpressions;
+using System.Reflection;
 
 namespace Deacon_Database_Manager.MemberData
 {
    
-    public class Member
+    public class Member : IComparable<Member>
     {
         
         private int id;
@@ -27,6 +28,11 @@ namespace Deacon_Database_Manager.MemberData
         private string homePhone = "";
         private string emergencyContact = "";
         private string emergencyNumber = "";
+
+        private string deaconName = "";
+        private DateTime membershipStart;
+        private DateTime membershipEnd;
+        private string previousChurch = "";
 
         private Location address = new Location();
 
@@ -218,6 +224,102 @@ namespace Deacon_Database_Manager.MemberData
                     emergencyNumber = Regex.Replace(emergencyNumber, "[^0-9]", "");
                 }
             }
+        }
+
+        public string DeaconName
+        {
+            get
+            {
+                return deaconName;
+            }
+
+            set
+            {
+                deaconName = value;
+            }
+        }
+
+        public DateTime MembershipStart
+        {
+            get
+            {
+                return membershipStart;
+            }
+
+            set
+            {
+                membershipStart = value;
+            }
+        }
+
+        public DateTime MembershipEnd
+        {
+            get
+            {
+                return membershipEnd;
+            }
+
+            set
+            {
+                membershipEnd = value;
+            }
+        }
+
+        public string PreviousChurch
+        {
+            get
+            {
+                return previousChurch;
+            }
+
+            set
+            {
+                previousChurch = value;
+            }
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null && this != null)
+            {
+                return false;
+            }
+            else if (this == null && obj != null)
+            {
+                return false;
+            }
+            PropertyInfo[] MyFields = this.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance);
+            PropertyInfo[] ObjFields = obj.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance);
+            for (int i = 0; i < MyFields.Length; i++)
+            {
+                if (!MyFields[i].GetValue(this, null).Equals(ObjFields[i].GetValue(obj, null)))
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
+        public int CompareTo(Member other)
+        {
+            if(other == null)
+            {
+                return 1;
+            }
+            if(!string.Equals(this.LastName, other.LastName, StringComparison.OrdinalIgnoreCase))
+            {
+                return this.LastName.CompareTo(other.LastName);
+            }
+            
+            if(!string.Equals(this.FirstName, other.FirstName, StringComparison.OrdinalIgnoreCase))
+            {
+                return this.FirstName.CompareTo(other.FirstName);
+            }
+
+            return this.MiddleName.CompareTo(other.MiddleName);
         }
     }
 }

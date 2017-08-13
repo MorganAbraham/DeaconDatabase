@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Deacon_Database_Manager.DbTools;
+using Deacon_Database_Manager.MemberData;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -29,6 +31,28 @@ namespace Deacon_Database_Manager.GUI
         {
             WorkPanel.Controls.Remove(panel);
             panel.Dispose();
+        }
+
+        private void btnAddMember_Click(object sender, EventArgs e)
+        {
+            DataManager DM = new DataManager();
+            int MemberId = DM.GetNextId();
+            if (MemberId != -1)
+            {
+                Member member = new Member();
+                member.Id = MemberId;
+                LoadPanel(new MemberView(this, member, true));
+            }
+            else
+            {
+                MessageBox.Show("There was an error generating Member ID. New Member cannot be created.", "ID Creation Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+            LoadPanel(new SearchForm(this));
         }
     }
 }

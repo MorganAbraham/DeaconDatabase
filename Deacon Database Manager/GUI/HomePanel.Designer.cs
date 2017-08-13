@@ -36,7 +36,6 @@
             this.getUpcomingBirthDaysBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.getUpcomingBirthDaysTableAdapter = new Deacon_Database_Manager.MemberDatabaseDataSetTableAdapters.GetUpcomingBirthDaysTableAdapter();
             this.label1 = new System.Windows.Forms.Label();
-            this.btnCreateMember = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.UpcomingBirthdays)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.memberDatabaseDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.getUpcomingBirthDaysBindingSource)).BeginInit();
@@ -98,22 +97,11 @@
             this.label1.TabIndex = 3;
             this.label1.Text = "Upcoming Birthdays";
             // 
-            // btnCreateMember
-            // 
-            this.btnCreateMember.Location = new System.Drawing.Point(27, 13);
-            this.btnCreateMember.Name = "btnCreateMember";
-            this.btnCreateMember.Size = new System.Drawing.Size(159, 23);
-            this.btnCreateMember.TabIndex = 4;
-            this.btnCreateMember.Text = "Add New Member";
-            this.btnCreateMember.UseVisualStyleBackColor = true;
-            this.btnCreateMember.Click += new System.EventHandler(this.btnCreateMember_Click);
-            // 
             // HomePanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(851, 584);
-            this.Controls.Add(this.btnCreateMember);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.UpcomingBirthdays);
             this.Controls.Add(this.SearchResults);
@@ -140,6 +128,5 @@
         private System.Windows.Forms.BindingSource getUpcomingBirthDaysBindingSource;
         private MemberDatabaseDataSetTableAdapters.GetUpcomingBirthDaysTableAdapter getUpcomingBirthDaysTableAdapter;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button btnCreateMember;
     }
 }

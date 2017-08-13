@@ -24,5 +24,21 @@ namespace DatabaseManagerTests
             double[] Result = new double[] { Instance.Latitude, Instance.Longitude };
             CollectionAssert.AreEqual(ExpResult, Result);
         }
+
+        [TestMethod]
+        public void Location_Equals()
+        {
+            Location Location1 = new Location("Street", "Street2", "City", "State", "Zip");
+            Location Location2 = new Location("Street", "Street2", "City", "State", "Zip");
+            Assert.AreEqual(Location1, Location2);
+        }
+
+        [TestMethod]
+        public void Location_NotEqual()
+        {
+            Location Location1 = new Location("Street", "Street2", "City", "State", "Zip");
+            Location Location2 = new Location("Street", "", "City", "State", "Zip");
+            Assert.AreNotEqual(Location1, Location2);
+        }
     }
 }

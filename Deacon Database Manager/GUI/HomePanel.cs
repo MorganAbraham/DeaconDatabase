@@ -32,48 +32,25 @@ namespace Deacon_Database_Manager.GUI
         {
             if (string.IsNullOrEmpty(txtSearch.Text))
             {
-
                 //txtSearch.Text = "Search For Members";
                 //txtSearch.ForeColor = Color.LightGray;
-                for (int i = 0; i < SearchResults.Controls.Count; i++)
-                {
-                    SearchResults.Controls.RemoveAt(i);
-                    i--;
-                }
+                SearchResults.Controls.Clear();
             }
             else
             {
                 txtSearch.ForeColor = Color.Black;
                 using (SqlConnection Conn = new SqlConnection(ConnecionString))
                 {
-                    string Stmt = "SELECT [Id], [First Name], [Middle Name], [Last Name], [ImagePath] " + 
-                        "FROM Demographics " + 
-                        "INNER JOIN Images ON Demographics.Id = Images.Member_Id " +
-                        "WHERE Demographics.[First Name] + ' ' + " + 
-                        "Demographics.[Last Name] LIKE '%" + txtSearch.Text + 
-                        "%' OR Demographics.[First Name] + ' '+ Demographics.[Middle Name] + ' ' + " +
-                        "Demographics.[Last Name] LIKE '%" + txtSearch.Text + "%' " +  
-                        "ORDER BY Demographics.[First Name], Demographics.[Middle Name], Demographics.[Last Name]";
-                    SqlCommand Cmd = new SqlCommand(Stmt, Conn);
-                    Cmd.CommandType = CommandType.Text;
-                   
-                    Conn.Open();
-                    Cmd.ExecuteNonQuery();
-                    //QuickResults = new List<Member>();
+                    UserFilter FilterSettings = new UserFilter();
+                    FilterSettings.MemberName = txtSearch.Text;
+                    DataManager DM = new DataManager();
+                    List<Member> FilterResults = DM.GetFilterResults(FilterSettings);
+
                     QuickResults.Clear();
 
-                    using (SqlDataReader Reader = Cmd.ExecuteReader())
+                    foreach(Member FilterResult in FilterResults)
                     {
-                        while(Reader.Read())
-                        {
-                            Member member = new Member();
-                            member.Id = Reader.GetInt32(0);
-                            member.FirstName = Reader.IsDBNull(1) ? "" : Reader.GetString(1);
-                            member.MiddleName = Reader.IsDBNull(2) ? "" : Reader.GetString(2);
-                            member.LastName = Reader.IsDBNull(3) ? "" : Reader.GetString(3);
-                            member.PhotoPath = Reader.IsDBNull(3) ? null : Reader.GetString(4);
-                            QuickResults.Add(new PictureBox(), member);
-                        }
+                        QuickResults.Add(new PictureBox(), FilterResult);
                     }
 
                     for (int i = 0; i < SearchResults.Controls.Count; i++)
@@ -83,10 +60,6 @@ namespace Deacon_Database_Manager.GUI
                     }
 
                     LastResultLabel = null;
-                    //for (int i = 0; i < QuickResults.Count; i++)
-                    //{
-                    //    LoadQuickResult(QuickResults[i]);
-                    //}
                     foreach(KeyValuePair<PictureBox, Member> QuickResult in QuickResults)
                     {
                         LoadQuickResult(QuickResult);
