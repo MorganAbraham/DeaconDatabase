@@ -69,6 +69,7 @@
             this.trackMembership = new System.Windows.Forms.TrackBar();
             this.btnSetFilter = new System.Windows.Forms.Button();
             this.btnSlideDrawer = new System.Windows.Forms.Button();
+            this.panelFilterDisplay = new System.Windows.Forms.Panel();
             this.groupBox1.SuspendLayout();
             this.panelFilter.SuspendLayout();
             this.panelMemberName.SuspendLayout();
@@ -87,9 +88,10 @@
             // 
             this.panelResults.AutoScroll = true;
             this.panelResults.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panelResults.Location = new System.Drawing.Point(299, 82);
+            this.panelResults.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.panelResults.Location = new System.Drawing.Point(299, 119);
             this.panelResults.Name = "panelResults";
-            this.panelResults.Size = new System.Drawing.Size(536, 509);
+            this.panelResults.Size = new System.Drawing.Size(536, 472);
             this.panelResults.TabIndex = 0;
             this.panelResults.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
@@ -97,7 +99,8 @@
             // 
             this.groupBox1.Controls.Add(this.radioListView);
             this.groupBox1.Controls.Add(this.radioPictureView);
-            this.groupBox1.Location = new System.Drawing.Point(660, 21);
+            this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox1.Location = new System.Drawing.Point(660, 64);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(175, 46);
             this.groupBox1.TabIndex = 2;
@@ -108,6 +111,7 @@
             // 
             this.radioListView.Appearance = System.Windows.Forms.Appearance.Button;
             this.radioListView.AutoSize = true;
+            this.radioListView.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.radioListView.Location = new System.Drawing.Point(92, 18);
             this.radioListView.Name = "radioListView";
             this.radioListView.Size = new System.Drawing.Size(59, 23);
@@ -122,6 +126,7 @@
             this.radioPictureView.Appearance = System.Windows.Forms.Appearance.Button;
             this.radioPictureView.AutoSize = true;
             this.radioPictureView.Checked = true;
+            this.radioPictureView.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.radioPictureView.Location = new System.Drawing.Point(6, 18);
             this.radioPictureView.Name = "radioPictureView";
             this.radioPictureView.Size = new System.Drawing.Size(76, 23);
@@ -142,7 +147,8 @@
             // 
             // txtMemberName
             // 
-            this.txtMemberName.Location = new System.Drawing.Point(9, 24);
+            this.txtMemberName.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtMemberName.Location = new System.Drawing.Point(16, 21);
             this.txtMemberName.Name = "txtMemberName";
             this.txtMemberName.Size = new System.Drawing.Size(180, 20);
             this.txtMemberName.TabIndex = 8;
@@ -280,6 +286,7 @@
             // 
             // cmboDeacon
             // 
+            this.cmboDeacon.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmboDeacon.FormattingEnabled = true;
             this.cmboDeacon.Location = new System.Drawing.Point(15, 23);
             this.cmboDeacon.Name = "cmboDeacon";
@@ -309,6 +316,7 @@
             // cmboBirthMonth
             // 
             this.cmboBirthMonth.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmboBirthMonth.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmboBirthMonth.FormattingEnabled = true;
             this.cmboBirthMonth.Items.AddRange(new object[] {
             "January",
@@ -346,29 +354,35 @@
             // label12
             // 
             this.label12.AutoSize = true;
+            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label12.Location = new System.Drawing.Point(97, 104);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(19, 13);
             this.label12.TabIndex = 22;
             this.label12.Text = "50";
+            this.label12.Click += new System.EventHandler(this.label12_Click);
             // 
             // label11
             // 
             this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label11.Location = new System.Drawing.Point(172, 104);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(25, 13);
             this.label11.TabIndex = 21;
             this.label11.Text = "100";
+            this.label11.Click += new System.EventHandler(this.label11_Click);
             // 
             // label10
             // 
             this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label10.Location = new System.Drawing.Point(23, 104);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(16, 13);
             this.label10.TabIndex = 15;
             this.label10.Text = "0 ";
+            this.label10.Click += new System.EventHandler(this.label10_Click);
             // 
             // label7
             // 
@@ -391,6 +405,7 @@
             // 
             // txtAddress
             // 
+            this.txtAddress.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtAddress.Location = new System.Drawing.Point(15, 24);
             this.txtAddress.Name = "txtAddress";
             this.txtAddress.Size = new System.Drawing.Size(183, 20);
@@ -429,6 +444,7 @@
             // 
             // txtMaxAge
             // 
+            this.txtMaxAge.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtMaxAge.Location = new System.Drawing.Point(115, 32);
             this.txtMaxAge.Maximum = new decimal(new int[] {
             150,
@@ -447,6 +463,7 @@
             // 
             // txtMinAge
             // 
+            this.txtMinAge.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtMinAge.Location = new System.Drawing.Point(12, 32);
             this.txtMinAge.Maximum = new decimal(new int[] {
             150,
@@ -474,29 +491,35 @@
             // label4
             // 
             this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.Location = new System.Drawing.Point(104, 74);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(19, 13);
             this.label4.TabIndex = 25;
             this.label4.Text = "50";
+            this.label4.Click += new System.EventHandler(this.label4_Click);
             // 
             // label13
             // 
             this.label13.AutoSize = true;
+            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label13.Location = new System.Drawing.Point(179, 74);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(25, 13);
             this.label13.TabIndex = 24;
             this.label13.Text = "100";
+            this.label13.Click += new System.EventHandler(this.label13_Click);
             // 
             // label14
             // 
             this.label14.AutoSize = true;
+            this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label14.Location = new System.Drawing.Point(30, 74);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(16, 13);
             this.label14.TabIndex = 23;
             this.label14.Text = "0 ";
+            this.label14.Click += new System.EventHandler(this.label14_Click);
             // 
             // trackMembership
             // 
@@ -520,23 +543,34 @@
             // 
             // btnSlideDrawer
             // 
-            this.btnSlideDrawer.Location = new System.Drawing.Point(564, 35);
+            this.btnSlideDrawer.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSlideDrawer.Location = new System.Drawing.Point(660, 40);
             this.btnSlideDrawer.Name = "btnSlideDrawer";
-            this.btnSlideDrawer.Size = new System.Drawing.Size(90, 23);
+            this.btnSlideDrawer.Size = new System.Drawing.Size(175, 23);
             this.btnSlideDrawer.TabIndex = 15;
-            this.btnSlideDrawer.Text = "Show Filters";
+            this.btnSlideDrawer.Text = "Show Filter Menu";
             this.btnSlideDrawer.UseVisualStyleBackColor = true;
             this.btnSlideDrawer.Click += new System.EventHandler(this.btnSlideDrawer_Click);
+            // 
+            // panelFilterDisplay
+            // 
+            this.panelFilterDisplay.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.panelFilterDisplay.Location = new System.Drawing.Point(299, 21);
+            this.panelFilterDisplay.Name = "panelFilterDisplay";
+            this.panelFilterDisplay.Size = new System.Drawing.Size(355, 92);
+            this.panelFilterDisplay.TabIndex = 16;
             // 
             // SearchForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(867, 623);
+            this.Controls.Add(this.panelFilterDisplay);
             this.Controls.Add(this.btnSlideDrawer);
             this.Controls.Add(this.panelFilter);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.panelResults);
+            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "SearchForm";
             this.Text = "SearchForm";
@@ -608,5 +642,6 @@
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Button btnSlideDrawer;
+        private System.Windows.Forms.Panel panelFilterDisplay;
     }
 }

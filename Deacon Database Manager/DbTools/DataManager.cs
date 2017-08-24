@@ -213,8 +213,8 @@ namespace Deacon_Database_Manager.DbTools
             //Filter for Age
             if(Results != null && !(FilterSettings.MinimumAge == 0 && FilterSettings.MaximumAge == 150))
             {
-                Results = Results.FindAll(x => x.BirthDate != DateTime.MinValue && (DateTime.Now.Year - x.BirthDate.Year) >= FilterSettings.MinimumAge &&
-                (DateTime.Now.Year - x.BirthDate.Year) <= FilterSettings.MaximumAge);
+                Results = Results.FindAll(x => x.BirthDate != DateTime.MinValue && DateTime.Now >= x.BirthDate.Date.AddYears(FilterSettings.MinimumAge) &&
+                DateTime.Now <= x.BirthDate.Date.AddYears(FilterSettings.MaximumAge + 1));
             }
 
             //Filter for Membership Lengh

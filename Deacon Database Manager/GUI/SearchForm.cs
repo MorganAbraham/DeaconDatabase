@@ -19,7 +19,7 @@ namespace Deacon_Database_Manager.GUI
         private HomeScreen homeScreen;
         private List<Member> SearchResults;
         private UserFilter FilterSettings = new UserFilter();
-        private bool FilterVisible = false;
+        private bool FilterMenuVisible = false;
 
         private int DrawerMaxWidth;
         private int DrawerMinWidth;
@@ -32,6 +32,25 @@ namespace Deacon_Database_Manager.GUI
         {
             InitializeComponent();
             this.homeScreen = homeScreen;
+        }
+
+        private void SearchForm_Load(object sender, EventArgs e)
+        {
+            DrawerMaxWidth = 281;
+            DrawerMinWidth = 0;
+            ResultsPanelMinWidth = 536;
+            ResultsPanelMaxWidth = DrawerMaxWidth + ResultsPanelMinWidth;
+            ShrinkAmount = DrawerMaxWidth;
+            ResultsPanelMinLeft = 299;
+
+            panelFilterDisplay.Width = 639;
+            panelFilterDisplay.Left = panelFilter.Left;
+
+            panelFilter.Width = DrawerMinWidth;
+            panelResults.Width = ResultsPanelMaxWidth;
+            panelResults.Left = panelFilter.Left;
+
+            SetFilter();
         }
 
         private void radioPictureView_CheckedChanged(object sender, EventArgs e)
@@ -276,44 +295,54 @@ namespace Deacon_Database_Manager.GUI
             SearchResults = DM.GetFilterResults(FilterSettings);
             SearchResults.Sort();
             LoadResults();
+            //LoadFilterDisplay();
         }
 
-        private void SearchForm_Load(object sender, EventArgs e)
-        {
-            DrawerMaxWidth = 281;
-            DrawerMinWidth = 0;
-            ResultsPanelMinWidth = 536;
-            ResultsPanelMaxWidth = DrawerMaxWidth + ResultsPanelMinWidth;
-            ShrinkAmount = DrawerMaxWidth;
-            ResultsPanelMinLeft = 299;
-
-            panelFilter.Width = DrawerMinWidth;
-            panelResults.Width = ResultsPanelMaxWidth;
-            panelResults.Left = panelFilter.Left;
-
-            SetFilter();
-        }
 
         private void SlideDrawer()
         {
-            BackgroundWorker bw = new BackgroundWorker();
-            bw.WorkerReportsProgress = true;
-            bw.WorkerReportsProgress = true;
+            //BackgroundWorker bw = new BackgroundWorker();
+            //bw.WorkerReportsProgress = true;
+            //bw.WorkerReportsProgress = true;
 
-            bw.DoWork += new DoWorkEventHandler(bw_DoWork);
-            bw.ProgressChanged += new ProgressChangedEventHandler(bw_ProgressedChanged);
-            bw.RunWorkerCompleted += new RunWorkerCompletedEventHandler(bw_RunWorkerCompleted);
+            //bw.DoWork += new DoWorkEventHandler(bw_DoWork);
+            //bw.ProgressChanged += new ProgressChangedEventHandler(bw_ProgressedChanged);
+            //bw.RunWorkerCompleted += new RunWorkerCompletedEventHandler(bw_RunWorkerCompleted);
 
-            if(!bw.IsBusy)
+            //if(!bw.IsBusy)
+            //{
+            //    bw.RunWorkerAsync();
+            //} 
+            
+            if(FilterMenuVisible)
             {
-                bw.RunWorkerAsync();
-            }   
+                //Hide
+                panelFilter.Visible = false;
+                panelResults.Width = ResultsPanelMaxWidth;
+                panelResults.Left = panelFilter.Left;
+                btnSlideDrawer.Text = "Show Filter Menu";
+                panelFilterDisplay.Visible = true;
+                LoadFilterDisplay();
+            } 
+            else
+            {
+                //Show
+                panelFilter.Visible = true;
+                panelFilter.Width = DrawerMaxWidth;
+                panelResults.Width = ResultsPanelMinWidth;
+                panelResults.Left = ResultsPanelMinLeft;
+                btnSlideDrawer.Text = "Hide Filter  Menu";
+                panelFilterDisplay.Visible = false;
+
+            }
+            FilterMenuVisible = !FilterMenuVisible;
+            LoadResults();
         }
 
         private void bw_ProgressedChanged(object sender, ProgressChangedEventArgs e)
         {
             int MoveAmount = ResultsPanelMinLeft - panelFilter.Left;
-            if (!FilterVisible)
+            if (!FilterMenuVisible)
             {
                 //Show Filter Panel
                 panelFilter.Width = Convert.ToInt32(DrawerMaxWidth * 
@@ -367,14 +396,16 @@ namespace Deacon_Database_Manager.GUI
             }
             else
             {
-                FilterVisible = !FilterVisible;
-                if(FilterVisible)
+                FilterMenuVisible = !FilterMenuVisible;
+                if(FilterMenuVisible)
                 {
-                    btnSlideDrawer.Text = "Hide Filter";
+                    btnSlideDrawer.Text = "Hide Filter  Menu";
+                    panelFilterDisplay.Visible = false;
                 }
                 else
                 {
-                    btnSlideDrawer.Text = "Show Filter";
+                    btnSlideDrawer.Text = "Show Filter Menu";
+                    panelFilterDisplay.Visible = true;
                 }
                 LoadResults();
             }
@@ -383,6 +414,148 @@ namespace Deacon_Database_Manager.GUI
         private void btnSlideDrawer_Click(object sender, EventArgs e)
         {
             SlideDrawer();
+        }
+
+        private void FilterClear_Click(object sender, EventArgs e)
+        {
+            Button ClearButton = sender as Button;
+            switch(ClearButton.Text)
+            {
+                case "Member Name":
+                    ckNameFilter.Checked = false;
+                    break;
+                case "Deacon":
+                    ckDeaconFilter.Checked = false;
+                    break;
+                case "Birth Month":
+                    ckBirthdateFilter.Checked = false;
+                    break;
+                case "Address":
+                    ckAddressFilter.Checked = false;
+                    break;
+                case "Age":
+                    ckAgeFilter.Checked = false;
+                    break;
+                case "Membership Length":
+                    ckMembershipFilter.Checked = false;
+                    break;
+                default:
+                    return;
+            }
+
+            SetFilter();
+            LoadFilterDisplay();
+        }
+
+        private void LoadFilterDisplay()
+        {
+            panelFilterDisplay.Controls.Clear();
+            if(!string.IsNullOrEmpty(FilterSettings.MemberName))
+            {
+                AddFilterDisplay("Member Name");
+            }
+            if(!string.IsNullOrEmpty(FilterSettings.DeaconName))
+            {
+                AddFilterDisplay("Deacon");
+            }
+            if(!string.IsNullOrEmpty(FilterSettings.BirthMonth))
+            {
+                AddFilterDisplay("Birth Month");
+            }
+            if(!string.IsNullOrEmpty(FilterSettings.MemberAddress))
+            {
+                AddFilterDisplay("Address");
+            }
+            if(!(FilterSettings.MinimumAge == 0 && FilterSettings.MaximumAge == 150))
+            {
+                AddFilterDisplay("Age");
+            }
+            if(FilterSettings.MinimumMembership > 0)
+            {
+                AddFilterDisplay("Membership Length");
+            }
+
+            panelFilterDisplay.Visible = panelFilterDisplay.Controls.Count > 0;
+            if(panelFilterDisplay.Visible)
+            {
+                Label QuickFilterLabel = new Label();
+                QuickFilterLabel.Text = "Current Filters (Click To Remove)";
+                QuickFilterLabel.AutoSize = true;
+                QuickFilterLabel.Location = new Point(0, 0);
+                QuickFilterLabel.Visible = true;
+                QuickFilterLabel.Font = new Font(FontFamily.GenericSansSerif, 8.25f, FontStyle.Underline);
+                panelFilterDisplay.Controls.Add(QuickFilterLabel);
+
+            }
+        }
+
+        private void AddFilterDisplay(string FilterName)
+        {
+            int x;
+            int y;
+
+            if (panelFilterDisplay.Controls.Count > 0)
+            {
+                Control LastControl = panelFilterDisplay.Controls[panelFilterDisplay.Controls.Count - 1];
+                x = LastControl.Location.X + LastControl.Width;
+                y = LastControl.Location.Y;
+            }
+            else
+            {
+                x = 0;
+                y = 20;
+            }
+            //Label FilterLabel = new Label();
+            ////FilterLabel.Size = new Size(50, 50);
+            //FilterLabel.Text = FilterName;
+            //FilterLabel.Visible = true;
+            //FilterLabel.BackColor = Color.Green;
+            //FilterLabel.ForeColor = Color.White;
+            //FilterLabel.Location = new Point(x, y);
+            //FilterLabel.AutoSize = true;
+
+            Button FilterClear = new Button();
+            //FilterClear.Size = new Size(30, 20);
+            FilterClear.AutoSize = true;
+            FilterClear.Location = new Point(x, y);
+            FilterClear.Visible = true;
+            FilterClear.Text = FilterName ;
+            FilterClear.BackColor = Color.Green;
+            FilterClear.Click += new EventHandler(FilterClear_Click);
+
+            //panelFilterDisplay.Controls.Add(FilterLabel);
+            panelFilterDisplay.Controls.Add(FilterClear);
+
+        }
+
+        private void label10_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label12_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label11_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label13_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label4_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label14_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
