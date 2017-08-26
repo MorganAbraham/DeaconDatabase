@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.picboxProfile = new System.Windows.Forms.PictureBox();
             this.txtFirstName = new System.Windows.Forms.TextBox();
             this.txtMiddleName = new System.Windows.Forms.TextBox();
             this.txtLastName = new System.Windows.Forms.TextBox();
@@ -39,7 +38,6 @@
             this.label5 = new System.Windows.Forms.Label();
             this.txtSuffix = new System.Windows.Forms.TextBox();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.getUpcomingBirthDaysTableAdapter1 = new Deacon_Database_Manager.MemberDatabaseDataSetTableAdapters.GetUpcomingBirthDaysTableAdapter();
             this.panel4 = new System.Windows.Forms.Panel();
             this.txtBirthDate = new System.Windows.Forms.MaskedTextBox();
             this.label7 = new System.Windows.Forms.Label();
@@ -75,7 +73,10 @@
             this.btnSave = new System.Windows.Forms.Button();
             this.btnBack = new System.Windows.Forms.Button();
             this.btnSaveAndExit = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.picboxProfile)).BeginInit();
+            this.btnChangePicture = new System.Windows.Forms.Button();
+            this.btnDeletePic = new System.Windows.Forms.Button();
+            this.picboxProfile = new System.Windows.Forms.PictureBox();
+            this.tabPage5 = new System.Windows.Forms.TabPage();
             this.panel3.SuspendLayout();
             this.panel4.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -84,16 +85,8 @@
             this.tabPage3.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picboxProfile)).BeginInit();
             this.SuspendLayout();
-            // 
-            // picboxProfile
-            // 
-            this.picboxProfile.Location = new System.Drawing.Point(21, 12);
-            this.picboxProfile.Name = "picboxProfile";
-            this.picboxProfile.Size = new System.Drawing.Size(208, 180);
-            this.picboxProfile.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.picboxProfile.TabIndex = 0;
-            this.picboxProfile.TabStop = false;
             // 
             // txtFirstName
             // 
@@ -188,10 +181,6 @@
             this.panel3.Size = new System.Drawing.Size(813, 313);
             this.panel3.TabIndex = 11;
             // 
-            // getUpcomingBirthDaysTableAdapter1
-            // 
-            this.getUpcomingBirthDaysTableAdapter1.ClearBeforeFill = true;
-            // 
             // panel4
             // 
             this.panel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -281,6 +270,7 @@
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Controls.Add(this.tabPage4);
+            this.tabControl1.Controls.Add(this.tabPage5);
             this.tabControl1.Location = new System.Drawing.Point(21, 209);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -611,11 +601,52 @@
             this.btnSaveAndExit.UseVisualStyleBackColor = true;
             this.btnSaveAndExit.Click += new System.EventHandler(this.btnSaveAndExit_Click);
             // 
+            // btnChangePicture
+            // 
+            this.btnChangePicture.Location = new System.Drawing.Point(211, 12);
+            this.btnChangePicture.Name = "btnChangePicture";
+            this.btnChangePicture.Size = new System.Drawing.Size(114, 23);
+            this.btnChangePicture.TabIndex = 10;
+            this.btnChangePicture.Text = "Select New  Picture";
+            this.btnChangePicture.UseVisualStyleBackColor = true;
+            this.btnChangePicture.Click += new System.EventHandler(this.btnChangePicture_Click);
+            // 
+            // btnDeletePic
+            // 
+            this.btnDeletePic.Location = new System.Drawing.Point(211, 51);
+            this.btnDeletePic.Name = "btnDeletePic";
+            this.btnDeletePic.Size = new System.Drawing.Size(114, 23);
+            this.btnDeletePic.TabIndex = 11;
+            this.btnDeletePic.Text = "Delete Picture";
+            this.btnDeletePic.UseVisualStyleBackColor = true;
+            this.btnDeletePic.Click += new System.EventHandler(this.btnDeletePic_Click);
+            // 
+            // picboxProfile
+            // 
+            this.picboxProfile.Location = new System.Drawing.Point(21, 12);
+            this.picboxProfile.Name = "picboxProfile";
+            this.picboxProfile.Size = new System.Drawing.Size(184, 191);
+            this.picboxProfile.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picboxProfile.TabIndex = 0;
+            this.picboxProfile.TabStop = false;
+            // 
+            // tabPage5
+            // 
+            this.tabPage5.Location = new System.Drawing.Point(4, 22);
+            this.tabPage5.Name = "tabPage5";
+            this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage5.Size = new System.Drawing.Size(826, 376);
+            this.tabPage5.TabIndex = 4;
+            this.tabPage5.Text = "Church  Info";
+            this.tabPage5.UseVisualStyleBackColor = true;
+            // 
             // MemberView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(867, 623);
+            this.Controls.Add(this.btnDeletePic);
+            this.Controls.Add(this.btnChangePicture);
             this.Controls.Add(this.btnSaveAndExit);
             this.Controls.Add(this.btnBack);
             this.Controls.Add(this.btnSave);
@@ -625,7 +656,6 @@
             this.Name = "MemberView";
             this.Text = "MemberView";
             this.Load += new System.EventHandler(this.MemberView_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.picboxProfile)).EndInit();
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
             this.panel4.ResumeLayout(false);
@@ -639,6 +669,7 @@
             this.panel2.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picboxProfile)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -662,7 +693,6 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Panel panel3;
-        private MemberDatabaseDataSetTableAdapters.GetUpcomingBirthDaysTableAdapter getUpcomingBirthDaysTableAdapter1;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
@@ -692,5 +722,8 @@
         private System.Windows.Forms.Button btnBack;
         private System.Windows.Forms.MaskedTextBox txtEmergencyPhone;
         private System.Windows.Forms.Button btnSaveAndExit;
+        private System.Windows.Forms.Button btnChangePicture;
+        private System.Windows.Forms.Button btnDeletePic;
+        private System.Windows.Forms.TabPage tabPage5;
     }
 }

@@ -5,6 +5,7 @@ using System.Text;
 using Deacon_Database_Manager.Geographical;
 using System.Text.RegularExpressions;
 using System.Reflection;
+using System.Drawing;
 
 namespace Deacon_Database_Manager.MemberData
 {
@@ -17,7 +18,7 @@ namespace Deacon_Database_Manager.MemberData
         private string middleName = "";
         private string lastName = "";
         private string suffix = "";
-        private string photoPath = "";
+        private Image profilePicture = Properties.Resources.NoPhoto;
 
 
         private string gender = "";
@@ -85,19 +86,6 @@ namespace Deacon_Database_Manager.MemberData
             set
             {
                 lastName = string.IsNullOrEmpty(value) ? "" : value;
-            }
-        }
-
-        public string PhotoPath
-        {
-            get
-            {
-                return photoPath;
-            }
-
-            set
-            {
-                photoPath = string.IsNullOrEmpty(value) ? "NoPhoto" : value;
             }
         }
 
@@ -275,6 +263,19 @@ namespace Deacon_Database_Manager.MemberData
             set
             {
                 previousChurch = value;
+            }
+        }
+
+        public Image ProfilePicture
+        {
+            get
+            {
+                return profilePicture;
+            }
+
+            set
+            {
+                profilePicture = value;
             }
         }
 

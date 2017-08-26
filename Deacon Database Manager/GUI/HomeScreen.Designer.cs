@@ -28,9 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(HomeScreen));
             this.WorkPanel = new System.Windows.Forms.Panel();
             this.btnAddMember = new System.Windows.Forms.Button();
             this.btnSearch = new System.Windows.Forms.Button();
+            this.btnDeacons = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // WorkPanel
@@ -61,16 +63,30 @@
             this.btnSearch.UseVisualStyleBackColor = true;
             this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
             // 
+            // btnDeacons
+            // 
+            this.btnDeacons.Location = new System.Drawing.Point(2, 166);
+            this.btnDeacons.Name = "btnDeacons";
+            this.btnDeacons.Size = new System.Drawing.Size(92, 61);
+            this.btnDeacons.TabIndex = 3;
+            this.btnDeacons.Text = "View/Edit Deacons";
+            this.btnDeacons.UseVisualStyleBackColor = true;
+            this.btnDeacons.Click += new System.EventHandler(this.btnDeacons_Click);
+            // 
             // HomeScreen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(984, 661);
+            this.Controls.Add(this.btnDeacons);
             this.Controls.Add(this.btnSearch);
             this.Controls.Add(this.btnAddMember);
             this.Controls.Add(this.WorkPanel);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
             this.Name = "HomeScreen";
-            this.Text = "Form1";
+            this.Text = "Deacon Database";
             this.ResumeLayout(false);
 
         }
@@ -80,6 +96,7 @@
         private System.Windows.Forms.Panel WorkPanel;
         private System.Windows.Forms.Button btnAddMember;
         private System.Windows.Forms.Button btnSearch;
+        private System.Windows.Forms.Button btnDeacons;
     }
 }
 

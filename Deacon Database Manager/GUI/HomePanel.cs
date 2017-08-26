@@ -103,8 +103,7 @@ namespace Deacon_Database_Manager.GUI
             PicBox.Width = 102;
             PicBox.Name = FilterResult.Id.ToString();
 
-            ResourceManager Rm = Properties.Resources.ResourceManager;
-            PicBox.Image = (Image)Rm.GetObject(FilterResult.PhotoPath);
+            PicBox.Image = FilterResult.ProfilePicture;
 
             Control LastControl = null;
             if (SearchResults.Controls.Count == 0)

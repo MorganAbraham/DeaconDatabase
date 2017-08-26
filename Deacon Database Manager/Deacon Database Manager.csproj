@@ -60,6 +60,9 @@
   <PropertyGroup>
     <SignManifests>true</SignManifests>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>DbIcon.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -75,6 +78,12 @@
     <Compile Include="DbTools\DataManager.cs" />
     <Compile Include="DbTools\UserFilter.cs" />
     <Compile Include="Geographical\StateInformation.cs" />
+    <Compile Include="GUI\DeaconPanel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\DeaconPanel.Designer.cs">
+      <DependentUpon>DeaconPanel.cs</DependentUpon>
+    </Compile>
     <Compile Include="GUI\HomePanel.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -110,6 +119,9 @@
     <Compile Include="MemberData\Member.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="GUI\DeaconPanel.resx">
+      <DependentUpon>DeaconPanel.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="GUI\HomePanel.resx">
       <DependentUpon>HomePanel.cs</DependentUpon>
     </EmbeddedResource>
@@ -156,6 +168,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="DbIcon.ico" />
     <Content Include="MemberDatabase.mdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -164,7 +177,6 @@
       <DependentUpon>MemberDatabase.mdf</DependentUpon>
     </Content>
     <None Include="Resources\NoPhoto.jpeg" />
-    <None Include="Resources\thomas-clip-art-clip-art-thomas-tank-engine-434219.jpg" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">

@@ -70,8 +70,7 @@ namespace Deacon_Database_Manager.GUI
             txtEmergencyContact.Text = ChurchMember.EmergencyContact;
             txtEmergencyPhone.Text = ChurchMember.EmergencyNumber;
 
-            ResourceManager Rm = Properties.Resources.ResourceManager;
-            picboxProfile.Image = (Image)Rm.GetObject(ChurchMember.PhotoPath);
+            picboxProfile.Image = ChurchMember.ProfilePicture;
         }
 
         private void txtFirstName_TextChanged(object sender, EventArgs e)
@@ -214,6 +213,27 @@ namespace Deacon_Database_Manager.GUI
                 return DM.TryUpdateMember(ChurchMember);
             }
             
+        }
+
+        private void btnChangePicture_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog fDialog = new OpenFileDialog();
+            fDialog.Filter = "Image Files (*.bmp,*.dib,*.jpg,*.jpeg,*.jpe,*.jfif,*,gif, *.tif," +
+                "*.tiff,*.png,*.ico) | *.bmp;*.dib;*.jpg;*.jpeg;*.jpe;*.jfif;*,gif; *.tif;" +
+                "*.tiff;*.png;*.ico";
+            fDialog.Multiselect = false;
+            if(fDialog.ShowDialog() == DialogResult.OK)
+            {
+                picboxProfile.Image = Image.FromFile(fDialog.FileName);
+                ChurchMember.ProfilePicture = picboxProfile.Image;
+            }
+        }
+
+        private void btnDeletePic_Click(object sender, EventArgs e)
+        {
+            Image NoImage = Properties.Resources.NoPhoto;
+            picboxProfile.Image = NoImage;
+            ChurchMember.ProfilePicture = NoImage;
         }
     }
 }

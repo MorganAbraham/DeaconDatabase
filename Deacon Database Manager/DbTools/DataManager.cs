@@ -6,6 +6,9 @@ using Deacon_Database_Manager.MemberData;
 using System.Data.SqlClient;
 using System.Data;
 using Deacon_Database_Manager.Geographical;
+using System.IO;
+using System.Drawing;
+using System.Drawing.Imaging;
 
 namespace Deacon_Database_Manager.DbTools
 {
@@ -98,7 +101,14 @@ namespace Deacon_Database_Manager.DbTools
                     Cmd.Parameters.AddWithValue("@EmergencyName", member.EmergencyContact);
                     Cmd.Parameters.AddWithValue("@EmergencyNumber", member.EmergencyNumber);
 
-                    Conn.Open();
+                    //Profile Picutre
+                    using (MemoryStream Stream = new MemoryStream())
+                    {
+                        member.ProfilePicture.Save(Stream, ImageFormat.Jpeg);
+                        Cmd.Parameters.AddWithValue("@ProfilePicture", Stream.ToArray());
+                    }
+
+                        Conn.Open();
                     Cmd.ExecuteNonQuery();
                 }
                 return true;
@@ -307,8 +317,12 @@ namespace Deacon_Database_Manager.DbTools
             Result.MembershipEnd = GetDateValue(Reader, "Membership_End");
             Result.PreviousChurch = GetStringValue(Reader, "Previous_Church");
 
-            //Picture
-            Result.PhotoPath = GetStringValue(Reader, "ImagePath");
+            //Profile Picture
+            byte[] PicData = (byte[])Reader["ProfilePicture"];
+            using (MemoryStream Stream = new MemoryStream(PicData))
+            {
+                Result.ProfilePicture = Image.FromStream(Stream);
+            }
 
             return Result;
         }

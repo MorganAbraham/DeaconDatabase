@@ -54,5 +54,10 @@ namespace Deacon_Database_Manager.GUI
         {
             LoadPanel(new SearchForm(this));
         }
+
+        private void btnDeacons_Click(object sender, EventArgs e)
+        {
+            LoadPanel(new DeaconPanel(this));
+        }
     }
 }

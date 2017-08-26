@@ -286,8 +286,7 @@ namespace Deacon_Database_Manager.GUI
                 PicBox.Width = PicWidth;
 
                 PicBox.SizeMode = PictureBoxSizeMode.StretchImage;
-                ResourceManager Rm = Properties.Resources.ResourceManager;
-                PicBox.Image = (Image)Rm.GetObject(SearchResult.PhotoPath);
+                PicBox.Image = SearchResult.ProfilePicture;
                 PicBox.BorderStyle = BorderStyle.FixedSingle;
 
                 PicBox.Name = SearchResult.Id.ToString();
