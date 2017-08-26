@@ -49,7 +49,13 @@ namespace Deacon_Database_Manager.GUI
             panelFilter.Width = DrawerMinWidth;
             panelResults.Width = ResultsPanelMaxWidth;
             panelResults.Left = panelFilter.Left;
-
+            DataManager DM = new DataManager();
+            List<Deacon> Deacons = DM.GetAllDeacons();
+            foreach(Deacon deacon in Deacons)
+            {
+                string DeaconName = (deacon.FirstName + ' ' + deacon.LastName).Trim();
+                cmboDeacon.Items.Add(DeaconName);
+            }
             SetFilter();
         }
 
@@ -235,9 +241,10 @@ namespace Deacon_Database_Manager.GUI
                     SearchResult.Address.State + ' ' + SearchResult.Address.Zip, "[ ]{2,}", " ");
                 string AnniversaryDate = SearchResult.MembershipStart ==
                     DateTime.MinValue ? "" : SearchResult.MembershipStart.ToShortDateString();
+                string DeaconName = Regex.Replace(SearchResult.DeaconInfo.FirstName + ' ' + SearchResult.DeaconInfo.LastName, "[ ]{2,}"," ");
                 Grid.Rows.Add(SearchResult.Id, Regex.Replace(SearchResult.FirstName + ' ' +
                     SearchResult.MiddleName + ' ' + SearchResult.LastName, "[ ]{2,}", " "),
-                    SearchResult.DeaconName, BirthDate, HomeAddress, AnniversaryDate);
+                    DeaconName, BirthDate, HomeAddress, AnniversaryDate);
             }
             panelResults.Controls.Add(Grid);
         }

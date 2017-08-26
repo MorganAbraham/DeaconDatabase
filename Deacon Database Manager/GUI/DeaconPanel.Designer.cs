@@ -28,26 +28,39 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.deaconGrid = new System.Windows.Forms.DataGridView();
+            this.panelMembers = new System.Windows.Forms.Panel();
             this.colId = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colFirstName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colLastName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colRegion = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colMembers = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.deaconGrid)).BeginInit();
             this.SuspendLayout();
             // 
-            // dataGridView1
+            // deaconGrid
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.deaconGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.deaconGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.colId,
-            this.colName,
+            this.colFirstName,
+            this.colLastName,
             this.colRegion,
             this.colMembers});
-            this.dataGridView1.Location = new System.Drawing.Point(48, 37);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(342, 225);
-            this.dataGridView1.TabIndex = 0;
+            this.deaconGrid.Location = new System.Drawing.Point(3, 37);
+            this.deaconGrid.MultiSelect = false;
+            this.deaconGrid.Name = "deaconGrid";
+            this.deaconGrid.Size = new System.Drawing.Size(444, 479);
+            this.deaconGrid.TabIndex = 0;
+            this.deaconGrid.SelectionChanged += new System.EventHandler(this.deaconGrid_SelectionChanged);
+            // 
+            // panelMembers
+            // 
+            this.panelMembers.AutoScroll = true;
+            this.panelMembers.Location = new System.Drawing.Point(453, 37);
+            this.panelMembers.Name = "panelMembers";
+            this.panelMembers.Size = new System.Drawing.Size(318, 479);
+            this.panelMembers.TabIndex = 1;
             // 
             // colId
             // 
@@ -55,10 +68,15 @@
             this.colId.Name = "colId";
             this.colId.Visible = false;
             // 
-            // colName
+            // colFirstName
             // 
-            this.colName.HeaderText = "Deacon";
-            this.colName.Name = "colName";
+            this.colFirstName.HeaderText = "First Name";
+            this.colFirstName.Name = "colFirstName";
+            // 
+            // colLastName
+            // 
+            this.colLastName.HeaderText = "Last Name";
+            this.colLastName.Name = "colLastName";
             // 
             // colRegion
             // 
@@ -76,20 +94,24 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(835, 545);
-            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.panelMembers);
+            this.Controls.Add(this.deaconGrid);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "DeaconPanel";
             this.Text = "DeaconPanel";
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            this.Load += new System.EventHandler(this.DeaconPanel_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.deaconGrid)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView deaconGrid;
+        private System.Windows.Forms.Panel panelMembers;
         private System.Windows.Forms.DataGridViewTextBoxColumn colId;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colFirstName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colLastName;
         private System.Windows.Forms.DataGridViewTextBoxColumn colRegion;
         private System.Windows.Forms.DataGridViewTextBoxColumn colMembers;
     }

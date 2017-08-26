@@ -9,6 +9,7 @@ using Deacon_Database_Manager.Geographical;
 using System.IO;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.Text.RegularExpressions;
 
 namespace Deacon_Database_Manager.DbTools
 {
@@ -100,6 +101,9 @@ namespace Deacon_Database_Manager.DbTools
                     //Emergency Info
                     Cmd.Parameters.AddWithValue("@EmergencyName", member.EmergencyContact);
                     Cmd.Parameters.AddWithValue("@EmergencyNumber", member.EmergencyNumber);
+
+                    //Church Info
+                    //TODO
 
                     //Profile Picutre
                     using (MemoryStream Stream = new MemoryStream())
@@ -211,7 +215,14 @@ namespace Deacon_Database_Manager.DbTools
             //Filter for Deacon Name
             if(Results != null && !string.IsNullOrEmpty(FilterSettings.DeaconName))
             {
-                Results = Results.FindAll(x => x.DeaconName.IndexOf(FilterSettings.DeaconName, StringComparison.OrdinalIgnoreCase) > -1);
+                Results = Results.FindAll(x => Regex.Replace(x.DeaconInfo.FirstName + ' ' + 
+                    x.DeaconInfo.LastName,"[ ]{2,}"," ").IndexOf(FilterSettings.DeaconName, 
+                    StringComparison.OrdinalIgnoreCase) > -1);
+            }
+
+            if(Results != null && FilterSettings.DeaconId > -1)
+            {
+                Results = Results.FindAll(x => x.DeaconInfo.Id == FilterSettings.DeaconId);
             }
 
             //Filter for Birth Month
@@ -310,7 +321,10 @@ namespace Deacon_Database_Manager.DbTools
             Result.EmergencyNumber = GetStringValue(Reader, "EmergencyNumber");
 
             //Deacon Info
-            Result.DeaconName = GetStringValue(Reader, "Deacon_FirstName") + ' ' + GetStringValue(Reader, "Deacon_LastName");
+            Result.DeaconInfo.FirstName = GetStringValue(Reader, "Deacon_FirstName");
+            Result.DeaconInfo.LastName = GetStringValue(Reader, "Deacon_LastName");
+            Result.DeaconInfo.Id = GetIntValue(Reader, "Deacon_Id");
+            Result.DeaconInfo.Region = GetStringValue(Reader, "Deacon_Region");
 
             //Membership Info
             Result.MembershipStart = GetDateValue(Reader, "Membership_Start");
@@ -355,6 +369,37 @@ namespace Deacon_Database_Manager.DbTools
                         if (ReaderResult != null)
                         {
                             Result.Add(ReaderResult);
+                        }
+                    }
+                }
+            }
+            return Result;
+        }
+
+        public List<Deacon> GetAllDeacons()
+        {
+            List<Deacon> Result = new List<Deacon>();
+            using (SqlConnection Conn = new SqlConnection(ConnecionString))
+            {
+                SqlCommand Cmd = new SqlCommand("GetDeaconInfo");
+                Cmd.CommandType = CommandType.StoredProcedure;
+                Cmd.Connection = Conn;
+
+                Conn.Open();
+
+                using (SqlDataReader Reader = Cmd.ExecuteReader())
+                {
+                    while (Reader.Read())
+                    {
+                        Deacon deacon = new Deacon();
+                        deacon.Id = GetIntValue(Reader, "Deacon_Id");
+                        deacon.FirstName = GetStringValue(Reader, "Deacon_FirstName");
+                        deacon.LastName = GetStringValue(Reader, "Deacon_LastName");
+                        deacon.Region = GetStringValue(Reader, "Deacon_Region");
+                        deacon.MemberCount = GetIntValue(Reader, "MemberCount");
+                        if (deacon != null)
+                        {
+                            Result.Add(deacon);
                         }
                     }
                 }

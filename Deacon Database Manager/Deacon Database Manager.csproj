@@ -116,6 +116,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>MemberDatabaseDataSet.xsd</DependentUpon>
     </Compile>
+    <Compile Include="MemberData\Deacon.cs" />
     <Compile Include="MemberData\Member.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

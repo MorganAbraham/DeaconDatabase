@@ -30,13 +30,12 @@ namespace Deacon_Database_Manager.MemberData
         private string emergencyContact = "";
         private string emergencyNumber = "";
 
-        private string deaconName = "";
         private DateTime membershipStart;
         private DateTime membershipEnd;
         private string previousChurch = "";
 
         private Location address = new Location();
-
+        private Deacon deaconInfo = new Deacon();
         public int Id
         {
             get
@@ -214,19 +213,6 @@ namespace Deacon_Database_Manager.MemberData
             }
         }
 
-        public string DeaconName
-        {
-            get
-            {
-                return deaconName;
-            }
-
-            set
-            {
-                deaconName = value;
-            }
-        }
-
         public DateTime MembershipStart
         {
             get
@@ -276,6 +262,20 @@ namespace Deacon_Database_Manager.MemberData
             set
             {
                 profilePicture = value;
+            }
+        }
+
+
+        internal Deacon DeaconInfo
+        {
+            get
+            {
+                return deaconInfo;
+            }
+
+            set
+            {
+                deaconInfo = value;
             }
         }
 

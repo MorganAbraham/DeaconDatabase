@@ -8,6 +8,7 @@ namespace Deacon_Database_Manager.DbTools
     class UserFilter
     {
         private string memberName = "";
+        private int deaconId = -1;
         private string deaconName = "";
         private string birthMonth = "";
         private string memberAddress = "";
@@ -117,6 +118,19 @@ namespace Deacon_Database_Manager.DbTools
             set
             {
                 minimumMembership = value;
+            }
+        }
+
+        public int DeaconId
+        {
+            get
+            {
+                return deaconId;
+            }
+
+            set
+            {
+                deaconId = value;
             }
         }
     }
