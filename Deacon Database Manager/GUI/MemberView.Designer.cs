@@ -597,7 +597,7 @@
             this.btnBack.Name = "btnBack";
             this.btnBack.Size = new System.Drawing.Size(143, 23);
             this.btnBack.TabIndex = 8;
-            this.btnBack.Text = "Back";
+            this.btnBack.Text = "Return Home";
             this.btnBack.UseVisualStyleBackColor = true;
             this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
             // 

@@ -203,16 +203,18 @@ namespace Deacon_Database_Manager.GUI
         {
             panelResults.Controls.Clear();
             DataGridView Grid = new DataGridView();
+            Grid.MultiSelect = false;
+            Grid.DoubleClick += new EventHandler(Grid_DoubleClick);
             Grid.Visible = true;
             Grid.Size = panelResults.Size;
-            Grid.ColumnCount = 5;
+            Grid.ColumnCount = 6;
             Grid.ReadOnly = true;
 
-            Grid.Columns[0].HeaderText = "Member Name";
-            Grid.Columns[1].HeaderText = "Deacon Name";
-            Grid.Columns[2].HeaderText = "Birth Date";
-            Grid.Columns[3].HeaderText = "Home Address";
-            Grid.Columns[4].HeaderText = "Anniversary Date";
+            Grid.Columns[1].HeaderText = "Member Name";
+            Grid.Columns[2].HeaderText = "Deacon Name";
+            Grid.Columns[3].HeaderText = "Birth Date";
+            Grid.Columns[4].HeaderText = "Home Address";
+            Grid.Columns[5].HeaderText = "Anniversary Date";
 
             int ColumnWidth = Grid.Width / Grid.ColumnCount;
             for(int i = 0; i < Grid.ColumnCount; i++)
@@ -220,7 +222,9 @@ namespace Deacon_Database_Manager.GUI
                 Grid.Columns[i].Width = ColumnWidth;
             }
 
-            
+            Grid.Columns[0].Visible = false;
+            Grid.Columns[0].Width = 0;
+
             foreach(Member SearchResult in SearchResults)
             {
                 string BirthDate = SearchResult.BirthDate == 
@@ -231,11 +235,31 @@ namespace Deacon_Database_Manager.GUI
                     SearchResult.Address.State + ' ' + SearchResult.Address.Zip, "[ ]{2,}", " ");
                 string AnniversaryDate = SearchResult.MembershipStart ==
                     DateTime.MinValue ? "" : SearchResult.MembershipStart.ToShortDateString();
-                Grid.Rows.Add(Regex.Replace(SearchResult.FirstName + ' ' +
+                Grid.Rows.Add(SearchResult.Id, Regex.Replace(SearchResult.FirstName + ' ' +
                     SearchResult.MiddleName + ' ' + SearchResult.LastName, "[ ]{2,}", " "),
                     SearchResult.DeaconName, BirthDate, HomeAddress, AnniversaryDate);
             }
             panelResults.Controls.Add(Grid);
+        }
+
+        private void Grid_DoubleClick(object sender, EventArgs e)
+        {
+            DataGridView Grid = sender as DataGridView;
+            if(Grid.SelectedCells.Count == 1 || Grid.SelectedRows.Count == 1)
+            {
+                DataManager DM = new DataManager();
+                Member Result;
+                if (Grid.SelectedCells.Count == 1)
+                {
+                    Result = DM.GetMember((int)Grid.SelectedCells[0].OwningRow.Cells[0].Value);
+                }
+                else
+                {
+                    Result = DM.GetMember((int)Grid.SelectedRows[0].Cells[0].Value);
+                }
+                homeScreen.LoadPanel(new MemberView(homeScreen, Result, false));
+                homeScreen.RemovePanel(this);
+            }
         }
 
         private void LoadPictures()
