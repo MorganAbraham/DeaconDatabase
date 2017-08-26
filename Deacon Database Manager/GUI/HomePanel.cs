@@ -16,10 +16,6 @@ namespace Deacon_Database_Manager.GUI
 {
     public partial class HomePanel : Form
     {
-        private readonly string ConnecionString = global::Deacon_Database_Manager.Properties.Settings.Default.MemberDatabaseConnectionString;
-        //private List<Member> QuickResults;
-        private Dictionary<PictureBox, Member> QuickResults = new Dictionary<PictureBox, Member>();
-        private Label LastResultLabel;
         private HomeScreen homeScreen;
 
         public HomePanel(HomeScreen homeScreen)
@@ -30,48 +26,33 @@ namespace Deacon_Database_Manager.GUI
 
         private void txtSearch_TextChanged(object sender, EventArgs e)
         {
+            SearchResults.Controls.Clear();
             if (string.IsNullOrEmpty(txtSearch.Text))
             {
                 //txtSearch.Text = "Search For Members";
-                //txtSearch.ForeColor = Color.LightGray;
-                SearchResults.Controls.Clear();
+                //txtSearch.ForeColor = Color.LightGray;   
             }
             else
             {
                 txtSearch.ForeColor = Color.Black;
-                using (SqlConnection Conn = new SqlConnection(ConnecionString))
+                UserFilter FilterSettings = new UserFilter();
+                FilterSettings.MemberName = txtSearch.Text;
+                DataManager DM = new DataManager();
+                List<Member> FilterResults = DM.GetFilterResults(FilterSettings);
+
+                SearchResults.Controls.Clear();
+
+                foreach(Member FilterResult in FilterResults)
                 {
-                    UserFilter FilterSettings = new UserFilter();
-                    FilterSettings.MemberName = txtSearch.Text;
-                    DataManager DM = new DataManager();
-                    List<Member> FilterResults = DM.GetFilterResults(FilterSettings);
-
-                    QuickResults.Clear();
-
-                    foreach(Member FilterResult in FilterResults)
-                    {
-                        QuickResults.Add(new PictureBox(), FilterResult);
-                    }
-
-                    for (int i = 0; i < SearchResults.Controls.Count; i++)
-                    {
-                        SearchResults.Controls.RemoveAt(i);
-                        i--;
-                    }
-
-                    LastResultLabel = null;
-                    foreach(KeyValuePair<PictureBox, Member> QuickResult in QuickResults)
-                    {
-                        LoadQuickResult(QuickResult);
-                    }
+                    LoadQuickResult(FilterResult);
                 }
             }
         }
 
         private void HomePanel_Load(object sender, EventArgs e)
         {
-            
-            using (SqlConnection Conn = new SqlConnection(ConnecionString))
+            string ConnectionString = Properties.Settings.Default.MemberDatabaseConnectionString;
+            using (SqlConnection Conn = new SqlConnection(ConnectionString))
             {
                 SqlCommand Cmd = new SqlCommand("GetUpcomingBirthDays");
                 Cmd.CommandType = CommandType.StoredProcedure;
@@ -109,36 +90,41 @@ namespace Deacon_Database_Manager.GUI
 
         }
 
-        private void LoadQuickResult(KeyValuePair<PictureBox, Member> QuickResult)
+        private void LoadQuickResult(Member FilterResult)
         {
-            PictureBox PicBox = QuickResult.Key;
-            Member member = QuickResult.Value;
             Label ResultLabel = new Label();
             ResultLabel.AutoSize = true;
-            ResultLabel.Text = Regex.Replace(member.FirstName + ' ' + member.MiddleName + ' ' + member.LastName, "[ ]{2,}", " ");
-            //PictureBox PicBox = new PictureBox();
+            ResultLabel.Text = Regex.Replace(FilterResult.FirstName + ' ' + 
+                FilterResult.MiddleName + ' ' + FilterResult.LastName, "[ ]{2,}", " ");
+
+            PictureBox PicBox = new PictureBox();
             PicBox.SizeMode = PictureBoxSizeMode.StretchImage;
             PicBox.Height = 127;
             PicBox.Width = 102;
+            PicBox.Name = FilterResult.Id.ToString();
+
             ResourceManager Rm = Properties.Resources.ResourceManager;
-            PicBox.Image = (Image)Rm.GetObject(member.PhotoPath);
-            if(LastResultLabel == null)
+            PicBox.Image = (Image)Rm.GetObject(FilterResult.PhotoPath);
+
+            Control LastControl = null;
+            if (SearchResults.Controls.Count == 0)
             {
                 PicBox.Top = 0;
                 //PicBox.Left = 10;
             }
             else
             {
-                PicBox.Top = LastResultLabel.Top + LastResultLabel.Height + 10;
+                LastControl = SearchResults.Controls[SearchResults.Controls.Count - 1];
+                PicBox.Top = LastControl.Top + LastControl.Height + 10;
             }
 
             ResultLabel.Left = PicBox.Left;
             ResultLabel.Top = PicBox.Top + PicBox.Height + 10;
-            LastResultLabel = ResultLabel;
+
             ResultLabel.Visible = true;
             PicBox.Visible = true;
             SearchResults.Controls.Add(PicBox);
-            SearchResults.Controls.Add(LastResultLabel);
+            SearchResults.Controls.Add(ResultLabel);
             PicBox.Click += new EventHandler(PicBox_OnClick);
         }
 
@@ -153,15 +139,11 @@ namespace Deacon_Database_Manager.GUI
 
         private void PicBox_OnClick(object sender, EventArgs e)
         {
-            PictureBox PicBox = (PictureBox)sender;
-            Member Result;
-            if (QuickResults.TryGetValue(PicBox, out Result))
-            {
-                DataManager DM = new DataManager();
-                Result = DM.GetMember(Result.Id);
-                homeScreen.LoadPanel(new MemberView(homeScreen, Result, false));
-                homeScreen.RemovePanel(this);
-            }
+            PictureBox PicBox = sender as PictureBox;
+            DataManager DM = new DataManager();
+            Member Result = DM.GetMember(Convert.ToInt32(PicBox.Name));
+            homeScreen.LoadPanel(new MemberView(homeScreen, Result, false));
+            homeScreen.RemovePanel(this);
         }
 
         private void btnCreateMember_Click(object sender, EventArgs e)

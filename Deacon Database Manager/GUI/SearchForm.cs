@@ -266,6 +266,9 @@ namespace Deacon_Database_Manager.GUI
                 PicBox.Image = (Image)Rm.GetObject(SearchResult.PhotoPath);
                 PicBox.BorderStyle = BorderStyle.FixedSingle;
 
+                PicBox.Name = SearchResult.Id.ToString();
+                PicBox.Click += new EventHandler(PicBox_OnClick);
+
                 Label MemberLabel = new Label();
                 MemberLabel.Visible = true;
                 MemberLabel.Text = Regex.Replace(SearchResult.FirstName + 
@@ -505,17 +508,9 @@ namespace Deacon_Database_Manager.GUI
                 x = 0;
                 y = 20;
             }
-            //Label FilterLabel = new Label();
-            ////FilterLabel.Size = new Size(50, 50);
-            //FilterLabel.Text = FilterName;
-            //FilterLabel.Visible = true;
-            //FilterLabel.BackColor = Color.Green;
-            //FilterLabel.ForeColor = Color.White;
-            //FilterLabel.Location = new Point(x, y);
-            //FilterLabel.AutoSize = true;
 
             Button FilterClear = new Button();
-            //FilterClear.Size = new Size(30, 20);
+
             FilterClear.AutoSize = true;
             FilterClear.Location = new Point(x, y);
             FilterClear.Visible = true;
@@ -523,7 +518,6 @@ namespace Deacon_Database_Manager.GUI
             FilterClear.BackColor = Color.Green;
             FilterClear.Click += new EventHandler(FilterClear_Click);
 
-            //panelFilterDisplay.Controls.Add(FilterLabel);
             panelFilterDisplay.Controls.Add(FilterClear);
 
         }
@@ -556,6 +550,15 @@ namespace Deacon_Database_Manager.GUI
         private void label14_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void PicBox_OnClick(object sender, EventArgs e)
+        {
+            PictureBox PicBox = sender as PictureBox;
+            DataManager DM = new DataManager();
+            Member Result = DM.GetMember(Convert.ToInt32(PicBox.Name));
+            homeScreen.LoadPanel(new MemberView(homeScreen, Result, false));
+            homeScreen.RemovePanel(this);
         }
     }
 }
