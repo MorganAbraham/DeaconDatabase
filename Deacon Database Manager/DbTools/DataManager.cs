@@ -15,13 +15,13 @@ namespace Deacon_Database_Manager.DbTools
 {
     class DataManager
     {
-        private readonly string ConnecionString = global::Deacon_Database_Manager.Properties.Settings.Default.MemberDatabaseConnectionString;
+        private readonly string ConnectionString = global::Deacon_Database_Manager.Properties.Settings.Default.MemberDatabaseConnectionString;
 
         public int GetNextId()
         {
             try
             {
-                using (SqlConnection Conn = new SqlConnection(ConnecionString))
+                using (SqlConnection Conn = new SqlConnection(ConnectionString))
                 {
                     SqlCommand Cmd = new SqlCommand("GetNextId");
                     Cmd.CommandType = CommandType.StoredProcedure;
@@ -44,7 +44,7 @@ namespace Deacon_Database_Manager.DbTools
         {
             try
             {
-                using (SqlConnection Conn = new SqlConnection(ConnecionString))
+                using (SqlConnection Conn = new SqlConnection(ConnectionString))
                 {
                     SqlCommand Cmd = new SqlCommand("CreateMember");
                     Cmd.CommandType = CommandType.StoredProcedure;
@@ -67,7 +67,7 @@ namespace Deacon_Database_Manager.DbTools
         {
             try
             {
-                using (SqlConnection Conn = new SqlConnection(ConnecionString))
+                using (SqlConnection Conn = new SqlConnection(ConnectionString))
                 {
                     SqlCommand Cmd = new SqlCommand("UpdateMember");
                     Cmd.CommandType = CommandType.StoredProcedure;
@@ -127,7 +127,7 @@ namespace Deacon_Database_Manager.DbTools
         public Member GetMember(int MemberId)
         {
             Member Result = null;
-            using(SqlConnection Conn = new SqlConnection(ConnecionString))
+            using(SqlConnection Conn = new SqlConnection(ConnectionString))
             {
                 SqlCommand Cmd = new SqlCommand("GetMember");
                 Cmd.CommandType = CommandType.StoredProcedure;
@@ -212,14 +212,7 @@ namespace Deacon_Database_Manager.DbTools
                     ((x.FirstName + ' ' + x.LastName).IndexOf(FilterSettings.MemberName, StringComparison.OrdinalIgnoreCase) > -1));
             }
 
-            //Filter for Deacon Name
-            if(Results != null && !string.IsNullOrEmpty(FilterSettings.DeaconName))
-            {
-                Results = Results.FindAll(x => Regex.Replace(x.DeaconInfo.FirstName + ' ' + 
-                    x.DeaconInfo.LastName,"[ ]{2,}"," ").IndexOf(FilterSettings.DeaconName, 
-                    StringComparison.OrdinalIgnoreCase) > -1);
-            }
-
+            //Filter for Deacon
             if(Results != null && FilterSettings.DeaconId > -1)
             {
                 Results = Results.FindAll(x => x.DeaconInfo.Id == FilterSettings.DeaconId);
@@ -265,7 +258,7 @@ namespace Deacon_Database_Manager.DbTools
         public List<Member> GetAllMembers()
         {
             List<Member> Result = new List<Member>();
-            using (SqlConnection Conn = new SqlConnection(ConnecionString))
+            using (SqlConnection Conn = new SqlConnection(ConnectionString))
             {
                 SqlCommand Cmd = new SqlCommand("GetMember");
                 Cmd.CommandType = CommandType.StoredProcedure;
@@ -353,7 +346,7 @@ namespace Deacon_Database_Manager.DbTools
         private List<Location> GetAllCoordinates()
         {
             List<Location> Result = new List<Location>();
-            using (SqlConnection Conn = new SqlConnection(ConnecionString))
+            using (SqlConnection Conn = new SqlConnection(ConnectionString))
             {
                 SqlCommand Cmd = new SqlCommand("GetAllCoordinates");
                 Cmd.CommandType = CommandType.StoredProcedure;
@@ -376,10 +369,34 @@ namespace Deacon_Database_Manager.DbTools
             return Result;
         }
 
+
+        public Dictionary<Member, string> GetRelatives()
+        {
+            Dictionary<Member, string> Result = new Dictionary<Member, string>();
+
+            using (SqlConnection Conn = new SqlConnection(ConnectionString))
+            {
+                SqlCommand Cmd = new SqlCommand("GetAllRelatives");
+                Cmd.CommandType = CommandType.StoredProcedure;
+                Cmd.Connection = Conn;
+                Conn.Open();
+
+                using (SqlDataReader Reader = Cmd.ExecuteReader())
+                {
+                    while (Reader.Read())
+                    {
+                        Member member = GetMember(GetIntValue(Reader, "Member_Id"));
+                        Result.Add(member, GetStringValue(Reader, "Description"));
+                    }
+                }
+            }
+
+            return Result;
+        }
         public List<Deacon> GetAllDeacons()
         {
             List<Deacon> Result = new List<Deacon>();
-            using (SqlConnection Conn = new SqlConnection(ConnecionString))
+            using (SqlConnection Conn = new SqlConnection(ConnectionString))
             {
                 SqlCommand Cmd = new SqlCommand("GetDeaconInfo");
                 Cmd.CommandType = CommandType.StoredProcedure;

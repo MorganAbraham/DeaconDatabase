@@ -118,6 +118,7 @@
     </Compile>
     <Compile Include="MemberData\Deacon.cs" />
     <Compile Include="MemberData\Member.cs" />
+    <Compile Include="MemberData\RelationshipCalculator.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="GUI\DeaconPanel.resx">

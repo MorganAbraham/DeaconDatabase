@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Deacon_Database_Manager.MemberData
 {
-    class Deacon
+    class Deacon : IComparable<Deacon>
     {
         private int id = -1;
         private string firstName = "";
@@ -103,6 +103,21 @@ namespace Deacon_Database_Manager.MemberData
         public override int GetHashCode()
         {
             return base.GetHashCode();
+        }
+
+        public int CompareTo(Deacon other)
+        {
+            if (other == null)
+            {
+                return 1;
+            }
+            if (!string.Equals(this.LastName, other.LastName, StringComparison.OrdinalIgnoreCase))
+            {
+                return this.LastName.CompareTo(other.LastName);
+            }
+
+            return this.FirstName.CompareTo(other.FirstName);
+
         }
     }
 }

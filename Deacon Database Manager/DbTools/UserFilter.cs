@@ -9,7 +9,6 @@ namespace Deacon_Database_Manager.DbTools
     {
         private string memberName = "";
         private int deaconId = -1;
-        private string deaconName = "";
         private string birthMonth = "";
         private string memberAddress = "";
         private int milesFromAddresss = 0;
@@ -27,19 +26,6 @@ namespace Deacon_Database_Manager.DbTools
             set
             {
                 memberName = value;
-            }
-        }
-
-        public string DeaconName
-        {
-            get
-            {
-                return deaconName;
-            }
-
-            set
-            {
-                deaconName = value;
             }
         }
 

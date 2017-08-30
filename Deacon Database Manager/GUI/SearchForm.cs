@@ -51,11 +51,25 @@ namespace Deacon_Database_Manager.GUI
             panelResults.Left = panelFilter.Left;
             DataManager DM = new DataManager();
             List<Deacon> Deacons = DM.GetAllDeacons();
-            foreach(Deacon deacon in Deacons)
+            Deacons.Sort();
+            cmboDeacon.DataSource = Deacons.Select(x => new
             {
-                string DeaconName = (deacon.FirstName + ' ' + deacon.LastName).Trim();
-                cmboDeacon.Items.Add(DeaconName);
-            }
+                Text = (x.FirstName + ' ' + x.LastName).Trim(),
+                Value = x.Id
+            }).ToList();
+            cmboDeacon.DisplayMember = "Text";
+            cmboDeacon.ValueMember = "Value";
+            cmboDeacon.SelectedIndex = -1;
+            List<Member> Members = DM.GetAllMembers();
+            Members.Sort();
+            comboRelatives.DataSource = Members.Select(x => new
+            {
+                Text = Regex.Replace(x.FirstName + ' ' + x.LastName,"[ ]{2,}"," ").Trim(),
+                Value = x.Id
+            }).ToList();
+            comboRelatives.DisplayMember = "Text";
+            comboRelatives.ValueMember = "Value";
+            comboRelatives.SelectedIndex = -1;
             SetFilter();
         }
 
@@ -147,7 +161,14 @@ namespace Deacon_Database_Manager.GUI
 
         private void cmboDeacon_SelectedIndexChanged(object sender, EventArgs e)
         {
-            FilterSettings.DeaconName = cmboDeacon.Text;
+            if (cmboDeacon.SelectedIndex != -1 && !string.IsNullOrEmpty(cmboDeacon.ValueMember))
+            {
+                FilterSettings.DeaconId = (int)cmboDeacon.SelectedValue;
+            }
+            else
+            {
+                FilterSettings.DeaconId = -1;
+            }
         }
 
         private void cmboBirthMonth_SelectedIndexChanged(object sender, EventArgs e)
@@ -215,6 +236,8 @@ namespace Deacon_Database_Manager.GUI
             Grid.Size = panelResults.Size;
             Grid.ColumnCount = 6;
             Grid.ReadOnly = true;
+            Grid.AllowUserToDeleteRows = false;
+            Grid.AllowUserToAddRows = false;
 
             Grid.Columns[1].HeaderText = "Member Name";
             Grid.Columns[2].HeaderText = "Deacon Name";
@@ -281,7 +304,7 @@ namespace Deacon_Database_Manager.GUI
             int PicHeight = 127;
 
             int MaxColumns = panelResults.Width / (PicWidth + ColumnSpacing);
-            int x = 0;
+            int x = 10;
             int y = 0;
 
             int ColumnCount = 0;
@@ -316,7 +339,7 @@ namespace Deacon_Database_Manager.GUI
                 ColumnCount++;
                 if(ColumnCount == MaxColumns)
                 {
-                    x = 0;
+                    x = 10;
                     y += PicBox.Height + RowSpacing + LabelHeight;
                 }
             } 
@@ -487,7 +510,7 @@ namespace Deacon_Database_Manager.GUI
             {
                 AddFilterDisplay("Member Name");
             }
-            if(!string.IsNullOrEmpty(FilterSettings.DeaconName))
+            if(FilterSettings.DeaconId != -1)
             {
                 AddFilterDisplay("Deacon");
             }
@@ -589,6 +612,29 @@ namespace Deacon_Database_Manager.GUI
             Member Result = DM.GetMember(Convert.ToInt32(PicBox.Name));
             homeScreen.LoadPanel(new MemberView(homeScreen, Result, false));
             homeScreen.RemovePanel(this);
+        }
+
+        private void ckRegionFilter_CheckedChanged(object sender, EventArgs e)
+        {
+            panelRegion.Enabled = ckRegionFilter.Checked;
+            if (!panelRegion.Enabled)
+            {
+                comboRegion.SelectedIndex = -1;
+            }
+        }
+
+        private void panel1_Paint_1(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void ckRelatives_CheckedChanged(object sender, EventArgs e)
+        {
+            panelRelatives.Enabled = ckRelatives.Checked;
+            if(!ckRelatives.Checked)
+            {
+                comboRelatives.SelectedIndex = -1;
+            }
         }
     }
 }

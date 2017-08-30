@@ -39,11 +39,19 @@ namespace Deacon_Database_Manager.GUI
 
         private void deaconGrid_SelectionChanged(object sender, EventArgs e)
         {
-            if(deaconGrid.SelectedRows.Count == 1)
+            if(deaconGrid.SelectedRows.Count == 1 || deaconGrid.SelectedCells.Count == 1)
             {
                 DataManager DM = new DataManager();
                 UserFilter FilterSettings = new UserFilter();
-                object IdValue = deaconGrid.SelectedRows[0].Cells["colId"].Value;
+                object IdValue;
+                if (deaconGrid.SelectedRows.Count == 1)
+                {
+                    IdValue = deaconGrid.SelectedRows[0].Cells["colId"].Value;
+                }
+                else
+                {
+                    IdValue = deaconGrid.SelectedCells[0].OwningRow.Cells["colId"].Value;
+                }
                 FilterSettings.DeaconId = IdValue == null ? int.MaxValue : (int)IdValue;
                 List<Member> Members = DM.GetFilterResults(FilterSettings);
                 LoadPictures(Members);
@@ -54,7 +62,7 @@ namespace Deacon_Database_Manager.GUI
         {
             panelMembers.Controls.Clear();
 
-            int ColumnSpacing = 10;
+            int ColumnSpacing = 20;
             int RowSpacing = 10;
             int LabelHeight = 10;
 
@@ -62,8 +70,8 @@ namespace Deacon_Database_Manager.GUI
             int PicHeight = 127;
 
             int MaxColumns = panelMembers.Width / (PicWidth + ColumnSpacing);
-            int x = 0;
-            int y = 0;
+            int x = 10;
+            int y = 10;
 
             int ColumnCount = 0;
             foreach (Member SearchResult in SearchResults)
@@ -97,7 +105,7 @@ namespace Deacon_Database_Manager.GUI
                 ColumnCount++;
                 if (ColumnCount == MaxColumns)
                 {
-                    x = 0;
+                    x = 10;
                     y += PicBox.Height + RowSpacing + LabelHeight;
                 }
             }
@@ -110,6 +118,22 @@ namespace Deacon_Database_Manager.GUI
             Member Result = DM.GetMember(Convert.ToInt32(PicBox.Name));
             homeScreen.LoadPanel(new MemberView(homeScreen, Result, false));
             homeScreen.RemovePanel(this);
+        }
+
+        private void deaconGrid_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
+        {
+            
+        }
+
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnBack_Click(object sender, EventArgs e)
+        {
+            this.homeScreen.LoadPanel(new HomePanel(this.homeScreen));
+            this.homeScreen.RemovePanel(this);
         }
     }
 }
