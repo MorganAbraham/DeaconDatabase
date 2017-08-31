@@ -61,6 +61,7 @@
     <Compile Include="DistanceCalculatorTest.cs" />
     <Compile Include="LocationTests.cs" />
     <Compile Include="MemberTests.cs" />
+    <Compile Include="RelationshipCalculatorTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Deacon Database Manager\Deacon Database Manager.csproj">
