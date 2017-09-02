@@ -370,7 +370,7 @@ namespace Deacon_Database_Manager.DbTools
         }
 
 
-        public Dictionary<Member, string> GetRelatives()
+        public Dictionary<Member, string> GetRelatives(int MemberId)
         {
             Dictionary<Member, string> Result = new Dictionary<Member, string>();
 
@@ -378,6 +378,7 @@ namespace Deacon_Database_Manager.DbTools
             {
                 SqlCommand Cmd = new SqlCommand("GetAllRelatives");
                 Cmd.CommandType = CommandType.StoredProcedure;
+                Cmd.Parameters.AddWithValue("@MemberId", MemberId);
                 Cmd.Connection = Conn;
                 Conn.Open();
 
@@ -385,7 +386,7 @@ namespace Deacon_Database_Manager.DbTools
                 {
                     while (Reader.Read())
                     {
-                        Member member = GetMember(GetIntValue(Reader, "Member_Id"));
+                        Member member = GetMember(GetIntValue(Reader, "Relative_Member_Id"));
                         Result.Add(member, GetStringValue(Reader, "Description"));
                     }
                 }

@@ -8,13 +8,40 @@ namespace Deacon_Database_Manager.MemberData
 {
     class RelationshipCalculator
     {
+        private Dictionary<Member, string> Relationships = new Dictionary<Member, string>();
+
         public Dictionary<Member, string> GetAllRelationships(Member member)
         {
-            Dictionary<Member, string> Result = new Dictionary<Member, string>();
+            AddRelative(member, "member");
+            return Relationships;
+        }
+
+        private void AddRelative(Member member, string RelationToMember)
+        {
+            if(RelationToMember == null)
+            {
+                return;
+            }
+
+            if(!Relationships.ContainsKey(member))
+            {
+                Relationships.Add(member, RelationToMember);
+            }
 
             DataManager DM = new DataManager();
-            //List<Member> Relatives = GetAllRelationships()
-            return Result;
+            Dictionary<Member, string> KnownRelatives = DM.GetRelatives(member.Id);
+            foreach (KeyValuePair<Member, string> KnownRelative in KnownRelatives)
+            {
+                if(RelationToMember == "member")
+                {
+                    AddRelative(KnownRelative.Key, KnownRelative.Value);
+                }
+                else
+                {
+                    string MyRelationship = GetRelationship(RelationToMember, KnownRelative.Value);
+                    AddRelative(KnownRelative.Key, MyRelationship);
+                }
+            }
         }
 
         public string GetRelationship(string RelationToMember, string RelationToRelation)
