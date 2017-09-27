@@ -17,6 +17,7 @@ namespace Deacon_Database_Manager.GUI
     {
 
         private HomeScreen homeScreen;
+        private List<Member> AllMembers;
         private List<Member> SearchResults;
         private UserFilter FilterSettings = new UserFilter();
         private bool FilterMenuVisible = false;
@@ -60,9 +61,9 @@ namespace Deacon_Database_Manager.GUI
             cmboDeacon.DisplayMember = "Text";
             cmboDeacon.ValueMember = "Value";
             cmboDeacon.SelectedIndex = -1;
-            List<Member> Members = DM.GetAllMembers();
-            Members.Sort();
-            comboRelatives.DataSource = Members.Select(x => new
+            AllMembers = DM.GetAllMembers();
+            AllMembers.Sort();
+            comboRelatives.DataSource = AllMembers.Select(x => new
             {
                 Text = Regex.Replace(x.FirstName + ' ' + x.LastName,"[ ]{2,}"," ").Trim(),
                 Value = x.Id
@@ -222,7 +223,14 @@ namespace Deacon_Database_Manager.GUI
             }
             else if(radioPictureView.Checked)
             {
-                LoadPictures();
+                BackgroundWorker bw = new BackgroundWorker();
+                bw.WorkerReportsProgress= true;
+                bw.WorkerSupportsCancellation = true;
+                bw.DoWork += new DoWorkEventHandler(bw_DoWork);
+                if(!bw.IsBusy)
+                {
+                    bw.RunWorkerAsync();
+                }
             }
         }
 
@@ -294,6 +302,9 @@ namespace Deacon_Database_Manager.GUI
 
         private void LoadPictures()
         {
+
+            this.Invoke(new MethodInvoker(delegate {
+
             panelResults.Controls.Clear();
             
             int ColumnSpacing = 10;
@@ -310,6 +321,7 @@ namespace Deacon_Database_Manager.GUI
             int ColumnCount = 0;
             foreach(Member SearchResult in SearchResults)
             {
+                
                 PictureBox PicBox = new PictureBox();
                 PicBox.Visible = true;
                 PicBox.Height = PicHeight;
@@ -341,14 +353,17 @@ namespace Deacon_Database_Manager.GUI
                 {
                     x = 10;
                     y += PicBox.Height + RowSpacing + LabelHeight;
+                    ColumnCount = 0;
                 }
-            } 
+                
+            }
+            }));
         }
 
         private void SetFilter()
         {
             DataManager DM = new DataManager();
-            SearchResults = DM.GetFilterResults(FilterSettings);
+            SearchResults = DM.GetFilterResults(FilterSettings, AllMembers);
             SearchResults.Sort();
             LoadResults();
             //LoadFilterDisplay();
@@ -397,46 +412,19 @@ namespace Deacon_Database_Manager.GUI
 
         private void bw_ProgressedChanged(object sender, ProgressChangedEventArgs e)
         {
-            int MoveAmount = ResultsPanelMinLeft - panelFilter.Left;
-            if (!FilterMenuVisible)
-            {
-                //Show Filter Panel
-                panelFilter.Width = Convert.ToInt32(DrawerMaxWidth * 
-                    ((double)e.ProgressPercentage / 100));
-                panelResults.Width = ResultsPanelMaxWidth - Convert.ToInt32(ShrinkAmount * 
-                    ((double)e.ProgressPercentage / 100));
-                panelResults.Left = panelFilter.Left +
-                    Convert.ToInt32(MoveAmount * ((double)e.ProgressPercentage / 100));
-            }
-            else
-            {
-                //Hide Filter Panel
-                panelFilter.Width = DrawerMaxWidth - Convert.ToInt32((DrawerMaxWidth - DrawerMinWidth) *
-                    ((double)e.ProgressPercentage / 100));
-                panelResults.Width = ResultsPanelMinWidth + 
-                    Convert.ToInt32(ShrinkAmount * ((double)e.ProgressPercentage / 100));
-                panelResults.Left = ResultsPanelMinLeft - 
-                    Convert.ToInt32(MoveAmount * ((double)e.ProgressPercentage / 100));
-            }
+           
         }
 
         private void bw_DoWork(object sender, DoWorkEventArgs e)
         {
             BackgroundWorker worker = sender as BackgroundWorker;
-
-
-            for (int i = 1; i <= 100; i++)
+            if(worker.CancellationPending)
             {
-                if(worker.CancellationPending)
-                {
-                    e.Cancel = true;
-                    break;
-                }
-                else
-                {
-                    //System.Threading.Thread.Sleep(5);
-                    worker.ReportProgress(i);
-                }
+                e.Cancel = true;
+            }
+            else
+            {
+                LoadPictures();
             }
         }
 
@@ -452,18 +440,6 @@ namespace Deacon_Database_Manager.GUI
             }
             else
             {
-                FilterMenuVisible = !FilterMenuVisible;
-                if(FilterMenuVisible)
-                {
-                    btnSlideDrawer.Text = "Hide Filter  Menu";
-                    panelFilterDisplay.Visible = false;
-                }
-                else
-                {
-                    btnSlideDrawer.Text = "Show Filter Menu";
-                    panelFilterDisplay.Visible = true;
-                }
-                LoadResults();
             }
         }
 

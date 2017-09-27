@@ -7,36 +7,36 @@ namespace DatabaseManagerTests
     public class RelationshipCalculatorTests
     {
         [TestMethod]
-        public void GetRelationship_Grandmother()
+        public void GetRelationship_Sibling()
         {
-            string RelationToMember = "Mother";
-            string RelationToRelation = "Mother";
-            string ExpResult = "Grandmother";
+            string RelationToMember = "Parent";
+            string RelationToRelation = "Parent";
+            string ExpResult = "Sibling";
             RelationshipCalculator RCalc = new RelationshipCalculator();
-            string Result = RCalc.GetRelationship(RelationToMember, RelationToRelation);
+            string Result = RCalc.GetRelationship(RelationToMember, RelationToRelation, true);
             Assert.AreEqual(ExpResult, Result);
         }
 
 
         [TestMethod]
-        public void GetRelationship_Wife()
+        public void GetRelationship_GreatGreatGrandchild()
         {
-            string RelationToMember = "Grandson";
-            string RelationToRelation = "Grandmother";
-            string ExpResult = "Wife";
+            string RelationToMember = "Grandchild";
+            string RelationToRelation = "Grandparent";
+            string ExpResult = "Great-Great Grandchild";
             RelationshipCalculator RCalc = new RelationshipCalculator();
-            string Result = RCalc.GetRelationship(RelationToMember, RelationToRelation);
+            string Result = RCalc.GetRelationship(RelationToMember, RelationToRelation, true);
             Assert.AreEqual(ExpResult, Result);
 
         }
         [TestMethod]
         public void GetRelationship_Null()
         {
-            string RelationToMember = "Grandson";
-            string RelationToRelation = "Mother-In-Law";
+            string RelationToMember = "Grandchild";
+            string RelationToRelation = "Parent-In-Law";
             string ExpResult = null;
             RelationshipCalculator RCalc = new RelationshipCalculator();
-            string Result = RCalc.GetRelationship(RelationToMember, RelationToRelation);
+            string Result = RCalc.GetRelationship(RelationToMember, RelationToRelation, false);
             Assert.AreEqual(ExpResult, Result);
 
         }

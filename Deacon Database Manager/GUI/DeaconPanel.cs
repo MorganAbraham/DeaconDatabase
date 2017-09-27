@@ -107,6 +107,7 @@ namespace Deacon_Database_Manager.GUI
                 {
                     x = 10;
                     y += PicBox.Height + RowSpacing + LabelHeight;
+                    ColumnCount = 0;
                 }
             }
         }

@@ -70,13 +70,21 @@
             this.label8 = new System.Windows.Forms.Label();
             this.txtAddress1 = new System.Windows.Forms.TextBox();
             this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.label19 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.btnAddRelative = new System.Windows.Forms.Button();
+            this.comboRelationshipTypes = new System.Windows.Forms.ComboBox();
+            this.comboMembers = new System.Windows.Forms.ComboBox();
+            this.dataGridRelatives = new System.Windows.Forms.DataGridView();
+            this.RelativeName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Relationship = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tabPage5 = new System.Windows.Forms.TabPage();
             this.btnSave = new System.Windows.Forms.Button();
             this.btnBack = new System.Windows.Forms.Button();
             this.btnSaveAndExit = new System.Windows.Forms.Button();
             this.btnChangePicture = new System.Windows.Forms.Button();
             this.btnDeletePic = new System.Windows.Forms.Button();
             this.picboxProfile = new System.Windows.Forms.PictureBox();
-            this.tabPage5 = new System.Windows.Forms.TabPage();
             this.panel3.SuspendLayout();
             this.panel4.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -85,6 +93,8 @@
             this.tabPage3.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel1.SuspendLayout();
+            this.tabPage4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridRelatives)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picboxProfile)).BeginInit();
             this.SuspendLayout();
             // 
@@ -564,12 +574,92 @@
             // 
             // tabPage4
             // 
+            this.tabPage4.Controls.Add(this.label19);
+            this.tabPage4.Controls.Add(this.label14);
+            this.tabPage4.Controls.Add(this.btnAddRelative);
+            this.tabPage4.Controls.Add(this.comboRelationshipTypes);
+            this.tabPage4.Controls.Add(this.comboMembers);
+            this.tabPage4.Controls.Add(this.dataGridRelatives);
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Size = new System.Drawing.Size(826, 376);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "Family Info";
             this.tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(502, 88);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(92, 13);
+            this.label19.TabIndex = 5;
+            this.label19.Text = "Relationship Type";
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(502, 29);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(74, 13);
+            this.label14.TabIndex = 4;
+            this.label14.Text = "New  Relative";
+            // 
+            // btnAddRelative
+            // 
+            this.btnAddRelative.Location = new System.Drawing.Point(537, 146);
+            this.btnAddRelative.Name = "btnAddRelative";
+            this.btnAddRelative.Size = new System.Drawing.Size(157, 23);
+            this.btnAddRelative.TabIndex = 3;
+            this.btnAddRelative.Text = "Add Relationship";
+            this.btnAddRelative.UseVisualStyleBackColor = true;
+            // 
+            // comboRelationshipTypes
+            // 
+            this.comboRelationshipTypes.FormattingEnabled = true;
+            this.comboRelationshipTypes.Location = new System.Drawing.Point(502, 104);
+            this.comboRelationshipTypes.Name = "comboRelationshipTypes";
+            this.comboRelationshipTypes.Size = new System.Drawing.Size(238, 21);
+            this.comboRelationshipTypes.TabIndex = 2;
+            // 
+            // comboMembers
+            // 
+            this.comboMembers.FormattingEnabled = true;
+            this.comboMembers.Location = new System.Drawing.Point(502, 48);
+            this.comboMembers.Name = "comboMembers";
+            this.comboMembers.Size = new System.Drawing.Size(238, 21);
+            this.comboMembers.TabIndex = 1;
+            // 
+            // dataGridRelatives
+            // 
+            this.dataGridRelatives.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridRelatives.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.RelativeName,
+            this.Relationship});
+            this.dataGridRelatives.Location = new System.Drawing.Point(20, 14);
+            this.dataGridRelatives.Name = "dataGridRelatives";
+            this.dataGridRelatives.Size = new System.Drawing.Size(457, 332);
+            this.dataGridRelatives.TabIndex = 0;
+            // 
+            // RelativeName
+            // 
+            this.RelativeName.HeaderText = "Relative Name";
+            this.RelativeName.Name = "RelativeName";
+            // 
+            // Relationship
+            // 
+            this.Relationship.HeaderText = "Relationship";
+            this.Relationship.Name = "Relationship";
+            // 
+            // tabPage5
+            // 
+            this.tabPage5.Location = new System.Drawing.Point(4, 22);
+            this.tabPage5.Name = "tabPage5";
+            this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage5.Size = new System.Drawing.Size(826, 376);
+            this.tabPage5.TabIndex = 4;
+            this.tabPage5.Text = "Church  Info";
+            this.tabPage5.UseVisualStyleBackColor = true;
             // 
             // btnSave
             // 
@@ -630,16 +720,6 @@
             this.picboxProfile.TabIndex = 0;
             this.picboxProfile.TabStop = false;
             // 
-            // tabPage5
-            // 
-            this.tabPage5.Location = new System.Drawing.Point(4, 22);
-            this.tabPage5.Name = "tabPage5";
-            this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage5.Size = new System.Drawing.Size(826, 376);
-            this.tabPage5.TabIndex = 4;
-            this.tabPage5.Text = "Church  Info";
-            this.tabPage5.UseVisualStyleBackColor = true;
-            // 
             // MemberView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -669,6 +749,9 @@
             this.panel2.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            this.tabPage4.ResumeLayout(false);
+            this.tabPage4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridRelatives)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picboxProfile)).EndInit();
             this.ResumeLayout(false);
 
@@ -725,5 +808,13 @@
         private System.Windows.Forms.Button btnChangePicture;
         private System.Windows.Forms.Button btnDeletePic;
         private System.Windows.Forms.TabPage tabPage5;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Button btnAddRelative;
+        private System.Windows.Forms.ComboBox comboRelationshipTypes;
+        private System.Windows.Forms.ComboBox comboMembers;
+        private System.Windows.Forms.DataGridView dataGridRelatives;
+        private System.Windows.Forms.DataGridViewTextBoxColumn RelativeName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Relationship;
     }
 }

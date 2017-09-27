@@ -10,6 +10,7 @@ using Deacon_Database_Manager.MemberData;
 using System.Resources;
 using Deacon_Database_Manager.DbTools;
 using Deacon_Database_Manager.Geographical;
+using System.Text.RegularExpressions;
 
 namespace Deacon_Database_Manager.GUI
 {
@@ -20,6 +21,7 @@ namespace Deacon_Database_Manager.GUI
         private DataManager DM = new DataManager();
         private bool CreateNewMember;
         private bool MemberCreated = false;
+        Dictionary<Member, string> Relatives;
 
         public MemberView(HomeScreen homeScreen, Member ChurchMember, bool CreateNewMember)
         {
@@ -27,6 +29,8 @@ namespace Deacon_Database_Manager.GUI
             this.ChurchMember = ChurchMember;
             this.homeScreen = homeScreen;
             this.CreateNewMember = CreateNewMember;
+            RelationshipCalculator RelCalc = new RelationshipCalculator();
+            Relatives = RelCalc.GetAllRelationships(ChurchMember);
         }
 
         private void panel1_Paint(object sender, PaintEventArgs e)
@@ -71,6 +75,12 @@ namespace Deacon_Database_Manager.GUI
             txtEmergencyPhone.Text = ChurchMember.EmergencyNumber;
 
             picboxProfile.Image = ChurchMember.ProfilePicture;
+
+            foreach(KeyValuePair<Member, string> Relation in Relatives)
+            {
+                dataGridRelatives.Rows.Add(Regex.Replace(Relation.Key.FirstName + ' ' +
+                    Relation.Key.LastName, "[ ]{2,}", " "), Relation.Value);
+            }
         }
 
         private void txtFirstName_TextChanged(object sender, EventArgs e)

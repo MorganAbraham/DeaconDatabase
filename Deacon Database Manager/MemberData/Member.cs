@@ -36,6 +36,11 @@ namespace Deacon_Database_Manager.MemberData
 
         private Location address = new Location();
         private Deacon deaconInfo = new Deacon();
+
+        public  Member()
+        {
+            //Image img 
+        }
         public int Id
         {
             get

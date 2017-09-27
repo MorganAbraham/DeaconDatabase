@@ -108,11 +108,11 @@ namespace Deacon_Database_Manager.DbTools
                     //Profile Picutre
                     using (MemoryStream Stream = new MemoryStream())
                     {
-                        member.ProfilePicture.Save(Stream, ImageFormat.Jpeg);
+                        new Bitmap(member.ProfilePicture).Save(Stream, ImageFormat.Jpeg);
                         Cmd.Parameters.AddWithValue("@ProfilePicture", Stream.ToArray());
                     }
 
-                        Conn.Open();
+                    Conn.Open();
                     Cmd.ExecuteNonQuery();
                 }
                 return true;
@@ -202,9 +202,17 @@ namespace Deacon_Database_Manager.DbTools
             return Result;
         }
 
-        public List<Member> GetFilterResults(UserFilter FilterSettings)
+        public List<Member> GetFilterResults(UserFilter FilterSettings, List<Member> AllMembers = null)
         {
-            List<Member> Results = GetAllMembers();
+            List<Member> Results;
+            if (AllMembers == null)
+            {
+                Results = GetAllMembers();
+            }
+            else
+            {
+                Results = AllMembers;
+            }
             //Filter for Member Name
             if (Results != null && !string.IsNullOrWhiteSpace(FilterSettings.MemberName))
             {
@@ -314,8 +322,8 @@ namespace Deacon_Database_Manager.DbTools
             Result.EmergencyNumber = GetStringValue(Reader, "EmergencyNumber");
 
             //Deacon Info
-            Result.DeaconInfo.FirstName = GetStringValue(Reader, "Deacon_FirstName");
-            Result.DeaconInfo.LastName = GetStringValue(Reader, "Deacon_LastName");
+            Result.DeaconInfo.FirstName = GetStringValue(Reader, "Deacon_First_Name");
+            Result.DeaconInfo.LastName = GetStringValue(Reader, "Deacon_Last_Name");
             Result.DeaconInfo.Id = GetIntValue(Reader, "Deacon_Id");
             Result.DeaconInfo.Region = GetStringValue(Reader, "Deacon_Region");
 
@@ -370,9 +378,9 @@ namespace Deacon_Database_Manager.DbTools
         }
 
 
-        public Dictionary<Member, string> GetRelatives(int MemberId)
+        public Dictionary<Member, string[]> GetRelatives(int MemberId)
         {
-            Dictionary<Member, string> Result = new Dictionary<Member, string>();
+            Dictionary<Member, string[]> Result = new Dictionary<Member, string[]>();
 
             using (SqlConnection Conn = new SqlConnection(ConnectionString))
             {
@@ -387,7 +395,61 @@ namespace Deacon_Database_Manager.DbTools
                     while (Reader.Read())
                     {
                         Member member = GetMember(GetIntValue(Reader, "Relative_Member_Id"));
-                        Result.Add(member, GetStringValue(Reader, "Description"));
+                        if (!Result.ContainsKey(member))
+                        {
+                            Result.Add(member, new string[2] { GetStringValue(Reader, "Description"), "Direct" });
+                        }
+                    }
+                }
+            }
+
+            using (SqlConnection Conn = new SqlConnection(ConnectionString))
+            {
+                SqlCommand Cmd = new SqlCommand("GetMembersRelatedTo");
+                Cmd.CommandType = CommandType.StoredProcedure;
+                Cmd.Parameters.AddWithValue("@MemberId", MemberId);
+                Cmd.Connection = Conn;
+                Conn.Open();
+
+                Dictionary<string, string> RelationDict = new Dictionary<string, string>()
+                {
+                    {"Spouse","Spouse"},
+                    {"Parent","Child"},
+                    {"Aunt/Uncle","Niece/Nephew"},
+                    {"Grandparent","Grandchild"},
+                    {"Parent-In-Law","Child-In-Law"},
+                    {"Child","Parent"},
+                    {"Sibling","Sibling"},
+                    {"Grandchild","Grandparent"},
+                    {"Great-Grandparent","Great-Grandchild"},
+                    {"Great-Great Grandparent","Great-Great Grandchild"},
+                    {"Niece/Nephew","Aunt/Uncle"},
+                    {"Great-Grandchild","Great-Grandparent"},
+                    {"Great-Great Grandchild","Great-Great Grandparent"},
+                    {"Sibling-In-Law","Sibling-In-Law"},
+                    {"Child-In-Law","Parent-In-Law"},
+                    {"Cousin","Cousin"}
+                };
+
+                using (SqlDataReader Reader = Cmd.ExecuteReader())
+                {
+                    while (Reader.Read())
+                    {
+                        Member member = GetMember(GetIntValue(Reader, "Member_Id"));
+                        if (!Result.ContainsKey(member))
+                        {
+                           
+                            string LookupValue;
+                            if (!RelationDict.TryGetValue(GetStringValue(Reader, "Description"), out LookupValue))
+                            {
+                                LookupValue = null;
+                            }
+
+                            if (!string.IsNullOrEmpty(LookupValue))
+                            {
+                                Result.Add(member, new string[2] { LookupValue, "Indirect" });
+                            }
+                        }
                     }
                 }
             }
@@ -411,9 +473,9 @@ namespace Deacon_Database_Manager.DbTools
                     {
                         Deacon deacon = new Deacon();
                         deacon.Id = GetIntValue(Reader, "Deacon_Id");
-                        deacon.FirstName = GetStringValue(Reader, "Deacon_FirstName");
-                        deacon.LastName = GetStringValue(Reader, "Deacon_LastName");
-                        deacon.Region = GetStringValue(Reader, "Deacon_Region");
+                        deacon.FirstName = GetStringValue(Reader, "First Name");
+                        deacon.LastName = GetStringValue(Reader, "Last Name");
+                        deacon.Region = GetStringValue(Reader, "Region_Description");
                         deacon.MemberCount = GetIntValue(Reader, "MemberCount");
                         if (deacon != null)
                         {
