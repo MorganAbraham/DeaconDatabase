@@ -79,6 +79,8 @@
             this.btnSetFilter = new System.Windows.Forms.Button();
             this.btnSlideDrawer = new System.Windows.Forms.Button();
             this.panelFilterDisplay = new System.Windows.Forms.Panel();
+            this.cmboMaxResults = new System.Windows.Forms.ComboBox();
+            this.label17 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.panelFilter.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -112,7 +114,7 @@
             this.groupBox1.Controls.Add(this.radioListView);
             this.groupBox1.Controls.Add(this.radioPictureView);
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox1.Location = new System.Drawing.Point(660, 64);
+            this.groupBox1.Location = new System.Drawing.Point(660, 67);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(175, 46);
             this.groupBox1.TabIndex = 2;
@@ -123,13 +125,11 @@
             // 
             this.radioListView.Appearance = System.Windows.Forms.Appearance.Button;
             this.radioListView.AutoSize = true;
-            this.radioListView.Checked = true;
             this.radioListView.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.radioListView.Location = new System.Drawing.Point(92, 18);
             this.radioListView.Name = "radioListView";
             this.radioListView.Size = new System.Drawing.Size(59, 23);
             this.radioListView.TabIndex = 5;
-            this.radioListView.TabStop = true;
             this.radioListView.Text = "List View";
             this.radioListView.UseVisualStyleBackColor = true;
             this.radioListView.CheckedChanged += new System.EventHandler(this.radioListView_CheckedChanged);
@@ -138,11 +138,13 @@
             // 
             this.radioPictureView.Appearance = System.Windows.Forms.Appearance.Button;
             this.radioPictureView.AutoSize = true;
+            this.radioPictureView.Checked = true;
             this.radioPictureView.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.radioPictureView.Location = new System.Drawing.Point(6, 18);
             this.radioPictureView.Name = "radioPictureView";
             this.radioPictureView.Size = new System.Drawing.Size(76, 23);
             this.radioPictureView.TabIndex = 4;
+            this.radioPictureView.TabStop = true;
             this.radioPictureView.Text = "Picture View";
             this.radioPictureView.UseVisualStyleBackColor = true;
             this.radioPictureView.CheckedChanged += new System.EventHandler(this.radioPictureView_CheckedChanged);
@@ -701,7 +703,7 @@
             // btnSlideDrawer
             // 
             this.btnSlideDrawer.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSlideDrawer.Location = new System.Drawing.Point(660, 40);
+            this.btnSlideDrawer.Location = new System.Drawing.Point(660, 21);
             this.btnSlideDrawer.Name = "btnSlideDrawer";
             this.btnSlideDrawer.Size = new System.Drawing.Size(175, 23);
             this.btnSlideDrawer.TabIndex = 15;
@@ -714,14 +716,41 @@
             this.panelFilterDisplay.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.panelFilterDisplay.Location = new System.Drawing.Point(299, 21);
             this.panelFilterDisplay.Name = "panelFilterDisplay";
-            this.panelFilterDisplay.Size = new System.Drawing.Size(355, 92);
+            this.panelFilterDisplay.Size = new System.Drawing.Size(166, 92);
             this.panelFilterDisplay.TabIndex = 16;
+            // 
+            // cmboMaxResults
+            // 
+            this.cmboMaxResults.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmboMaxResults.FormattingEnabled = true;
+            this.cmboMaxResults.Items.AddRange(new object[] {
+            "10",
+            "20",
+            "30",
+            "40",
+            "50",
+            "100"});
+            this.cmboMaxResults.Location = new System.Drawing.Point(471, 86);
+            this.cmboMaxResults.Name = "cmboMaxResults";
+            this.cmboMaxResults.Size = new System.Drawing.Size(174, 21);
+            this.cmboMaxResults.TabIndex = 17;
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(471, 67);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(166, 13);
+            this.label17.TabIndex = 18;
+            this.label17.Text = "Maximum # Of Results To Display";
             // 
             // SearchForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(867, 623);
+            this.Controls.Add(this.label17);
+            this.Controls.Add(this.cmboMaxResults);
             this.Controls.Add(this.panelFilterDisplay);
             this.Controls.Add(this.btnSlideDrawer);
             this.Controls.Add(this.panelFilter);
@@ -758,6 +787,7 @@
             this.panelDeacon.ResumeLayout(false);
             this.panelDeacon.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -814,5 +844,7 @@
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.ComboBox comboRelatives;
         private System.Windows.Forms.CheckBox ckRelatives;
+        private System.Windows.Forms.ComboBox cmboMaxResults;
+        private System.Windows.Forms.Label label17;
     }
 }

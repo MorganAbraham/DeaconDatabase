@@ -29,6 +29,8 @@ namespace Deacon_Database_Manager.GUI
         private int ResultsPanelMinLeft;
         private int ShrinkAmount;
 
+        private PictureBox CurrentPicBox;
+
         public SearchForm(HomeScreen homeScreen)
         {
             InitializeComponent();
@@ -50,28 +52,17 @@ namespace Deacon_Database_Manager.GUI
             panelFilter.Width = DrawerMinWidth;
             panelResults.Width = ResultsPanelMaxWidth;
             panelResults.Left = panelFilter.Left;
-            DataManager DM = new DataManager();
-            List<Deacon> Deacons = DM.GetAllDeacons();
-            Deacons.Sort();
-            cmboDeacon.DataSource = Deacons.Select(x => new
+            BackgroundWorker bw = new BackgroundWorker();
+            bw.WorkerSupportsCancellation = true;
+            bw.WorkerReportsProgress = true;
+            bw.DoWork += new DoWorkEventHandler(bw_DoWork);
+            bw.ProgressChanged += new ProgressChangedEventHandler(bw_ProgressedChanged);
+            
+            if(!bw.IsBusy)
             {
-                Text = (x.FirstName + ' ' + x.LastName).Trim(),
-                Value = x.Id
-            }).ToList();
-            cmboDeacon.DisplayMember = "Text";
-            cmboDeacon.ValueMember = "Value";
-            cmboDeacon.SelectedIndex = -1;
-            AllMembers = DM.GetAllMembers();
-            AllMembers.Sort();
-            comboRelatives.DataSource = AllMembers.Select(x => new
-            {
-                Text = Regex.Replace(x.FirstName + ' ' + x.LastName,"[ ]{2,}"," ").Trim(),
-                Value = x.Id
-            }).ToList();
-            comboRelatives.DisplayMember = "Text";
-            comboRelatives.ValueMember = "Value";
-            comboRelatives.SelectedIndex = -1;
-            SetFilter();
+                bw.RunWorkerAsync();
+            }
+            //SetFilter();
         }
 
         private void radioPictureView_CheckedChanged(object sender, EventArgs e)
@@ -212,26 +203,15 @@ namespace Deacon_Database_Manager.GUI
 
         private void LoadResults()
         {
-            //foreach(Control Ctrl in panelResults.Controls)
-            //{
-            //    panelResults.Controls.Remove(Ctrl);
-            //}
-            
             if(radioListView.Checked)
             {
                 LoadTable();
             }
-            else if(radioPictureView.Checked)
+            if(radioPictureView.Checked)
             {
-                BackgroundWorker bw = new BackgroundWorker();
-                bw.WorkerReportsProgress= true;
-                bw.WorkerSupportsCancellation = true;
-                bw.DoWork += new DoWorkEventHandler(bw_DoWork);
-                if(!bw.IsBusy)
-                {
-                    bw.RunWorkerAsync();
-                }
+                LoadPictures();
             }
+            
         }
 
         private void LoadTable()
@@ -279,7 +259,8 @@ namespace Deacon_Database_Manager.GUI
                     SearchResult.MiddleName + ' ' + SearchResult.LastName, "[ ]{2,}", " "),
                     DeaconName, BirthDate, HomeAddress, AnniversaryDate);
             }
-            panelResults.Controls.Add(Grid);
+            this.Invoke(new MethodInvoker(delegate { panelResults.Controls.Add(Grid); }));
+            
         }
 
         private void Grid_DoubleClick(object sender, EventArgs e)
@@ -305,60 +286,71 @@ namespace Deacon_Database_Manager.GUI
         private void LoadPictures()
         {
 
-            this.Invoke(new MethodInvoker(delegate {
-
-            panelResults.Controls.Clear();
-            
-            int ColumnSpacing = 10;
-            int RowSpacing = 10;
-            int LabelHeight = 10;
-
-            int PicWidth = 102;
-            int PicHeight = 127;
-
-            int MaxColumns = panelResults.Width / (PicWidth + ColumnSpacing);
-            int x = 10;
-            int y = 0;
-
-            int ColumnCount = 0;
-            foreach(Member SearchResult in SearchResults)
+            this.Invoke(new MethodInvoker(delegate
             {
-                
-                PictureBox PicBox = new PictureBox();
-                PicBox.Visible = true;
-                PicBox.Height = PicHeight;
-                PicBox.Width = PicWidth;
 
-                PicBox.SizeMode = PictureBoxSizeMode.StretchImage;
-                PicBox.Image = SearchResult.ProfilePicture;
-                PicBox.BorderStyle = BorderStyle.FixedSingle;
+                panelResults.Controls.Clear();
 
-                PicBox.Name = SearchResult.Id.ToString();
-                PicBox.Click += new EventHandler(PicBox_OnClick);
+                int ColumnSpacing = 10;
+                int RowSpacing = 10;
+                int LabelHeight = 10;
 
-                Label MemberLabel = new Label();
-                MemberLabel.Visible = true;
-                MemberLabel.Text = Regex.Replace(SearchResult.FirstName + 
-                    ' ' +  SearchResult.LastName, "[ ], {2,}", " ");
-                MemberLabel.Width = PicBox.Width;
-                MemberLabel.Height = LabelHeight;
-                MemberLabel.AutoSize = true;
+                int PicWidth = 102;
+                int PicHeight = 127;
 
-                PicBox.Location = new Point(x, y);
-                MemberLabel.Location = new Point(x, y + PicBox.Height);
+                int MaxColumns = panelResults.Width / (PicWidth + ColumnSpacing);
+                int x = 10;
+                int y = 0;
 
-                panelResults.Controls.Add(PicBox);
-                panelResults.Controls.Add(MemberLabel);
-                x += PicBox.Width + ColumnSpacing;
-                ColumnCount++;
-                if(ColumnCount == MaxColumns)
+                int ColumnCount = 0;
+                int LoadCount = 0;
+                int MaxLoadCount;
+                if(!int.TryParse(cmboMaxResults.Text, out MaxLoadCount))
                 {
-                    x = 10;
-                    y += PicBox.Height + RowSpacing + LabelHeight;
-                    ColumnCount = 0;
+                    MaxLoadCount = 50;
                 }
-                
-            }
+                foreach (Member SearchResult in SearchResults)
+                {
+
+                    PictureBox PicBox = new PictureBox();
+                    PicBox.Visible = true;
+                    PicBox.Height = PicHeight;
+                    PicBox.Width = PicWidth;
+
+                    PicBox.SizeMode = PictureBoxSizeMode.StretchImage;
+                    PicBox.Image = SearchResult.ProfilePicture;
+                    PicBox.BorderStyle = BorderStyle.FixedSingle;
+
+                    PicBox.Name = SearchResult.Id.ToString();
+                    PicBox.Click += new EventHandler(PicBox_OnClick);
+
+                    Label MemberLabel = new Label();
+                    MemberLabel.Visible = true;
+                    MemberLabel.Text = Regex.Replace(SearchResult.FirstName +
+                        ' ' + SearchResult.LastName, "[ ], {2,}", " ");
+                    MemberLabel.Width = PicBox.Width;
+                    MemberLabel.Height = LabelHeight;
+                    MemberLabel.AutoSize = true;
+
+                    PicBox.Location = new Point(x, y);
+                    MemberLabel.Location = new Point(x, y + PicBox.Height);
+
+                    panelResults.Controls.Add(PicBox);
+                    panelResults.Controls.Add(MemberLabel);
+                    x += PicBox.Width + ColumnSpacing;
+                    ColumnCount++;
+                    if (ColumnCount == MaxColumns)
+                    {
+                        x = 10;
+                        y += PicBox.Height + RowSpacing + LabelHeight;
+                        ColumnCount = 0;
+                    }
+                    LoadCount++;
+                    if (LoadCount >= MaxLoadCount)
+                    {
+                        break;
+                    }
+                }
             }));
         }
 
@@ -426,7 +418,38 @@ namespace Deacon_Database_Manager.GUI
             }
             else
             {
-                LoadPictures();
+                DataManager DM = new DataManager();
+                List<Deacon> Deacons = DM.GetAllDeacons();
+                Deacons.Sort();
+                this.Invoke(new MethodInvoker(delegate
+                {
+                    cmboDeacon.DataSource = Deacons.Select(x => new
+                    {
+                        Text = (x.FirstName + ' ' + x.LastName).Trim(),
+                        Value = x.Id
+                    }).ToList();
+                    cmboDeacon.DisplayMember = "Text";
+                    cmboDeacon.ValueMember = "Value";
+                    cmboDeacon.SelectedIndex = -1;
+                }));
+
+                AllMembers = DM.GetAllMembers();
+                AllMembers.Sort();
+
+                this.Invoke(new MethodInvoker(delegate 
+                { 
+                    comboRelatives.DataSource = AllMembers.Select(x => new
+                    {
+                        Text = Regex.Replace(x.FirstName + ' ' + x.LastName, "[ ]{2,}", " ").Trim(),
+                        Value = x.Id
+                    }).ToList();
+                    comboRelatives.DisplayMember = "Text";
+                    comboRelatives.ValueMember = "Value";
+                    comboRelatives.SelectedIndex = -1;
+                    cmboMaxResults.SelectedIndex = 4;
+                }));
+           
+                SetFilter();
             }
         }
 
