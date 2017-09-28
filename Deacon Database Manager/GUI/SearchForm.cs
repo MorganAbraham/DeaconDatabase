@@ -241,7 +241,8 @@ namespace Deacon_Database_Manager.GUI
             Grid.MultiSelect = false;
             Grid.DoubleClick += new EventHandler(Grid_DoubleClick);
             Grid.Visible = true;
-            Grid.Size = panelResults.Size;
+            //Grid.Size = panelResults.Size;
+            Grid.Dock = DockStyle.Fill;
             Grid.ColumnCount = 6;
             Grid.ReadOnly = true;
             Grid.AllowUserToDeleteRows = false;
@@ -253,11 +254,12 @@ namespace Deacon_Database_Manager.GUI
             Grid.Columns[4].HeaderText = "Home Address";
             Grid.Columns[5].HeaderText = "Anniversary Date";
 
-            int ColumnWidth = Grid.Width / Grid.ColumnCount;
-            for(int i = 0; i < Grid.ColumnCount; i++)
-            {
-                Grid.Columns[i].Width = ColumnWidth;
-            }
+            //int ColumnWidth = panelResults.Width  / Grid.ColumnCount;
+            //for(int i = 0; i < Grid.ColumnCount; i++)
+            //{
+            //    Grid.Columns[i].Width = ColumnWidth;
+            //}
+            Grid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 
             Grid.Columns[0].Visible = false;
             Grid.Columns[0].Width = 0;

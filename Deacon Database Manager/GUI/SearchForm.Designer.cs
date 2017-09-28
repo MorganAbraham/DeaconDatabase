@@ -37,19 +37,30 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.panelFilter = new System.Windows.Forms.Panel();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.ckRelatives = new System.Windows.Forms.CheckBox();
+            this.panelRelatives = new System.Windows.Forms.Panel();
+            this.label16 = new System.Windows.Forms.Label();
+            this.comboRelatives = new System.Windows.Forms.ComboBox();
+            this.ckRegionFilter = new System.Windows.Forms.CheckBox();
+            this.panelRegion = new System.Windows.Forms.Panel();
+            this.label15 = new System.Windows.Forms.Label();
+            this.comboRegion = new System.Windows.Forms.ComboBox();
+            this.panelMembershipFilter = new System.Windows.Forms.Panel();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.trackMembership = new System.Windows.Forms.TrackBar();
             this.ckMembershipFilter = new System.Windows.Forms.CheckBox();
-            this.ckAgeFilter = new System.Windows.Forms.CheckBox();
-            this.ckAddressFilter = new System.Windows.Forms.CheckBox();
-            this.ckBirthdateFilter = new System.Windows.Forms.CheckBox();
-            this.ckDeaconFilter = new System.Windows.Forms.CheckBox();
             this.ckNameFilter = new System.Windows.Forms.CheckBox();
+            this.ckAgeFilter = new System.Windows.Forms.CheckBox();
             this.panelMemberName = new System.Windows.Forms.Panel();
-            this.panelDeacon = new System.Windows.Forms.Panel();
-            this.label9 = new System.Windows.Forms.Label();
-            this.cmboDeacon = new System.Windows.Forms.ComboBox();
-            this.panelBirthMonth = new System.Windows.Forms.Panel();
-            this.label6 = new System.Windows.Forms.Label();
-            this.cmboBirthMonth = new System.Windows.Forms.ComboBox();
+            this.panelAge = new System.Windows.Forms.Panel();
+            this.label2 = new System.Windows.Forms.Label();
+            this.txtMaxAge = new System.Windows.Forms.NumericUpDown();
+            this.txtMinAge = new System.Windows.Forms.NumericUpDown();
+            this.ckAddressFilter = new System.Windows.Forms.CheckBox();
+            this.ckDeaconFilter = new System.Windows.Forms.CheckBox();
             this.panelAddress = new System.Windows.Forms.Panel();
             this.label12 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
@@ -58,42 +69,31 @@
             this.trackDistance = new System.Windows.Forms.TrackBar();
             this.txtAddress = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
-            this.panelAge = new System.Windows.Forms.Panel();
-            this.label2 = new System.Windows.Forms.Label();
-            this.txtMaxAge = new System.Windows.Forms.NumericUpDown();
-            this.txtMinAge = new System.Windows.Forms.NumericUpDown();
-            this.panelMembershipFilter = new System.Windows.Forms.Panel();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label13 = new System.Windows.Forms.Label();
-            this.label14 = new System.Windows.Forms.Label();
-            this.trackMembership = new System.Windows.Forms.TrackBar();
+            this.panelBirthMonth = new System.Windows.Forms.Panel();
+            this.label6 = new System.Windows.Forms.Label();
+            this.cmboBirthMonth = new System.Windows.Forms.ComboBox();
+            this.ckBirthdateFilter = new System.Windows.Forms.CheckBox();
+            this.panelDeacon = new System.Windows.Forms.Panel();
+            this.label9 = new System.Windows.Forms.Label();
+            this.cmboDeacon = new System.Windows.Forms.ComboBox();
             this.btnSetFilter = new System.Windows.Forms.Button();
             this.btnSlideDrawer = new System.Windows.Forms.Button();
             this.panelFilterDisplay = new System.Windows.Forms.Panel();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.panelRegion = new System.Windows.Forms.Panel();
-            this.label15 = new System.Windows.Forms.Label();
-            this.comboRegion = new System.Windows.Forms.ComboBox();
-            this.ckRegionFilter = new System.Windows.Forms.CheckBox();
-            this.panelRelatives = new System.Windows.Forms.Panel();
-            this.label16 = new System.Windows.Forms.Label();
-            this.comboRelatives = new System.Windows.Forms.ComboBox();
-            this.ckRelatives = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.panelFilter.SuspendLayout();
+            this.tableLayoutPanel1.SuspendLayout();
+            this.panelRelatives.SuspendLayout();
+            this.panelRegion.SuspendLayout();
+            this.panelMembershipFilter.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackMembership)).BeginInit();
             this.panelMemberName.SuspendLayout();
-            this.panelDeacon.SuspendLayout();
-            this.panelBirthMonth.SuspendLayout();
-            this.panelAddress.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackDistance)).BeginInit();
             this.panelAge.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.txtMaxAge)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtMinAge)).BeginInit();
-            this.panelMembershipFilter.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackMembership)).BeginInit();
-            this.tableLayoutPanel1.SuspendLayout();
-            this.panelRegion.SuspendLayout();
-            this.panelRelatives.SuspendLayout();
+            this.panelAddress.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackDistance)).BeginInit();
+            this.panelBirthMonth.SuspendLayout();
+            this.panelDeacon.SuspendLayout();
             this.SuspendLayout();
             // 
             // panelResults
@@ -123,6 +123,7 @@
             // 
             this.radioListView.Appearance = System.Windows.Forms.Appearance.Button;
             this.radioListView.AutoSize = true;
+            this.radioListView.Checked = true;
             this.radioListView.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.radioListView.Location = new System.Drawing.Point(92, 18);
             this.radioListView.Name = "radioListView";
@@ -137,13 +138,11 @@
             // 
             this.radioPictureView.Appearance = System.Windows.Forms.Appearance.Button;
             this.radioPictureView.AutoSize = true;
-            this.radioPictureView.Checked = true;
             this.radioPictureView.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.radioPictureView.Location = new System.Drawing.Point(6, 18);
             this.radioPictureView.Name = "radioPictureView";
             this.radioPictureView.Size = new System.Drawing.Size(76, 23);
             this.radioPictureView.TabIndex = 4;
-            this.radioPictureView.TabStop = true;
             this.radioPictureView.Text = "Picture View";
             this.radioPictureView.UseVisualStyleBackColor = true;
             this.radioPictureView.CheckedChanged += new System.EventHandler(this.radioPictureView_CheckedChanged);
@@ -196,6 +195,191 @@
             this.panelFilter.TabIndex = 14;
             this.panelFilter.Paint += new System.Windows.Forms.PaintEventHandler(this.panel2_Paint);
             // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.AutoScroll = true;
+            this.tableLayoutPanel1.ColumnCount = 2;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 90F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10F));
+            this.tableLayoutPanel1.Controls.Add(this.ckRelatives, 1, 7);
+            this.tableLayoutPanel1.Controls.Add(this.panelRelatives, 0, 7);
+            this.tableLayoutPanel1.Controls.Add(this.ckRegionFilter, 1, 2);
+            this.tableLayoutPanel1.Controls.Add(this.panelRegion, 0, 2);
+            this.tableLayoutPanel1.Controls.Add(this.panelMembershipFilter, 0, 6);
+            this.tableLayoutPanel1.Controls.Add(this.ckMembershipFilter, 1, 6);
+            this.tableLayoutPanel1.Controls.Add(this.ckNameFilter, 1, 0);
+            this.tableLayoutPanel1.Controls.Add(this.ckAgeFilter, 1, 5);
+            this.tableLayoutPanel1.Controls.Add(this.panelMemberName, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.panelAge, 0, 5);
+            this.tableLayoutPanel1.Controls.Add(this.ckAddressFilter, 1, 4);
+            this.tableLayoutPanel1.Controls.Add(this.ckDeaconFilter, 1, 1);
+            this.tableLayoutPanel1.Controls.Add(this.panelAddress, 0, 4);
+            this.tableLayoutPanel1.Controls.Add(this.panelBirthMonth, 0, 3);
+            this.tableLayoutPanel1.Controls.Add(this.ckBirthdateFilter, 1, 3);
+            this.tableLayoutPanel1.Controls.Add(this.panelDeacon, 0, 1);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 3);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 8;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(273, 528);
+            this.tableLayoutPanel1.TabIndex = 0;
+            // 
+            // ckRelatives
+            // 
+            this.ckRelatives.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.ckRelatives.AutoSize = true;
+            this.ckRelatives.Location = new System.Drawing.Point(248, 497);
+            this.ckRelatives.Name = "ckRelatives";
+            this.ckRelatives.Size = new System.Drawing.Size(22, 47);
+            this.ckRelatives.TabIndex = 30;
+            this.ckRelatives.UseVisualStyleBackColor = true;
+            this.ckRelatives.CheckedChanged += new System.EventHandler(this.ckRelatives_CheckedChanged);
+            // 
+            // panelRelatives
+            // 
+            this.panelRelatives.AutoSize = true;
+            this.panelRelatives.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.panelRelatives.Controls.Add(this.label16);
+            this.panelRelatives.Controls.Add(this.comboRelatives);
+            this.panelRelatives.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelRelatives.Enabled = false;
+            this.panelRelatives.Location = new System.Drawing.Point(3, 497);
+            this.panelRelatives.Name = "panelRelatives";
+            this.panelRelatives.Size = new System.Drawing.Size(239, 47);
+            this.panelRelatives.TabIndex = 31;
+            this.panelRelatives.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint_1);
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(15, 7);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(63, 13);
+            this.label16.TabIndex = 22;
+            this.label16.Text = "Related To:";
+            // 
+            // comboRelatives
+            // 
+            this.comboRelatives.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboRelatives.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.comboRelatives.FormattingEnabled = true;
+            this.comboRelatives.Location = new System.Drawing.Point(15, 23);
+            this.comboRelatives.Name = "comboRelatives";
+            this.comboRelatives.Size = new System.Drawing.Size(185, 21);
+            this.comboRelatives.TabIndex = 21;
+            // 
+            // ckRegionFilter
+            // 
+            this.ckRegionFilter.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.ckRegionFilter.AutoSize = true;
+            this.ckRegionFilter.Location = new System.Drawing.Point(248, 106);
+            this.ckRegionFilter.Name = "ckRegionFilter";
+            this.ckRegionFilter.Size = new System.Drawing.Size(22, 47);
+            this.ckRegionFilter.TabIndex = 30;
+            this.ckRegionFilter.UseVisualStyleBackColor = true;
+            this.ckRegionFilter.CheckedChanged += new System.EventHandler(this.ckRegionFilter_CheckedChanged);
+            // 
+            // panelRegion
+            // 
+            this.panelRegion.AutoSize = true;
+            this.panelRegion.Controls.Add(this.label15);
+            this.panelRegion.Controls.Add(this.comboRegion);
+            this.panelRegion.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelRegion.Enabled = false;
+            this.panelRegion.Location = new System.Drawing.Point(3, 106);
+            this.panelRegion.Name = "panelRegion";
+            this.panelRegion.Size = new System.Drawing.Size(239, 47);
+            this.panelRegion.TabIndex = 1;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(15, 7);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(41, 13);
+            this.label15.TabIndex = 22;
+            this.label15.Text = "Region";
+            // 
+            // comboRegion
+            // 
+            this.comboRegion.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.comboRegion.FormattingEnabled = true;
+            this.comboRegion.Location = new System.Drawing.Point(15, 23);
+            this.comboRegion.Name = "comboRegion";
+            this.comboRegion.Size = new System.Drawing.Size(185, 21);
+            this.comboRegion.TabIndex = 21;
+            // 
+            // panelMembershipFilter
+            // 
+            this.panelMembershipFilter.AutoSize = true;
+            this.panelMembershipFilter.Controls.Add(this.label4);
+            this.panelMembershipFilter.Controls.Add(this.label13);
+            this.panelMembershipFilter.Controls.Add(this.label14);
+            this.panelMembershipFilter.Controls.Add(this.trackMembership);
+            this.panelMembershipFilter.Controls.Add(this.label5);
+            this.panelMembershipFilter.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelMembershipFilter.Enabled = false;
+            this.panelMembershipFilter.Location = new System.Drawing.Point(3, 401);
+            this.panelMembershipFilter.Name = "panelMembershipFilter";
+            this.panelMembershipFilter.Size = new System.Drawing.Size(239, 90);
+            this.panelMembershipFilter.TabIndex = 23;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(98, 74);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(19, 13);
+            this.label4.TabIndex = 25;
+            this.label4.Text = "50";
+            this.label4.Click += new System.EventHandler(this.label4_Click);
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label13.Location = new System.Drawing.Point(173, 74);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(25, 13);
+            this.label13.TabIndex = 24;
+            this.label13.Text = "100";
+            this.label13.Click += new System.EventHandler(this.label13_Click);
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label14.Location = new System.Drawing.Point(24, 74);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(16, 13);
+            this.label14.TabIndex = 23;
+            this.label14.Text = "0 ";
+            this.label14.Click += new System.EventHandler(this.label14_Click);
+            // 
+            // trackMembership
+            // 
+            this.trackMembership.Location = new System.Drawing.Point(16, 42);
+            this.trackMembership.Maximum = 100;
+            this.trackMembership.Name = "trackMembership";
+            this.trackMembership.Size = new System.Drawing.Size(183, 45);
+            this.trackMembership.TabIndex = 18;
+            this.trackMembership.TickFrequency = 10;
+            this.trackMembership.Scroll += new System.EventHandler(this.trackMembership_Scroll);
+            // 
             // ckMembershipFilter
             // 
             this.ckMembershipFilter.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -208,58 +392,6 @@
             this.ckMembershipFilter.TabIndex = 29;
             this.ckMembershipFilter.UseVisualStyleBackColor = true;
             this.ckMembershipFilter.CheckedChanged += new System.EventHandler(this.ckMembershipFilter_CheckedChanged);
-            // 
-            // ckAgeFilter
-            // 
-            this.ckAgeFilter.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.ckAgeFilter.AutoSize = true;
-            this.ckAgeFilter.Location = new System.Drawing.Point(248, 340);
-            this.ckAgeFilter.Name = "ckAgeFilter";
-            this.ckAgeFilter.Size = new System.Drawing.Size(22, 55);
-            this.ckAgeFilter.TabIndex = 28;
-            this.ckAgeFilter.UseVisualStyleBackColor = true;
-            this.ckAgeFilter.CheckedChanged += new System.EventHandler(this.ckAgeFilter_CheckedChanged);
-            // 
-            // ckAddressFilter
-            // 
-            this.ckAddressFilter.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.ckAddressFilter.AutoSize = true;
-            this.ckAddressFilter.Location = new System.Drawing.Point(248, 214);
-            this.ckAddressFilter.Name = "ckAddressFilter";
-            this.ckAddressFilter.Size = new System.Drawing.Size(22, 120);
-            this.ckAddressFilter.TabIndex = 27;
-            this.ckAddressFilter.UseVisualStyleBackColor = true;
-            this.ckAddressFilter.CheckedChanged += new System.EventHandler(this.ckAddressFilter_CheckedChanged);
-            // 
-            // ckBirthdateFilter
-            // 
-            this.ckBirthdateFilter.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.ckBirthdateFilter.AutoSize = true;
-            this.ckBirthdateFilter.Location = new System.Drawing.Point(248, 159);
-            this.ckBirthdateFilter.Name = "ckBirthdateFilter";
-            this.ckBirthdateFilter.Size = new System.Drawing.Size(22, 49);
-            this.ckBirthdateFilter.TabIndex = 26;
-            this.ckBirthdateFilter.UseVisualStyleBackColor = true;
-            this.ckBirthdateFilter.CheckedChanged += new System.EventHandler(this.ckBirthdateFilter_CheckedChanged);
-            // 
-            // ckDeaconFilter
-            // 
-            this.ckDeaconFilter.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.ckDeaconFilter.AutoSize = true;
-            this.ckDeaconFilter.Location = new System.Drawing.Point(248, 53);
-            this.ckDeaconFilter.Name = "ckDeaconFilter";
-            this.ckDeaconFilter.Size = new System.Drawing.Size(22, 47);
-            this.ckDeaconFilter.TabIndex = 25;
-            this.ckDeaconFilter.UseVisualStyleBackColor = true;
-            this.ckDeaconFilter.CheckedChanged += new System.EventHandler(this.ckDeaconFilter_CheckedChanged);
             // 
             // ckNameFilter
             // 
@@ -274,6 +406,19 @@
             this.ckNameFilter.UseVisualStyleBackColor = true;
             this.ckNameFilter.CheckedChanged += new System.EventHandler(this.ckNameFilter_CheckedChanged);
             // 
+            // ckAgeFilter
+            // 
+            this.ckAgeFilter.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.ckAgeFilter.AutoSize = true;
+            this.ckAgeFilter.Location = new System.Drawing.Point(248, 340);
+            this.ckAgeFilter.Name = "ckAgeFilter";
+            this.ckAgeFilter.Size = new System.Drawing.Size(22, 55);
+            this.ckAgeFilter.TabIndex = 28;
+            this.ckAgeFilter.UseVisualStyleBackColor = true;
+            this.ckAgeFilter.CheckedChanged += new System.EventHandler(this.ckAgeFilter_CheckedChanged);
+            // 
             // panelMemberName
             // 
             this.panelMemberName.AutoSize = true;
@@ -286,80 +431,87 @@
             this.panelMemberName.Size = new System.Drawing.Size(239, 44);
             this.panelMemberName.TabIndex = 0;
             // 
-            // panelDeacon
+            // panelAge
             // 
-            this.panelDeacon.AutoSize = true;
-            this.panelDeacon.Controls.Add(this.label9);
-            this.panelDeacon.Controls.Add(this.cmboDeacon);
-            this.panelDeacon.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelDeacon.Enabled = false;
-            this.panelDeacon.Location = new System.Drawing.Point(3, 53);
-            this.panelDeacon.Name = "panelDeacon";
-            this.panelDeacon.Size = new System.Drawing.Size(239, 47);
-            this.panelDeacon.TabIndex = 0;
+            this.panelAge.AutoSize = true;
+            this.panelAge.Controls.Add(this.label1);
+            this.panelAge.Controls.Add(this.label2);
+            this.panelAge.Controls.Add(this.txtMaxAge);
+            this.panelAge.Controls.Add(this.txtMinAge);
+            this.panelAge.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelAge.Enabled = false;
+            this.panelAge.Location = new System.Drawing.Point(3, 340);
+            this.panelAge.Name = "panelAge";
+            this.panelAge.Size = new System.Drawing.Size(239, 55);
+            this.panelAge.TabIndex = 0;
             // 
-            // label9
+            // label2
             // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(15, 7);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(45, 13);
-            this.label9.TabIndex = 22;
-            this.label9.Text = "Deacon";
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(112, 13);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(73, 13);
+            this.label2.TabIndex = 7;
+            this.label2.Text = "Maximum Age";
             // 
-            // cmboDeacon
+            // txtMaxAge
             // 
-            this.cmboDeacon.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmboDeacon.FormattingEnabled = true;
-            this.cmboDeacon.Location = new System.Drawing.Point(15, 23);
-            this.cmboDeacon.Name = "cmboDeacon";
-            this.cmboDeacon.Size = new System.Drawing.Size(185, 21);
-            this.cmboDeacon.TabIndex = 21;
-            this.cmboDeacon.SelectedIndexChanged += new System.EventHandler(this.cmboDeacon_SelectedIndexChanged);
+            this.txtMaxAge.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtMaxAge.Location = new System.Drawing.Point(115, 32);
+            this.txtMaxAge.Maximum = new decimal(new int[] {
+            150,
+            0,
+            0,
+            0});
+            this.txtMaxAge.Name = "txtMaxAge";
+            this.txtMaxAge.Size = new System.Drawing.Size(77, 20);
+            this.txtMaxAge.TabIndex = 5;
+            this.txtMaxAge.Value = new decimal(new int[] {
+            150,
+            0,
+            0,
+            0});
+            this.txtMaxAge.ValueChanged += new System.EventHandler(this.txtMaxAge_ValueChanged);
             // 
-            // panelBirthMonth
+            // txtMinAge
             // 
-            this.panelBirthMonth.AutoSize = true;
-            this.panelBirthMonth.Controls.Add(this.label6);
-            this.panelBirthMonth.Controls.Add(this.cmboBirthMonth);
-            this.panelBirthMonth.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelBirthMonth.Enabled = false;
-            this.panelBirthMonth.Location = new System.Drawing.Point(3, 159);
-            this.panelBirthMonth.Name = "panelBirthMonth";
-            this.panelBirthMonth.Size = new System.Drawing.Size(239, 49);
-            this.panelBirthMonth.TabIndex = 0;
+            this.txtMinAge.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtMinAge.Location = new System.Drawing.Point(16, 32);
+            this.txtMinAge.Maximum = new decimal(new int[] {
+            150,
+            0,
+            0,
+            0});
+            this.txtMinAge.Name = "txtMinAge";
+            this.txtMinAge.Size = new System.Drawing.Size(77, 20);
+            this.txtMinAge.TabIndex = 4;
+            this.txtMinAge.ValueChanged += new System.EventHandler(this.txtMinAge_ValueChanged);
             // 
-            // label6
+            // ckAddressFilter
             // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(12, 5);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(61, 13);
-            this.label6.TabIndex = 16;
-            this.label6.Text = "Birth Month";
+            this.ckAddressFilter.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.ckAddressFilter.AutoSize = true;
+            this.ckAddressFilter.Location = new System.Drawing.Point(248, 214);
+            this.ckAddressFilter.Name = "ckAddressFilter";
+            this.ckAddressFilter.Size = new System.Drawing.Size(22, 120);
+            this.ckAddressFilter.TabIndex = 27;
+            this.ckAddressFilter.UseVisualStyleBackColor = true;
+            this.ckAddressFilter.CheckedChanged += new System.EventHandler(this.ckAddressFilter_CheckedChanged);
             // 
-            // cmboBirthMonth
+            // ckDeaconFilter
             // 
-            this.cmboBirthMonth.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmboBirthMonth.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmboBirthMonth.FormattingEnabled = true;
-            this.cmboBirthMonth.Items.AddRange(new object[] {
-            "January",
-            "February",
-            "March",
-            "April",
-            "June",
-            "July",
-            "August",
-            "September",
-            "October",
-            "November",
-            "December"});
-            this.cmboBirthMonth.Location = new System.Drawing.Point(15, 25);
-            this.cmboBirthMonth.Name = "cmboBirthMonth";
-            this.cmboBirthMonth.Size = new System.Drawing.Size(183, 21);
-            this.cmboBirthMonth.TabIndex = 15;
-            this.cmboBirthMonth.SelectedIndexChanged += new System.EventHandler(this.cmboBirthMonth_SelectedIndexChanged);
+            this.ckDeaconFilter.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.ckDeaconFilter.AutoSize = true;
+            this.ckDeaconFilter.Location = new System.Drawing.Point(248, 53);
+            this.ckDeaconFilter.Name = "ckDeaconFilter";
+            this.ckDeaconFilter.Size = new System.Drawing.Size(22, 47);
+            this.ckDeaconFilter.TabIndex = 25;
+            this.ckDeaconFilter.UseVisualStyleBackColor = true;
+            this.ckDeaconFilter.CheckedChanged += new System.EventHandler(this.ckDeaconFilter_CheckedChanged);
             // 
             // panelAddress
             // 
@@ -448,119 +600,93 @@
             this.label8.TabIndex = 20;
             this.label8.Text = "Distance From Address (In Miles)";
             // 
-            // panelAge
+            // panelBirthMonth
             // 
-            this.panelAge.AutoSize = true;
-            this.panelAge.Controls.Add(this.label1);
-            this.panelAge.Controls.Add(this.label2);
-            this.panelAge.Controls.Add(this.txtMaxAge);
-            this.panelAge.Controls.Add(this.txtMinAge);
-            this.panelAge.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelAge.Enabled = false;
-            this.panelAge.Location = new System.Drawing.Point(3, 340);
-            this.panelAge.Name = "panelAge";
-            this.panelAge.Size = new System.Drawing.Size(239, 55);
-            this.panelAge.TabIndex = 0;
+            this.panelBirthMonth.AutoSize = true;
+            this.panelBirthMonth.Controls.Add(this.label6);
+            this.panelBirthMonth.Controls.Add(this.cmboBirthMonth);
+            this.panelBirthMonth.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelBirthMonth.Enabled = false;
+            this.panelBirthMonth.Location = new System.Drawing.Point(3, 159);
+            this.panelBirthMonth.Name = "panelBirthMonth";
+            this.panelBirthMonth.Size = new System.Drawing.Size(239, 49);
+            this.panelBirthMonth.TabIndex = 0;
             // 
-            // label2
+            // label6
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(112, 13);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(73, 13);
-            this.label2.TabIndex = 7;
-            this.label2.Text = "Maximum Age";
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(12, 5);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(61, 13);
+            this.label6.TabIndex = 16;
+            this.label6.Text = "Birth Month";
             // 
-            // txtMaxAge
+            // cmboBirthMonth
             // 
-            this.txtMaxAge.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtMaxAge.Location = new System.Drawing.Point(115, 32);
-            this.txtMaxAge.Maximum = new decimal(new int[] {
-            150,
-            0,
-            0,
-            0});
-            this.txtMaxAge.Name = "txtMaxAge";
-            this.txtMaxAge.Size = new System.Drawing.Size(77, 20);
-            this.txtMaxAge.TabIndex = 5;
-            this.txtMaxAge.Value = new decimal(new int[] {
-            150,
-            0,
-            0,
-            0});
-            this.txtMaxAge.ValueChanged += new System.EventHandler(this.txtMaxAge_ValueChanged);
+            this.cmboBirthMonth.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmboBirthMonth.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmboBirthMonth.FormattingEnabled = true;
+            this.cmboBirthMonth.Items.AddRange(new object[] {
+            "January",
+            "February",
+            "March",
+            "April",
+            "June",
+            "July",
+            "August",
+            "September",
+            "October",
+            "November",
+            "December"});
+            this.cmboBirthMonth.Location = new System.Drawing.Point(15, 25);
+            this.cmboBirthMonth.Name = "cmboBirthMonth";
+            this.cmboBirthMonth.Size = new System.Drawing.Size(183, 21);
+            this.cmboBirthMonth.TabIndex = 15;
+            this.cmboBirthMonth.SelectedIndexChanged += new System.EventHandler(this.cmboBirthMonth_SelectedIndexChanged);
             // 
-            // txtMinAge
+            // ckBirthdateFilter
             // 
-            this.txtMinAge.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtMinAge.Location = new System.Drawing.Point(16, 32);
-            this.txtMinAge.Maximum = new decimal(new int[] {
-            150,
-            0,
-            0,
-            0});
-            this.txtMinAge.Name = "txtMinAge";
-            this.txtMinAge.Size = new System.Drawing.Size(77, 20);
-            this.txtMinAge.TabIndex = 4;
-            this.txtMinAge.ValueChanged += new System.EventHandler(this.txtMinAge_ValueChanged);
+            this.ckBirthdateFilter.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.ckBirthdateFilter.AutoSize = true;
+            this.ckBirthdateFilter.Location = new System.Drawing.Point(248, 159);
+            this.ckBirthdateFilter.Name = "ckBirthdateFilter";
+            this.ckBirthdateFilter.Size = new System.Drawing.Size(22, 49);
+            this.ckBirthdateFilter.TabIndex = 26;
+            this.ckBirthdateFilter.UseVisualStyleBackColor = true;
+            this.ckBirthdateFilter.CheckedChanged += new System.EventHandler(this.ckBirthdateFilter_CheckedChanged);
             // 
-            // panelMembershipFilter
+            // panelDeacon
             // 
-            this.panelMembershipFilter.AutoSize = true;
-            this.panelMembershipFilter.Controls.Add(this.label4);
-            this.panelMembershipFilter.Controls.Add(this.label13);
-            this.panelMembershipFilter.Controls.Add(this.label14);
-            this.panelMembershipFilter.Controls.Add(this.trackMembership);
-            this.panelMembershipFilter.Controls.Add(this.label5);
-            this.panelMembershipFilter.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelMembershipFilter.Enabled = false;
-            this.panelMembershipFilter.Location = new System.Drawing.Point(3, 401);
-            this.panelMembershipFilter.Name = "panelMembershipFilter";
-            this.panelMembershipFilter.Size = new System.Drawing.Size(239, 90);
-            this.panelMembershipFilter.TabIndex = 23;
+            this.panelDeacon.AutoSize = true;
+            this.panelDeacon.Controls.Add(this.label9);
+            this.panelDeacon.Controls.Add(this.cmboDeacon);
+            this.panelDeacon.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelDeacon.Enabled = false;
+            this.panelDeacon.Location = new System.Drawing.Point(3, 53);
+            this.panelDeacon.Name = "panelDeacon";
+            this.panelDeacon.Size = new System.Drawing.Size(239, 47);
+            this.panelDeacon.TabIndex = 0;
             // 
-            // label4
+            // label9
             // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(98, 74);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(19, 13);
-            this.label4.TabIndex = 25;
-            this.label4.Text = "50";
-            this.label4.Click += new System.EventHandler(this.label4_Click);
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(15, 7);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(45, 13);
+            this.label9.TabIndex = 22;
+            this.label9.Text = "Deacon";
             // 
-            // label13
+            // cmboDeacon
             // 
-            this.label13.AutoSize = true;
-            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.Location = new System.Drawing.Point(173, 74);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(25, 13);
-            this.label13.TabIndex = 24;
-            this.label13.Text = "100";
-            this.label13.Click += new System.EventHandler(this.label13_Click);
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label14.Location = new System.Drawing.Point(24, 74);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(16, 13);
-            this.label14.TabIndex = 23;
-            this.label14.Text = "0 ";
-            this.label14.Click += new System.EventHandler(this.label14_Click);
-            // 
-            // trackMembership
-            // 
-            this.trackMembership.Location = new System.Drawing.Point(16, 42);
-            this.trackMembership.Maximum = 100;
-            this.trackMembership.Name = "trackMembership";
-            this.trackMembership.Size = new System.Drawing.Size(183, 45);
-            this.trackMembership.TabIndex = 18;
-            this.trackMembership.TickFrequency = 10;
-            this.trackMembership.Scroll += new System.EventHandler(this.trackMembership_Scroll);
+            this.cmboDeacon.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmboDeacon.FormattingEnabled = true;
+            this.cmboDeacon.Location = new System.Drawing.Point(15, 23);
+            this.cmboDeacon.Name = "cmboDeacon";
+            this.cmboDeacon.Size = new System.Drawing.Size(185, 21);
+            this.cmboDeacon.TabIndex = 21;
+            this.cmboDeacon.SelectedIndexChanged += new System.EventHandler(this.cmboDeacon_SelectedIndexChanged);
             // 
             // btnSetFilter
             // 
@@ -591,133 +717,6 @@
             this.panelFilterDisplay.Size = new System.Drawing.Size(355, 92);
             this.panelFilterDisplay.TabIndex = 16;
             // 
-            // tableLayoutPanel1
-            // 
-            this.tableLayoutPanel1.AutoScroll = true;
-            this.tableLayoutPanel1.ColumnCount = 2;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 90F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.tableLayoutPanel1.Controls.Add(this.ckRelatives, 1, 7);
-            this.tableLayoutPanel1.Controls.Add(this.panelRelatives, 0, 7);
-            this.tableLayoutPanel1.Controls.Add(this.ckRegionFilter, 1, 2);
-            this.tableLayoutPanel1.Controls.Add(this.panelRegion, 0, 2);
-            this.tableLayoutPanel1.Controls.Add(this.panelMembershipFilter, 0, 6);
-            this.tableLayoutPanel1.Controls.Add(this.ckMembershipFilter, 1, 6);
-            this.tableLayoutPanel1.Controls.Add(this.ckNameFilter, 1, 0);
-            this.tableLayoutPanel1.Controls.Add(this.ckAgeFilter, 1, 5);
-            this.tableLayoutPanel1.Controls.Add(this.panelMemberName, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.panelAge, 0, 5);
-            this.tableLayoutPanel1.Controls.Add(this.ckAddressFilter, 1, 4);
-            this.tableLayoutPanel1.Controls.Add(this.ckDeaconFilter, 1, 1);
-            this.tableLayoutPanel1.Controls.Add(this.panelAddress, 0, 4);
-            this.tableLayoutPanel1.Controls.Add(this.panelBirthMonth, 0, 3);
-            this.tableLayoutPanel1.Controls.Add(this.ckBirthdateFilter, 1, 3);
-            this.tableLayoutPanel1.Controls.Add(this.panelDeacon, 0, 1);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 3);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 8;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(273, 528);
-            this.tableLayoutPanel1.TabIndex = 0;
-            // 
-            // panelRegion
-            // 
-            this.panelRegion.AutoSize = true;
-            this.panelRegion.Controls.Add(this.label15);
-            this.panelRegion.Controls.Add(this.comboRegion);
-            this.panelRegion.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelRegion.Enabled = false;
-            this.panelRegion.Location = new System.Drawing.Point(3, 106);
-            this.panelRegion.Name = "panelRegion";
-            this.panelRegion.Size = new System.Drawing.Size(239, 47);
-            this.panelRegion.TabIndex = 1;
-            // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(15, 7);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(41, 13);
-            this.label15.TabIndex = 22;
-            this.label15.Text = "Region";
-            // 
-            // comboRegion
-            // 
-            this.comboRegion.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.comboRegion.FormattingEnabled = true;
-            this.comboRegion.Location = new System.Drawing.Point(15, 23);
-            this.comboRegion.Name = "comboRegion";
-            this.comboRegion.Size = new System.Drawing.Size(185, 21);
-            this.comboRegion.TabIndex = 21;
-            // 
-            // ckRegionFilter
-            // 
-            this.ckRegionFilter.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.ckRegionFilter.AutoSize = true;
-            this.ckRegionFilter.Location = new System.Drawing.Point(248, 106);
-            this.ckRegionFilter.Name = "ckRegionFilter";
-            this.ckRegionFilter.Size = new System.Drawing.Size(22, 47);
-            this.ckRegionFilter.TabIndex = 30;
-            this.ckRegionFilter.UseVisualStyleBackColor = true;
-            this.ckRegionFilter.CheckedChanged += new System.EventHandler(this.ckRegionFilter_CheckedChanged);
-            // 
-            // panelRelatives
-            // 
-            this.panelRelatives.AutoSize = true;
-            this.panelRelatives.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.panelRelatives.Controls.Add(this.label16);
-            this.panelRelatives.Controls.Add(this.comboRelatives);
-            this.panelRelatives.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelRelatives.Enabled = false;
-            this.panelRelatives.Location = new System.Drawing.Point(3, 497);
-            this.panelRelatives.Name = "panelRelatives";
-            this.panelRelatives.Size = new System.Drawing.Size(239, 47);
-            this.panelRelatives.TabIndex = 31;
-            this.panelRelatives.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint_1);
-            // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(15, 7);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(63, 13);
-            this.label16.TabIndex = 22;
-            this.label16.Text = "Related To:";
-            // 
-            // comboRelatives
-            // 
-            this.comboRelatives.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.comboRelatives.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.comboRelatives.FormattingEnabled = true;
-            this.comboRelatives.Location = new System.Drawing.Point(15, 23);
-            this.comboRelatives.Name = "comboRelatives";
-            this.comboRelatives.Size = new System.Drawing.Size(185, 21);
-            this.comboRelatives.TabIndex = 21;
-            // 
-            // ckRelatives
-            // 
-            this.ckRelatives.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.ckRelatives.AutoSize = true;
-            this.ckRelatives.Location = new System.Drawing.Point(248, 497);
-            this.ckRelatives.Name = "ckRelatives";
-            this.ckRelatives.Size = new System.Drawing.Size(22, 47);
-            this.ckRelatives.TabIndex = 30;
-            this.ckRelatives.UseVisualStyleBackColor = true;
-            this.ckRelatives.CheckedChanged += new System.EventHandler(this.ckRelatives_CheckedChanged);
-            // 
             // SearchForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -736,28 +735,28 @@
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.panelFilter.ResumeLayout(false);
+            this.tableLayoutPanel1.ResumeLayout(false);
+            this.tableLayoutPanel1.PerformLayout();
+            this.panelRelatives.ResumeLayout(false);
+            this.panelRelatives.PerformLayout();
+            this.panelRegion.ResumeLayout(false);
+            this.panelRegion.PerformLayout();
+            this.panelMembershipFilter.ResumeLayout(false);
+            this.panelMembershipFilter.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackMembership)).EndInit();
             this.panelMemberName.ResumeLayout(false);
             this.panelMemberName.PerformLayout();
-            this.panelDeacon.ResumeLayout(false);
-            this.panelDeacon.PerformLayout();
-            this.panelBirthMonth.ResumeLayout(false);
-            this.panelBirthMonth.PerformLayout();
-            this.panelAddress.ResumeLayout(false);
-            this.panelAddress.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackDistance)).EndInit();
             this.panelAge.ResumeLayout(false);
             this.panelAge.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.txtMaxAge)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtMinAge)).EndInit();
-            this.panelMembershipFilter.ResumeLayout(false);
-            this.panelMembershipFilter.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackMembership)).EndInit();
-            this.tableLayoutPanel1.ResumeLayout(false);
-            this.tableLayoutPanel1.PerformLayout();
-            this.panelRegion.ResumeLayout(false);
-            this.panelRegion.PerformLayout();
-            this.panelRelatives.ResumeLayout(false);
-            this.panelRelatives.PerformLayout();
+            this.panelAddress.ResumeLayout(false);
+            this.panelAddress.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackDistance)).EndInit();
+            this.panelBirthMonth.ResumeLayout(false);
+            this.panelBirthMonth.PerformLayout();
+            this.panelDeacon.ResumeLayout(false);
+            this.panelDeacon.PerformLayout();
             this.ResumeLayout(false);
 
         }
