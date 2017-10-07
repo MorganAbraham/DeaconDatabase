@@ -42,9 +42,16 @@ namespace Deacon_Database_Manager.GUI
 
                 SearchResults.Controls.Clear();
 
+                int MaxResults = 10;
+                int LoadedResults = 0;
                 foreach(Member FilterResult in FilterResults)
                 {
                     LoadQuickResult(FilterResult);
+                    LoadedResults++;
+                    if(LoadedResults >= MaxResults)
+                    {
+                        break;
+                    }
                 }
             }
         }
