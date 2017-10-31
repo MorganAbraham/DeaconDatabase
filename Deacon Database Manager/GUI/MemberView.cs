@@ -81,6 +81,7 @@ namespace Deacon_Database_Manager.GUI
                 dataGridRelatives.Rows.Add(Regex.Replace(Relation.Key.FirstName + ' ' +
                     Relation.Key.LastName, "[ ]{2,}", " "), Relation.Value);
             }
+            this.txtComments.Text = ChurchMember.Comments;
         }
 
         private void txtFirstName_TextChanged(object sender, EventArgs e)
@@ -244,6 +245,16 @@ namespace Deacon_Database_Manager.GUI
             Image NoImage = Properties.Resources.NoPhoto;
             picboxProfile.Image = NoImage;
             ChurchMember.ProfilePicture = NoImage;
+        }
+
+        private void btnAddRelative_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtComments_TextChanged(object sender, EventArgs e)
+        {
+            ChurchMember.Comments = txtComments.Text;
         }
     }
 }

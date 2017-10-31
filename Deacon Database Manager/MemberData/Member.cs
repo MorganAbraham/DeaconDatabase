@@ -37,6 +37,7 @@ namespace Deacon_Database_Manager.MemberData
         private Location address = new Location();
         private Deacon deaconInfo = new Deacon();
 
+        private string comments = "";
         public  Member()
         {
             //Image img 
@@ -281,6 +282,19 @@ namespace Deacon_Database_Manager.MemberData
             set
             {
                 deaconInfo = value;
+            }
+        }
+
+        public string Comments
+        {
+            get
+            {
+                return comments;
+            }
+
+            set
+            {
+                comments = value;
             }
         }
 

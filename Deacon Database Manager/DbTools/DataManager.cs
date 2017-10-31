@@ -79,6 +79,13 @@ namespace Deacon_Database_Manager.DbTools
                     Cmd.Parameters.AddWithValue("@MiddleName", member.MiddleName);
                     Cmd.Parameters.AddWithValue("@LastName", member.LastName);
                     Cmd.Parameters.AddWithValue("@Suffix", member.Suffix);
+
+                    DateTime MinDate = DateTime.Parse("1/1/1753");
+                    DateTime MaxDate = DateTime.Parse("12/31/9999");
+                    if(member.BirthDate < MinDate || member.BirthDate > MaxDate)
+                    {
+                        member.BirthDate = MinDate;
+                    }
                     Cmd.Parameters.AddWithValue("@BirthDate", member.BirthDate);
                     Cmd.Parameters.AddWithValue("@Ethnicity", member.Ethnicity);
                     Cmd.Parameters.AddWithValue("@Gender", member.Gender);
@@ -111,6 +118,9 @@ namespace Deacon_Database_Manager.DbTools
                         new Bitmap(member.ProfilePicture).Save(Stream, ImageFormat.Jpeg);
                         Cmd.Parameters.AddWithValue("@ProfilePicture", Stream.ToArray());
                     }
+
+                    //Comments
+                    Cmd.Parameters.AddWithValue("@Comments", member.Comments);
 
                     Conn.Open();
                     Cmd.ExecuteNonQuery();
@@ -339,6 +349,8 @@ namespace Deacon_Database_Manager.DbTools
                 Result.ProfilePicture = Image.FromStream(Stream);
             }
 
+            //Comments
+            Result.Comments = GetStringValue(Reader, "Comments");
             return Result;
         }
 

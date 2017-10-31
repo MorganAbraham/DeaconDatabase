@@ -79,6 +79,9 @@
             this.RelativeName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Relationship = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.tabPage6 = new System.Windows.Forms.TabPage();
+            this.label20 = new System.Windows.Forms.Label();
+            this.txtComments = new System.Windows.Forms.TextBox();
             this.btnSave = new System.Windows.Forms.Button();
             this.btnBack = new System.Windows.Forms.Button();
             this.btnSaveAndExit = new System.Windows.Forms.Button();
@@ -95,6 +98,7 @@
             this.panel1.SuspendLayout();
             this.tabPage4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridRelatives)).BeginInit();
+            this.tabPage6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picboxProfile)).BeginInit();
             this.SuspendLayout();
             // 
@@ -281,6 +285,7 @@
             this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Controls.Add(this.tabPage4);
             this.tabControl1.Controls.Add(this.tabPage5);
+            this.tabControl1.Controls.Add(this.tabPage6);
             this.tabControl1.Location = new System.Drawing.Point(21, 209);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -613,6 +618,7 @@
             this.btnAddRelative.TabIndex = 3;
             this.btnAddRelative.Text = "Add Relationship";
             this.btnAddRelative.UseVisualStyleBackColor = true;
+            this.btnAddRelative.Click += new System.EventHandler(this.btnAddRelative_Click);
             // 
             // comboRelationshipTypes
             // 
@@ -660,6 +666,36 @@
             this.tabPage5.TabIndex = 4;
             this.tabPage5.Text = "Church  Info";
             this.tabPage5.UseVisualStyleBackColor = true;
+            // 
+            // tabPage6
+            // 
+            this.tabPage6.Controls.Add(this.label20);
+            this.tabPage6.Controls.Add(this.txtComments);
+            this.tabPage6.Location = new System.Drawing.Point(4, 22);
+            this.tabPage6.Name = "tabPage6";
+            this.tabPage6.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage6.Size = new System.Drawing.Size(826, 376);
+            this.tabPage6.TabIndex = 5;
+            this.tabPage6.Text = "Additional  Info";
+            this.tabPage6.UseVisualStyleBackColor = true;
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(24, 19);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(56, 13);
+            this.label20.TabIndex = 1;
+            this.label20.Text = "Comments";
+            // 
+            // txtComments
+            // 
+            this.txtComments.Location = new System.Drawing.Point(24, 38);
+            this.txtComments.Multiline = true;
+            this.txtComments.Name = "txtComments";
+            this.txtComments.Size = new System.Drawing.Size(608, 290);
+            this.txtComments.TabIndex = 0;
+            this.txtComments.TextChanged += new System.EventHandler(this.txtComments_TextChanged);
             // 
             // btnSave
             // 
@@ -752,6 +788,8 @@
             this.tabPage4.ResumeLayout(false);
             this.tabPage4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridRelatives)).EndInit();
+            this.tabPage6.ResumeLayout(false);
+            this.tabPage6.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picboxProfile)).EndInit();
             this.ResumeLayout(false);
 
@@ -816,5 +854,8 @@
         private System.Windows.Forms.DataGridView dataGridRelatives;
         private System.Windows.Forms.DataGridViewTextBoxColumn RelativeName;
         private System.Windows.Forms.DataGridViewTextBoxColumn Relationship;
+        private System.Windows.Forms.TabPage tabPage6;
+        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.TextBox txtComments;
     }
 }
