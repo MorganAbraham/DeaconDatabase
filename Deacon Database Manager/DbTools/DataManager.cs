@@ -40,7 +40,7 @@ namespace Deacon_Database_Manager.DbTools
                 return -1;
             }
         }
-        public bool TryCreateMember(Member member)
+        public bool TryCreateMember(Member member, string[,] RelativeUpdates)
         {
             try
             {
@@ -54,7 +54,7 @@ namespace Deacon_Database_Manager.DbTools
                     Cmd.ExecuteNonQuery();
                 }
 
-                TryUpdateMember(member);
+                TryUpdateMember(member, RelativeUpdates);
                 return true;
             }
             catch(Exception e)
@@ -63,7 +63,7 @@ namespace Deacon_Database_Manager.DbTools
                 return false;
             }
         }
-        public bool TryUpdateMember(Member member)
+        public bool TryUpdateMember(Member member, string[,] RelativeUpdates)
         {
             try
             {
@@ -124,6 +124,23 @@ namespace Deacon_Database_Manager.DbTools
 
                     Conn.Open();
                     Cmd.ExecuteNonQuery();
+                }
+
+                for (int i = 0; i < RelativeUpdates.GetLength(0); i++)
+                {
+                    using (SqlConnection Conn = new SqlConnection(ConnectionString))
+                    {
+                        SqlCommand Cmd = new SqlCommand("UpdateRelationships");
+                        Cmd.CommandType = CommandType.StoredProcedure;
+                        Cmd.Connection = Conn;
+                        Cmd.Parameters.AddWithValue("@MemberId", member.Id);
+                        Cmd.Parameters.AddWithValue("@Relative_Member_Id", 
+                            Convert.ToInt32(RelativeUpdates[i, 0]));
+                        Cmd.Parameters.AddWithValue("@Description", RelativeUpdates[i, 1]);
+
+                        Conn.Open();
+                        Cmd.ExecuteNonQuery();
+                    }
                 }
                 return true;
             }

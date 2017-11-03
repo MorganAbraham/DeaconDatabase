@@ -76,8 +76,6 @@
             this.comboRelationshipTypes = new System.Windows.Forms.ComboBox();
             this.comboMembers = new System.Windows.Forms.ComboBox();
             this.dataGridRelatives = new System.Windows.Forms.DataGridView();
-            this.RelativeName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Relationship = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabPage5 = new System.Windows.Forms.TabPage();
             this.tabPage6 = new System.Windows.Forms.TabPage();
             this.label20 = new System.Windows.Forms.Label();
@@ -88,6 +86,9 @@
             this.btnChangePicture = new System.Windows.Forms.Button();
             this.btnDeletePic = new System.Windows.Forms.Button();
             this.picboxProfile = new System.Windows.Forms.PictureBox();
+            this.colId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.RelativeName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Relationship = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.panel3.SuspendLayout();
             this.panel4.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -622,7 +623,26 @@
             // 
             // comboRelationshipTypes
             // 
+            this.comboRelationshipTypes.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboRelationshipTypes.FormattingEnabled = true;
+            this.comboRelationshipTypes.Items.AddRange(new object[] {
+            "Aunt/Uncle",
+            "Child",
+            "Child-In-Law",
+            "Cousin",
+            "Grandchild",
+            "Grandparent",
+            "Great Aunt/Uncle",
+            "Great-Grandchild",
+            "Great-Grandparent",
+            "Great-Great Grandchild",
+            "Great-Great Grandparent",
+            "Niece/Nephew",
+            "Parent",
+            "Parent-In-Law",
+            "Sibling",
+            "Sibling-In-Law",
+            "Spouse"});
             this.comboRelationshipTypes.Location = new System.Drawing.Point(502, 104);
             this.comboRelationshipTypes.Name = "comboRelationshipTypes";
             this.comboRelationshipTypes.Size = new System.Drawing.Size(238, 21);
@@ -630,6 +650,7 @@
             // 
             // comboMembers
             // 
+            this.comboMembers.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboMembers.FormattingEnabled = true;
             this.comboMembers.Location = new System.Drawing.Point(502, 48);
             this.comboMembers.Name = "comboMembers";
@@ -638,24 +659,16 @@
             // 
             // dataGridRelatives
             // 
+            this.dataGridRelatives.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridRelatives.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridRelatives.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.colId,
             this.RelativeName,
             this.Relationship});
             this.dataGridRelatives.Location = new System.Drawing.Point(20, 14);
             this.dataGridRelatives.Name = "dataGridRelatives";
             this.dataGridRelatives.Size = new System.Drawing.Size(457, 332);
             this.dataGridRelatives.TabIndex = 0;
-            // 
-            // RelativeName
-            // 
-            this.RelativeName.HeaderText = "Relative Name";
-            this.RelativeName.Name = "RelativeName";
-            // 
-            // Relationship
-            // 
-            this.Relationship.HeaderText = "Relationship";
-            this.Relationship.Name = "Relationship";
             // 
             // tabPage5
             // 
@@ -756,6 +769,45 @@
             this.picboxProfile.TabIndex = 0;
             this.picboxProfile.TabStop = false;
             // 
+            // colId
+            // 
+            this.colId.HeaderText = "ID";
+            this.colId.Name = "colId";
+            this.colId.ReadOnly = true;
+            this.colId.Visible = false;
+            // 
+            // RelativeName
+            // 
+            this.RelativeName.HeaderText = "Relative Name";
+            this.RelativeName.Name = "RelativeName";
+            this.RelativeName.ReadOnly = true;
+            // 
+            // Relationship
+            // 
+            this.Relationship.HeaderText = "Relationship";
+            this.Relationship.Items.AddRange(new object[] {
+            "Aunt/Uncle",
+            "Child",
+            "Child-In-Law",
+            "Cousin",
+            "Grandchild",
+            "Grandparent",
+            "Great Aunt/Uncle",
+            "Great-Grandchild",
+            "Great-Grandparent",
+            "Great-Great Grandchild",
+            "Great-Great Grandparent",
+            "Niece/Nephew",
+            "Parent",
+            "Parent-In-Law",
+            "Sibling",
+            "Sibling-In-Law",
+            "Spouse"});
+            this.Relationship.Name = "Relationship";
+            this.Relationship.ReadOnly = true;
+            this.Relationship.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.Relationship.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            // 
             // MemberView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -852,10 +904,11 @@
         private System.Windows.Forms.ComboBox comboRelationshipTypes;
         private System.Windows.Forms.ComboBox comboMembers;
         private System.Windows.Forms.DataGridView dataGridRelatives;
-        private System.Windows.Forms.DataGridViewTextBoxColumn RelativeName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Relationship;
         private System.Windows.Forms.TabPage tabPage6;
         private System.Windows.Forms.Label label20;
         private System.Windows.Forms.TextBox txtComments;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colId;
+        private System.Windows.Forms.DataGridViewTextBoxColumn RelativeName;
+        private System.Windows.Forms.DataGridViewComboBoxColumn Relationship;
     }
 }

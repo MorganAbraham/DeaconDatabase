@@ -278,7 +278,7 @@ namespace Deacon_Database_Manager.GUI
                 {
                     Result = DM.GetMember((int)Grid.SelectedRows[0].Cells[0].Value);
                 }
-                homeScreen.LoadPanel(new MemberView(homeScreen, Result, false));
+                homeScreen.LoadPanel(new MemberView(homeScreen, Result, false, AllMembers));
                 homeScreen.RemovePanel(this);
             }
         }

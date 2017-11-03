@@ -22,8 +22,10 @@ namespace Deacon_Database_Manager.GUI
         private bool CreateNewMember;
         private bool MemberCreated = false;
         Dictionary<Member, string> Relatives;
+        private List<Member> AllMembers;
 
-        public MemberView(HomeScreen homeScreen, Member ChurchMember, bool CreateNewMember)
+        public MemberView(HomeScreen homeScreen, Member ChurchMember, 
+            bool CreateNewMember, List<Member> AllMembers = null)
         {
             InitializeComponent();
             this.ChurchMember = ChurchMember;
@@ -31,6 +33,7 @@ namespace Deacon_Database_Manager.GUI
             this.CreateNewMember = CreateNewMember;
             RelationshipCalculator RelCalc = new RelationshipCalculator();
             Relatives = RelCalc.GetAllRelationships(ChurchMember);
+            this.AllMembers = AllMembers;
         }
 
         private void panel1_Paint(object sender, PaintEventArgs e)
@@ -55,7 +58,7 @@ namespace Deacon_Database_Manager.GUI
             txtLastName.Text = ChurchMember.LastName;
             txtSuffix.Text = ChurchMember.Suffix;
 
-            if(ChurchMember.BirthDate != null)
+            if (ChurchMember.BirthDate != null)
             {
                 txtBirthDate.Text = ChurchMember.BirthDate.ToString("MM/dd/yyyy");
             }
@@ -76,14 +79,29 @@ namespace Deacon_Database_Manager.GUI
 
             picboxProfile.Image = ChurchMember.ProfilePicture;
 
-            foreach(KeyValuePair<Member, string> Relation in Relatives)
+            foreach (KeyValuePair<Member, string> Relation in Relatives)
             {
-                dataGridRelatives.Rows.Add(Regex.Replace(Relation.Key.FirstName + ' ' +
+                dataGridRelatives.Rows.Add(Relation.Key.Id, Regex.Replace(Relation.Key.FirstName + ' ' +
                     Relation.Key.LastName, "[ ]{2,}", " "), Relation.Value);
             }
-            this.txtComments.Text = ChurchMember.Comments;
-        }
 
+            txtComments.Text = ChurchMember.Comments;
+
+            if (AllMembers == null)
+            {
+                AllMembers = DM.GetAllMembers();
+            }
+            AllMembers.Sort();
+
+            comboMembers.DataSource = AllMembers.Select(x => new
+            {
+                Text = Regex.Replace(x.FirstName + ' ' + x.LastName, "[ ]{2,}", " ").Trim(),
+                Value = x.Id
+            }).ToList();
+            comboMembers.DisplayMember = "Text";
+            comboMembers.ValueMember = "Value";
+            comboMembers.SelectedIndex = -1;
+        }
         private void txtFirstName_TextChanged(object sender, EventArgs e)
         {
             ChurchMember.FirstName = txtFirstName.Text;
@@ -215,15 +233,20 @@ namespace Deacon_Database_Manager.GUI
 
         private bool TrySaveMember()
         {
+            string[,] RelativeUpdates = new string[dataGridRelatives.Rows.Count - 1, 2];
+            for (int i = 0; i < RelativeUpdates.GetLength(0); i++)
+            {
+                RelativeUpdates[i, 0] = this.dataGridRelatives.Rows[i].Cells[0].Value.ToString();
+                RelativeUpdates[i, 1] = this.dataGridRelatives.Rows[i].Cells[2].Value.ToString();
+            }
             if (CreateNewMember && !MemberCreated)
             {
-                return DM.TryCreateMember(ChurchMember);
+                return DM.TryCreateMember(ChurchMember, RelativeUpdates);
             }
             else
             {
-                return DM.TryUpdateMember(ChurchMember);
+                return DM.TryUpdateMember(ChurchMember, RelativeUpdates);
             }
-            
         }
 
         private void btnChangePicture_Click(object sender, EventArgs e)
@@ -249,7 +272,18 @@ namespace Deacon_Database_Manager.GUI
 
         private void btnAddRelative_Click(object sender, EventArgs e)
         {
-
+            if(comboMembers.SelectedIndex != -1 && comboRelationshipTypes.SelectedIndex != -1)
+            {
+                object ID = comboMembers.SelectedValue;
+                foreach(DataGridViewRow row in dataGridRelatives.Rows)
+                {
+                    if((row.Cells[0].Value == ID))
+                    {
+                        return;
+                    }
+                }
+                dataGridRelatives.Rows.Add(ID, comboMembers.Text, comboRelationshipTypes.SelectedItem);
+            }
         }
 
         private void txtComments_TextChanged(object sender, EventArgs e)
