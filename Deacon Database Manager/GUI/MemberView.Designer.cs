@@ -86,9 +86,11 @@
             this.btnChangePicture = new System.Windows.Forms.Button();
             this.btnDeletePic = new System.Windows.Forms.Button();
             this.picboxProfile = new System.Windows.Forms.PictureBox();
+            this.btnRemove = new System.Windows.Forms.Button();
             this.colId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.RelativeName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Relationship = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.colStatus = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel3.SuspendLayout();
             this.panel4.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -580,6 +582,7 @@
             // 
             // tabPage4
             // 
+            this.tabPage4.Controls.Add(this.btnRemove);
             this.tabPage4.Controls.Add(this.label19);
             this.tabPage4.Controls.Add(this.label14);
             this.tabPage4.Controls.Add(this.btnAddRelative);
@@ -659,12 +662,14 @@
             // 
             // dataGridRelatives
             // 
+            this.dataGridRelatives.AllowUserToOrderColumns = true;
             this.dataGridRelatives.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridRelatives.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridRelatives.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.colId,
             this.RelativeName,
-            this.Relationship});
+            this.Relationship,
+            this.colStatus});
             this.dataGridRelatives.Location = new System.Drawing.Point(20, 14);
             this.dataGridRelatives.Name = "dataGridRelatives";
             this.dataGridRelatives.Size = new System.Drawing.Size(457, 332);
@@ -769,6 +774,16 @@
             this.picboxProfile.TabIndex = 0;
             this.picboxProfile.TabStop = false;
             // 
+            // btnRemove
+            // 
+            this.btnRemove.Location = new System.Drawing.Point(537, 186);
+            this.btnRemove.Name = "btnRemove";
+            this.btnRemove.Size = new System.Drawing.Size(157, 23);
+            this.btnRemove.TabIndex = 6;
+            this.btnRemove.Text = "Delete Relationship";
+            this.btnRemove.UseVisualStyleBackColor = true;
+            this.btnRemove.Click += new System.EventHandler(this.btnRemove_Click);
+            // 
             // colId
             // 
             this.colId.HeaderText = "ID";
@@ -807,6 +822,14 @@
             this.Relationship.ReadOnly = true;
             this.Relationship.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.Relationship.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            // 
+            // colStatus
+            // 
+            this.colStatus.HeaderText = "Status";
+            this.colStatus.Name = "colStatus";
+            this.colStatus.ReadOnly = true;
+            this.colStatus.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.colStatus.Visible = false;
             // 
             // MemberView
             // 
@@ -907,8 +930,10 @@
         private System.Windows.Forms.TabPage tabPage6;
         private System.Windows.Forms.Label label20;
         private System.Windows.Forms.TextBox txtComments;
+        private System.Windows.Forms.Button btnRemove;
         private System.Windows.Forms.DataGridViewTextBoxColumn colId;
         private System.Windows.Forms.DataGridViewTextBoxColumn RelativeName;
         private System.Windows.Forms.DataGridViewComboBoxColumn Relationship;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colStatus;
     }
 }

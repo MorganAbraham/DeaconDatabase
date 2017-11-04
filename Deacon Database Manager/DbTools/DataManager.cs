@@ -137,6 +137,7 @@ namespace Deacon_Database_Manager.DbTools
                         Cmd.Parameters.AddWithValue("@Relative_Member_Id", 
                             Convert.ToInt32(RelativeUpdates[i, 0]));
                         Cmd.Parameters.AddWithValue("@Description", RelativeUpdates[i, 1]);
+                        Cmd.Parameters.AddWithValue("@RelationshipStatus", RelativeUpdates[i, 2]);
 
                         Conn.Open();
                         Cmd.ExecuteNonQuery();

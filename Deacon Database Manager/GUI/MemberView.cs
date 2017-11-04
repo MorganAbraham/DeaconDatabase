@@ -82,7 +82,7 @@ namespace Deacon_Database_Manager.GUI
             foreach (KeyValuePair<Member, string> Relation in Relatives)
             {
                 dataGridRelatives.Rows.Add(Relation.Key.Id, Regex.Replace(Relation.Key.FirstName + ' ' +
-                    Relation.Key.LastName, "[ ]{2,}", " "), Relation.Value);
+                    Relation.Key.LastName, "[ ]{2,}", " "), Relation.Value, "Stored");
             }
 
             txtComments.Text = ChurchMember.Comments;
@@ -233,11 +233,12 @@ namespace Deacon_Database_Manager.GUI
 
         private bool TrySaveMember()
         {
-            string[,] RelativeUpdates = new string[dataGridRelatives.Rows.Count - 1, 2];
+            string[,] RelativeUpdates = new string[dataGridRelatives.Rows.Count - 1, 3];
             for (int i = 0; i < RelativeUpdates.GetLength(0); i++)
             {
                 RelativeUpdates[i, 0] = this.dataGridRelatives.Rows[i].Cells[0].Value.ToString();
                 RelativeUpdates[i, 1] = this.dataGridRelatives.Rows[i].Cells[2].Value.ToString();
+                RelativeUpdates[i, 2] = this.dataGridRelatives.Rows[i].Cells[3].Value.ToString();
             }
             if (CreateNewMember && !MemberCreated)
             {
@@ -277,18 +278,46 @@ namespace Deacon_Database_Manager.GUI
                 object ID = comboMembers.SelectedValue;
                 foreach(DataGridViewRow row in dataGridRelatives.Rows)
                 {
-                    if((row.Cells[0].Value == ID))
+                    if(row.Cells[0].Value != null && 
+                        Convert.ToInt32(row.Cells[0].Value) == Convert.ToInt32(ID) && 
+                        row.Cells[3].Value.ToString() != "Pending Deletion")
                     {
                         return;
                     }
                 }
-                dataGridRelatives.Rows.Add(ID, comboMembers.Text, comboRelationshipTypes.SelectedItem);
+                dataGridRelatives.Rows.Add(ID, comboMembers.Text, comboRelationshipTypes.SelectedItem, 
+                    "Pending Addition");
             }
         }
 
         private void txtComments_TextChanged(object sender, EventArgs e)
         {
             ChurchMember.Comments = txtComments.Text;
+        }
+
+        private void btnRemove_Click(object sender, EventArgs e)
+        {
+            if(dataGridRelatives.SelectedCells.Count == 1 ||  dataGridRelatives.SelectedRows.Count == 1)
+            {
+                DataGridViewRow Row;
+                if(dataGridRelatives.SelectedCells.Count == 1)
+                {
+                    Row = dataGridRelatives.SelectedCells[0].OwningRow;
+                }
+                else
+                {
+                    Row = dataGridRelatives.SelectedRows[0];
+                }
+                if (Row.Cells[3].Value.ToString() == "Stored")
+                {
+                    Row.Cells[3].Value = "Pending Deletion";
+                    Row.Visible = false;
+                }
+                else
+                {
+                    dataGridRelatives.Rows.Remove(Row);
+                }
+            }
         }
     }
 }
