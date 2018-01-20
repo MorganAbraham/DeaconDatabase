@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Deacon_Database_Manager.Geographical;
+using DeaconDbMgrData.Geographical;
 using System.Text.RegularExpressions;
 using System.Reflection;
 using System.Drawing;
 
-namespace Deacon_Database_Manager.MemberData
+namespace DeaconDbMgrData.MemberData
 {
    
     public class Member : IComparable<Member>
@@ -36,8 +36,6 @@ namespace Deacon_Database_Manager.MemberData
 
         private Location address = new Location();
         private Deacon deaconInfo = new Deacon();
-
-        private DateTime lastContactDate = DateTime.MinValue;
 
         private string comments = "";
         public  Member()
@@ -300,19 +298,6 @@ namespace Deacon_Database_Manager.MemberData
             }
         }
 
-        public DateTime LastContactDate
-        {
-            get
-            {
-                return lastContactDate;
-            }
-
-            set
-            {
-                lastContactDate = value;
-            }
-        }
-
         public override bool Equals(object obj)
         {
             if (obj == null && this != null)
@@ -327,10 +312,6 @@ namespace Deacon_Database_Manager.MemberData
             PropertyInfo[] ObjFields = obj.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance);
             for (int i = 0; i < MyFields.Length; i++)
             {
-                if(MyFields[i].GetValue(this,null).GetType() == typeof(Bitmap))
-                {
-                    continue;
-                }
                 if (!MyFields[i].GetValue(this, null).Equals(ObjFields[i].GetValue(obj, null)))
                 {
                     return false;
