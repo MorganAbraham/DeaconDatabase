@@ -85,6 +85,11 @@ namespace Deacon_Database_Manager.GUI
                     Relation.Key.LastName, "[ ]{2,}", " "), Relation.Value, "Stored");
             }
 
+            dtLastContactDate.Value = ChurchMember.LastContactDate == DateTime.MinValue ? 
+                dtLastContactDate.MinDate : ChurchMember.LastContactDate;
+            dtNextContactDate.Value = ChurchMember.NextContactDate == DateTime.MinValue ?
+                dtNextContactDate.MinDate : ChurchMember.NextContactDate;
+
             txtComments.Text = ChurchMember.Comments;
 
             if (AllMembers == null)
@@ -318,6 +323,16 @@ namespace Deacon_Database_Manager.GUI
                     dataGridRelatives.Rows.Remove(Row);
                 }
             }
+        }
+
+        private void dtLastContactDate_ValueChanged(object sender, EventArgs e)
+        {
+            ChurchMember.LastContactDate = dtLastContactDate.Value;
+        }
+
+        private void dtNextContactDate_ValueChanged(object sender, EventArgs e)
+        {
+            ChurchMember.NextContactDate = dtNextContactDate.Value;
         }
     }
 }

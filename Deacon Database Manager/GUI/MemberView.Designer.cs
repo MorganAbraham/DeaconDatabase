@@ -70,12 +70,19 @@
             this.label8 = new System.Windows.Forms.Label();
             this.txtAddress1 = new System.Windows.Forms.TextBox();
             this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.label21 = new System.Windows.Forms.Label();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.btnRemove = new System.Windows.Forms.Button();
             this.label19 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
             this.btnAddRelative = new System.Windows.Forms.Button();
             this.comboRelationshipTypes = new System.Windows.Forms.ComboBox();
             this.comboMembers = new System.Windows.Forms.ComboBox();
             this.dataGridRelatives = new System.Windows.Forms.DataGridView();
+            this.colId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.RelativeName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Relationship = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.colStatus = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabPage5 = new System.Windows.Forms.TabPage();
             this.tabPage6 = new System.Windows.Forms.TabPage();
             this.label20 = new System.Windows.Forms.Label();
@@ -86,13 +93,11 @@
             this.btnChangePicture = new System.Windows.Forms.Button();
             this.btnDeletePic = new System.Windows.Forms.Button();
             this.picboxProfile = new System.Windows.Forms.PictureBox();
-            this.btnRemove = new System.Windows.Forms.Button();
-            this.colId = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.RelativeName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Relationship = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.colStatus = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.label21 = new System.Windows.Forms.Label();
+            this.tabPage7 = new System.Windows.Forms.TabPage();
+            this.dtLastContactDate = new System.Windows.Forms.DateTimePicker();
+            this.label22 = new System.Windows.Forms.Label();
+            this.dtNextContactDate = new System.Windows.Forms.DateTimePicker();
+            this.label23 = new System.Windows.Forms.Label();
             this.panel3.SuspendLayout();
             this.panel4.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -105,6 +110,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridRelatives)).BeginInit();
             this.tabPage6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picboxProfile)).BeginInit();
+            this.tabPage7.SuspendLayout();
             this.SuspendLayout();
             // 
             // txtFirstName
@@ -290,6 +296,7 @@
             this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Controls.Add(this.tabPage4);
             this.tabControl1.Controls.Add(this.tabPage5);
+            this.tabControl1.Controls.Add(this.tabPage7);
             this.tabControl1.Controls.Add(this.tabPage6);
             this.tabControl1.Location = new System.Drawing.Point(21, 209);
             this.tabControl1.Name = "tabControl1";
@@ -600,6 +607,32 @@
             this.tabPage4.Text = "Family Info";
             this.tabPage4.UseVisualStyleBackColor = true;
             // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Location = new System.Drawing.Point(500, 27);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(74, 13);
+            this.label21.TabIndex = 8;
+            this.label21.Text = "New  Relative";
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(503, 43);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(238, 20);
+            this.textBox1.TabIndex = 7;
+            // 
+            // btnRemove
+            // 
+            this.btnRemove.Location = new System.Drawing.Point(538, 236);
+            this.btnRemove.Name = "btnRemove";
+            this.btnRemove.Size = new System.Drawing.Size(157, 23);
+            this.btnRemove.TabIndex = 6;
+            this.btnRemove.Text = "Delete Relationship";
+            this.btnRemove.UseVisualStyleBackColor = true;
+            this.btnRemove.Click += new System.EventHandler(this.btnRemove_Click);
+            // 
             // label19
             // 
             this.label19.AutoSize = true;
@@ -678,6 +711,53 @@
             this.dataGridRelatives.Name = "dataGridRelatives";
             this.dataGridRelatives.Size = new System.Drawing.Size(457, 332);
             this.dataGridRelatives.TabIndex = 0;
+            // 
+            // colId
+            // 
+            this.colId.HeaderText = "ID";
+            this.colId.Name = "colId";
+            this.colId.ReadOnly = true;
+            this.colId.Visible = false;
+            // 
+            // RelativeName
+            // 
+            this.RelativeName.HeaderText = "Relative Name";
+            this.RelativeName.Name = "RelativeName";
+            this.RelativeName.ReadOnly = true;
+            // 
+            // Relationship
+            // 
+            this.Relationship.HeaderText = "Relationship";
+            this.Relationship.Items.AddRange(new object[] {
+            "Aunt/Uncle",
+            "Child",
+            "Child-In-Law",
+            "Cousin",
+            "Grandchild",
+            "Grandparent",
+            "Great Aunt/Uncle",
+            "Great-Grandchild",
+            "Great-Grandparent",
+            "Great-Great Grandchild",
+            "Great-Great Grandparent",
+            "Niece/Nephew",
+            "Parent",
+            "Parent-In-Law",
+            "Sibling",
+            "Sibling-In-Law",
+            "Spouse"});
+            this.Relationship.Name = "Relationship";
+            this.Relationship.ReadOnly = true;
+            this.Relationship.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.Relationship.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            // 
+            // colStatus
+            // 
+            this.colStatus.HeaderText = "Status";
+            this.colStatus.Name = "colStatus";
+            this.colStatus.ReadOnly = true;
+            this.colStatus.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.colStatus.Visible = false;
             // 
             // tabPage5
             // 
@@ -778,78 +858,52 @@
             this.picboxProfile.TabIndex = 0;
             this.picboxProfile.TabStop = false;
             // 
-            // btnRemove
+            // tabPage7
             // 
-            this.btnRemove.Location = new System.Drawing.Point(538, 236);
-            this.btnRemove.Name = "btnRemove";
-            this.btnRemove.Size = new System.Drawing.Size(157, 23);
-            this.btnRemove.TabIndex = 6;
-            this.btnRemove.Text = "Delete Relationship";
-            this.btnRemove.UseVisualStyleBackColor = true;
-            this.btnRemove.Click += new System.EventHandler(this.btnRemove_Click);
+            this.tabPage7.Controls.Add(this.dtNextContactDate);
+            this.tabPage7.Controls.Add(this.label23);
+            this.tabPage7.Controls.Add(this.dtLastContactDate);
+            this.tabPage7.Controls.Add(this.label22);
+            this.tabPage7.Location = new System.Drawing.Point(4, 22);
+            this.tabPage7.Name = "tabPage7";
+            this.tabPage7.Size = new System.Drawing.Size(826, 376);
+            this.tabPage7.TabIndex = 6;
+            this.tabPage7.Text = "Contact Schedule";
+            this.tabPage7.UseVisualStyleBackColor = true;
             // 
-            // colId
+            // dtLastContactDate
             // 
-            this.colId.HeaderText = "ID";
-            this.colId.Name = "colId";
-            this.colId.ReadOnly = true;
-            this.colId.Visible = false;
+            this.dtLastContactDate.Location = new System.Drawing.Point(25, 44);
+            this.dtLastContactDate.Name = "dtLastContactDate";
+            this.dtLastContactDate.Size = new System.Drawing.Size(231, 20);
+            this.dtLastContactDate.TabIndex = 18;
+            this.dtLastContactDate.ValueChanged += new System.EventHandler(this.dtLastContactDate_ValueChanged);
             // 
-            // RelativeName
+            // label22
             // 
-            this.RelativeName.HeaderText = "Relative Name";
-            this.RelativeName.Name = "RelativeName";
-            this.RelativeName.ReadOnly = true;
+            this.label22.AutoSize = true;
+            this.label22.Location = new System.Drawing.Point(22, 28);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(93, 13);
+            this.label22.TabIndex = 17;
+            this.label22.Text = "Last Contact Date";
             // 
-            // Relationship
+            // dtNextContactDate
             // 
-            this.Relationship.HeaderText = "Relationship";
-            this.Relationship.Items.AddRange(new object[] {
-            "Aunt/Uncle",
-            "Child",
-            "Child-In-Law",
-            "Cousin",
-            "Grandchild",
-            "Grandparent",
-            "Great Aunt/Uncle",
-            "Great-Grandchild",
-            "Great-Grandparent",
-            "Great-Great Grandchild",
-            "Great-Great Grandparent",
-            "Niece/Nephew",
-            "Parent",
-            "Parent-In-Law",
-            "Sibling",
-            "Sibling-In-Law",
-            "Spouse"});
-            this.Relationship.Name = "Relationship";
-            this.Relationship.ReadOnly = true;
-            this.Relationship.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.Relationship.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.dtNextContactDate.Location = new System.Drawing.Point(25, 105);
+            this.dtNextContactDate.Name = "dtNextContactDate";
+            this.dtNextContactDate.Size = new System.Drawing.Size(231, 20);
+            this.dtNextContactDate.TabIndex = 20;
+            this.dtNextContactDate.ValueChanged += new System.EventHandler(this.dtNextContactDate_ValueChanged);
             // 
-            // colStatus
+            // label23
             // 
-            this.colStatus.HeaderText = "Status";
-            this.colStatus.Name = "colStatus";
-            this.colStatus.ReadOnly = true;
-            this.colStatus.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.colStatus.Visible = false;
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(503, 43);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(238, 20);
-            this.textBox1.TabIndex = 7;
-            // 
-            // label21
-            // 
-            this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(500, 27);
-            this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(74, 13);
-            this.label21.TabIndex = 8;
-            this.label21.Text = "New  Relative";
+            this.label23.AutoSize = true;
+            this.label23.Location = new System.Drawing.Point(22, 89);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(95, 13);
+            this.label23.TabIndex = 19;
+            this.label23.Text = "Next Contact Date";
             // 
             // MemberView
             // 
@@ -886,6 +940,8 @@
             this.tabPage6.ResumeLayout(false);
             this.tabPage6.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picboxProfile)).EndInit();
+            this.tabPage7.ResumeLayout(false);
+            this.tabPage7.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -957,5 +1013,10 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn colStatus;
         private System.Windows.Forms.Label label21;
         private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TabPage tabPage7;
+        private System.Windows.Forms.DateTimePicker dtNextContactDate;
+        private System.Windows.Forms.Label label23;
+        private System.Windows.Forms.DateTimePicker dtLastContactDate;
+        private System.Windows.Forms.Label label22;
     }
 }

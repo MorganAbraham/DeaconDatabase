@@ -122,6 +122,10 @@ namespace Deacon_Database_Manager.DbTools
                     //Comments
                     Cmd.Parameters.AddWithValue("@Comments", member.Comments);
 
+                    //Contact Date
+                    Cmd.Parameters.AddWithValue("@LastContactDate", member.LastContactDate);
+                    Cmd.Parameters.AddWithValue("@NextContactDate", member.NextContactDate);
+
                     Conn.Open();
                     Cmd.ExecuteNonQuery();
                 }
@@ -369,7 +373,13 @@ namespace Deacon_Database_Manager.DbTools
 
             //Comments
             Result.Comments = GetStringValue(Reader, "Comments");
+
+            //Contact Schedule
+            Result.LastContactDate = GetDateValue(Reader, "LAST_CONTACT_DATE");
+            Result.NextContactDate = GetDateValue(Reader, "NEXT_CONTACT_DATE");
+
             return Result;
+
         }
 
 

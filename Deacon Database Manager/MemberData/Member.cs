@@ -38,6 +38,7 @@ namespace Deacon_Database_Manager.MemberData
         private Deacon deaconInfo = new Deacon();
 
         private DateTime lastContactDate = DateTime.MinValue;
+        private DateTime nextContactDate = DateTime.MinValue;
 
         private string comments = "";
         public  Member()
@@ -310,6 +311,19 @@ namespace Deacon_Database_Manager.MemberData
             set
             {
                 lastContactDate = value;
+            }
+        }
+
+        public DateTime NextContactDate
+        {
+            get
+            {
+                return nextContactDate;
+            }
+
+            set
+            {
+                nextContactDate = value;
             }
         }
 
