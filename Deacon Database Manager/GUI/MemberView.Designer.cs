@@ -91,6 +91,8 @@
             this.RelativeName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Relationship = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.colStatus = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.label21 = new System.Windows.Forms.Label();
             this.panel3.SuspendLayout();
             this.panel4.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -582,6 +584,8 @@
             // 
             // tabPage4
             // 
+            this.tabPage4.Controls.Add(this.label21);
+            this.tabPage4.Controls.Add(this.textBox1);
             this.tabPage4.Controls.Add(this.btnRemove);
             this.tabPage4.Controls.Add(this.label19);
             this.tabPage4.Controls.Add(this.label14);
@@ -599,7 +603,7 @@
             // label19
             // 
             this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(502, 88);
+            this.label19.Location = new System.Drawing.Point(503, 138);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(92, 13);
             this.label19.TabIndex = 5;
@@ -608,7 +612,7 @@
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(502, 29);
+            this.label14.Location = new System.Drawing.Point(503, 79);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(74, 13);
             this.label14.TabIndex = 4;
@@ -616,7 +620,7 @@
             // 
             // btnAddRelative
             // 
-            this.btnAddRelative.Location = new System.Drawing.Point(537, 146);
+            this.btnAddRelative.Location = new System.Drawing.Point(538, 196);
             this.btnAddRelative.Name = "btnAddRelative";
             this.btnAddRelative.Size = new System.Drawing.Size(157, 23);
             this.btnAddRelative.TabIndex = 3;
@@ -646,7 +650,7 @@
             "Sibling",
             "Sibling-In-Law",
             "Spouse"});
-            this.comboRelationshipTypes.Location = new System.Drawing.Point(502, 104);
+            this.comboRelationshipTypes.Location = new System.Drawing.Point(503, 154);
             this.comboRelationshipTypes.Name = "comboRelationshipTypes";
             this.comboRelationshipTypes.Size = new System.Drawing.Size(238, 21);
             this.comboRelationshipTypes.TabIndex = 2;
@@ -655,7 +659,7 @@
             // 
             this.comboMembers.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboMembers.FormattingEnabled = true;
-            this.comboMembers.Location = new System.Drawing.Point(502, 48);
+            this.comboMembers.Location = new System.Drawing.Point(503, 98);
             this.comboMembers.Name = "comboMembers";
             this.comboMembers.Size = new System.Drawing.Size(238, 21);
             this.comboMembers.TabIndex = 1;
@@ -776,7 +780,7 @@
             // 
             // btnRemove
             // 
-            this.btnRemove.Location = new System.Drawing.Point(537, 186);
+            this.btnRemove.Location = new System.Drawing.Point(538, 236);
             this.btnRemove.Name = "btnRemove";
             this.btnRemove.Size = new System.Drawing.Size(157, 23);
             this.btnRemove.TabIndex = 6;
@@ -830,6 +834,22 @@
             this.colStatus.ReadOnly = true;
             this.colStatus.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.colStatus.Visible = false;
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(503, 43);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(238, 20);
+            this.textBox1.TabIndex = 7;
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Location = new System.Drawing.Point(500, 27);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(74, 13);
+            this.label21.TabIndex = 8;
+            this.label21.Text = "New  Relative";
             // 
             // MemberView
             // 
@@ -935,5 +955,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn RelativeName;
         private System.Windows.Forms.DataGridViewComboBoxColumn Relationship;
         private System.Windows.Forms.DataGridViewTextBoxColumn colStatus;
+        private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.TextBox textBox1;
     }
 }
