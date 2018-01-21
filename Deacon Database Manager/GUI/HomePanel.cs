@@ -17,6 +17,7 @@ namespace Deacon_Database_Manager.GUI
     public partial class HomePanel : Form
     {
         private HomeScreen homeScreen;
+        private List<Member> Members;
 
         public HomePanel(HomeScreen homeScreen)
         {
@@ -58,29 +59,59 @@ namespace Deacon_Database_Manager.GUI
 
         private void HomePanel_Load(object sender, EventArgs e)
         {
-            string ConnectionString = Properties.Settings.Default.MemberDatabaseConnectionString;
-            using (SqlConnection Conn = new SqlConnection(ConnectionString))
+
+            ///Get All Members
+            DataManager DM = new DataManager();
+            Members = DM.GetAllMembers();
+
+            //Load Data Grids
+            foreach(Member member in Members)
             {
-                SqlCommand Cmd = new SqlCommand("GetUpcomingBirthDays");
-                Cmd.CommandType = CommandType.StoredProcedure;
-                Cmd.Connection = Conn;
-                DateTime StartDate = DateTime.Today;
-                DateTime EndDate = StartDate.AddDays(31);
-                //list the parameters required and what they should be
-                Cmd.Parameters.AddWithValue("@StartDate", StartDate);
-                Cmd.Parameters.AddWithValue("@EndDate", EndDate);
-                Conn.Open();
-                Cmd.ExecuteNonQuery();
-                using (SqlDataAdapter adap = new SqlDataAdapter(Cmd))
+                string MemberName = member.FirstName + ' ' + member.LastName;
+                //Load Upcoming Birthdays
+                if (member.BirthDate != DateTime.MinValue)
                 {
-                    DataTable dt = new DataTable();
-                    adap.Fill(dt);
-                    UpcomingBirthdays.DataSource = dt;
+                    DateTime NextBirthDay = new DateTime(DateTime.Now.Year,
+                        member.BirthDate.Month, member.BirthDate.Day);
+                    if (NextBirthDay < DateTime.Now)
+                    {
+                        NextBirthDay = NextBirthDay.AddYears(1);
+                    }
+
+                    if ((NextBirthDay - DateTime.Now).TotalDays <= 31)
+                    {
+                        UpcomingBirthdays.Rows.Add(member.Id, MemberName,
+                            NextBirthDay.ToShortDateString());
+                    }
+                }
+
+                //Load Upcoming Contact Dates
+                if((member.NextContactDate - DateTime.Now).TotalDays <= 31)
+                {
+                    dataGridUpcomingContacts.Rows.Add(member.Id, MemberName,
+                        member.LastContactDate == DateTime.MinValue ? "N/A" : 
+                        member.LastContactDate.ToShortDateString()
+                        , member.NextContactDate == DateTime.MinValue ? "Not Set" : member.NextContactDate.ToShortDateString());
+                }
+
+                //Load Upcoming anniversarys
+                if (member.MembershipStart != DateTime.MinValue && 
+                    member.MembershipEnd == DateTime.MinValue)
+                {
+                    DateTime NextAnniversaryDate = new DateTime(DateTime.Now.Year,
+                        member.MembershipStart.Month, member.MembershipEnd.Day);
+                    if (NextAnniversaryDate < DateTime.Now)
+                    {
+                        NextAnniversaryDate = NextAnniversaryDate.AddYears(1);
+                    }
+
+                    if ((NextAnniversaryDate - DateTime.Now).TotalDays <= 31)
+                    {
+                        dataGridUpcomingAnniversaries.Rows.Add(member.Id, MemberName,
+                            NextAnniversaryDate.ToShortDateString());
+                    }
                 }
             }
-
-            
-
         }
 
         private void txtSearch_Enter(object sender, EventArgs e)
@@ -168,6 +199,42 @@ namespace Deacon_Database_Manager.GUI
                 MessageBox.Show("There was an error generating Member ID. New Member cannot be created.", "ID Creation Error", 
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void LoadMemberView(DataGridView Grid)
+        {
+            if (Grid.SelectedCells.Count == 1 || Grid.SelectedRows.Count == 1)
+            {
+                DataManager DM = new DataManager();
+                
+                int MemberId;
+                if (Grid.SelectedCells.Count == 1)
+                {
+                    MemberId  = (int)Grid.SelectedCells[0].OwningRow.Cells[0].Value;
+                }
+                else
+                {
+                  MemberId = (int)Grid.SelectedRows[0].Cells[0].Value;
+                }
+                Member member = Members.Find(x => x.Id == MemberId);
+                homeScreen.LoadPanel(new MemberView(homeScreen, member, false, Members));
+                homeScreen.RemovePanel(this);
+            }
+        }
+
+        private void dataGridUpcomingContacts_DoubleClick(object sender, EventArgs e)
+        {
+            LoadMemberView(dataGridUpcomingContacts);
+        }
+
+        private void UpcomingBirthdays_DoubleClick(object sender, EventArgs e)
+        {
+            LoadMemberView(UpcomingBirthdays);
+        }
+
+        private void dataGridUpcomingAnniversaries_DoubleClick(object sender, EventArgs e)
+        {
+            LoadMemberView(dataGridUpcomingAnniversaries);
         }
     }
 }

@@ -111,11 +111,6 @@
     <Compile Include="GUI\SearchForm.Designer.cs">
       <DependentUpon>SearchForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="MemberDatabaseDataSet.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>MemberDatabaseDataSet.xsd</DependentUpon>
-    </Compile>
     <Compile Include="MemberData\Deacon.cs" />
     <Compile Include="MemberData\Member.cs" />
     <Compile Include="MemberData\RelationshipCalculator.cs" />
@@ -143,17 +138,6 @@
     </EmbeddedResource>
     <None Include="app.config" />
     <None Include="Deacon Database Manager_TemporaryKey.pfx" />
-    <None Include="MemberDatabaseDataSet.xsc">
-      <DependentUpon>MemberDatabaseDataSet.xsd</DependentUpon>
-    </None>
-    <None Include="MemberDatabaseDataSet.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>MemberDatabaseDataSet.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="MemberDatabaseDataSet.xss">
-      <DependentUpon>MemberDatabaseDataSet.xsd</DependentUpon>
-    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
