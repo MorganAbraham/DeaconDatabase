@@ -62,7 +62,6 @@ namespace Deacon_Database_Manager.GUI
             {
                 bw.RunWorkerAsync();
             }
-            //SetFilter();
         }
 
         private void radioPictureView_CheckedChanged(object sender, EventArgs e)
@@ -636,6 +635,11 @@ namespace Deacon_Database_Manager.GUI
             {
                 comboRelatives.SelectedIndex = -1;
             }
+        }
+
+        private void cmboMaxResults_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            SetFilter();
         }
     }
 }

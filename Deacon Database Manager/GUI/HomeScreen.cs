@@ -59,5 +59,10 @@ namespace Deacon_Database_Manager.GUI
         {
             LoadPanel(new DeaconPanel(this));
         }
+
+        private void HomeScreen_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

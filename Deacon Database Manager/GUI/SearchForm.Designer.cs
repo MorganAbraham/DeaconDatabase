@@ -101,6 +101,7 @@
             // panelResults
             // 
             this.panelResults.AutoScroll = true;
+            this.panelResults.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.panelResults.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panelResults.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.panelResults.Location = new System.Drawing.Point(299, 119);
@@ -317,6 +318,7 @@
             // 
             // comboRegion
             // 
+            this.comboRegion.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboRegion.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comboRegion.FormattingEnabled = true;
             this.comboRegion.Location = new System.Drawing.Point(15, 23);
@@ -682,6 +684,7 @@
             // 
             // cmboDeacon
             // 
+            this.cmboDeacon.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmboDeacon.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmboDeacon.FormattingEnabled = true;
             this.cmboDeacon.Location = new System.Drawing.Point(15, 23);
@@ -721,6 +724,7 @@
             // 
             // cmboMaxResults
             // 
+            this.cmboMaxResults.BackColor = System.Drawing.SystemColors.Window;
             this.cmboMaxResults.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmboMaxResults.FormattingEnabled = true;
             this.cmboMaxResults.Items.AddRange(new object[] {
@@ -734,6 +738,7 @@
             this.cmboMaxResults.Name = "cmboMaxResults";
             this.cmboMaxResults.Size = new System.Drawing.Size(174, 21);
             this.cmboMaxResults.TabIndex = 17;
+            this.cmboMaxResults.SelectedIndexChanged += new System.EventHandler(this.cmboMaxResults_SelectedIndexChanged);
             // 
             // label17
             // 
@@ -748,6 +753,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(867, 623);
             this.Controls.Add(this.label17);
             this.Controls.Add(this.cmboMaxResults);

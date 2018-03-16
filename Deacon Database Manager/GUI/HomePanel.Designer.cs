@@ -28,6 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.UpcomingBirthdays = new System.Windows.Forms.DataGridView();
             this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colMemberName = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -44,6 +47,7 @@
             this.colName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colLastContactDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colNextContactDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.label3 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.UpcomingBirthdays)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridUpcomingAnniversaries)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridUpcomingContacts)).BeginInit();
@@ -55,12 +59,20 @@
             this.UpcomingBirthdays.AllowUserToDeleteRows = false;
             this.UpcomingBirthdays.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.UpcomingBirthdays.BackgroundColor = System.Drawing.Color.White;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.UpcomingBirthdays.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
             this.UpcomingBirthdays.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.UpcomingBirthdays.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Column4,
             this.colMemberName,
             this.colBirthDay});
-            this.UpcomingBirthdays.Location = new System.Drawing.Point(36, 386);
+            this.UpcomingBirthdays.Location = new System.Drawing.Point(117, 357);
             this.UpcomingBirthdays.Name = "UpcomingBirthdays";
             this.UpcomingBirthdays.ReadOnly = true;
             this.UpcomingBirthdays.Size = new System.Drawing.Size(270, 172);
@@ -89,18 +101,20 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(105, 370);
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(186, 341);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(101, 13);
+            this.label1.Size = new System.Drawing.Size(147, 16);
             this.label1.TabIndex = 3;
             this.label1.Text = "Upcoming Birthdays";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(409, 370);
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(471, 341);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(121, 13);
+            this.label2.Size = new System.Drawing.Size(177, 16);
             this.label2.TabIndex = 5;
             this.label2.Text = "Upcoming Anniversaries";
             // 
@@ -110,12 +124,20 @@
             this.dataGridUpcomingAnniversaries.AllowUserToDeleteRows = false;
             this.dataGridUpcomingAnniversaries.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridUpcomingAnniversaries.BackgroundColor = System.Drawing.Color.White;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridUpcomingAnniversaries.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
             this.dataGridUpcomingAnniversaries.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridUpcomingAnniversaries.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Column5,
             this.Column1,
             this.Column2});
-            this.dataGridUpcomingAnniversaries.Location = new System.Drawing.Point(340, 386);
+            this.dataGridUpcomingAnniversaries.Location = new System.Drawing.Point(421, 357);
             this.dataGridUpcomingAnniversaries.Name = "dataGridUpcomingAnniversaries";
             this.dataGridUpcomingAnniversaries.ReadOnly = true;
             this.dataGridUpcomingAnniversaries.Size = new System.Drawing.Size(270, 172);
@@ -144,11 +166,13 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(105, 147);
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(324, 102);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(129, 13);
+            this.label4.Size = new System.Drawing.Size(183, 16);
             this.label4.TabIndex = 7;
             this.label4.Text = "Upcoming Contact  Dates";
+            this.label4.Click += new System.EventHandler(this.label4_Click);
             // 
             // dataGridUpcomingContacts
             // 
@@ -156,17 +180,26 @@
             this.dataGridUpcomingContacts.AllowUserToDeleteRows = false;
             this.dataGridUpcomingContacts.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridUpcomingContacts.BackgroundColor = System.Drawing.Color.White;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridUpcomingContacts.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle6;
             this.dataGridUpcomingContacts.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridUpcomingContacts.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Column3,
             this.colName,
             this.colLastContactDate,
             this.colNextContactDate});
-            this.dataGridUpcomingContacts.Location = new System.Drawing.Point(36, 163);
+            this.dataGridUpcomingContacts.Location = new System.Drawing.Point(222, 121);
             this.dataGridUpcomingContacts.Name = "dataGridUpcomingContacts";
             this.dataGridUpcomingContacts.ReadOnly = true;
             this.dataGridUpcomingContacts.Size = new System.Drawing.Size(388, 172);
             this.dataGridUpcomingContacts.TabIndex = 6;
+            this.dataGridUpcomingContacts.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridUpcomingContacts_CellContentClick);
             this.dataGridUpcomingContacts.DoubleClick += new System.EventHandler(this.dataGridUpcomingContacts_DoubleClick);
             // 
             // Column3
@@ -194,12 +227,24 @@
             this.colNextContactDate.Name = "colNextContactDate";
             this.colNextContactDate.ReadOnly = true;
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(290, 43);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(256, 40);
+            this.label3.TabIndex = 8;
+            this.label3.Text = "2nd Providence Baptist Church\r\nDeacon Roster";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
             // HomePanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(851, 584);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.dataGridUpcomingContacts);
             this.Controls.Add(this.label2);
@@ -236,5 +281,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
+        private System.Windows.Forms.Label label3;
     }
 }

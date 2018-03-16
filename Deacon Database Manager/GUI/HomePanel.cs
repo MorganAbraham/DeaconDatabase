@@ -25,37 +25,7 @@ namespace Deacon_Database_Manager.GUI
             this.homeScreen = homeScreen;
         }
 
-        private void txtSearch_TextChanged(object sender, EventArgs e)
-        {
-            SearchResults.Controls.Clear();
-            if (string.IsNullOrEmpty(txtSearch.Text))
-            {
-                //txtSearch.Text = "Search For Members";
-                //txtSearch.ForeColor = Color.LightGray;   
-            }
-            else
-            {
-                txtSearch.ForeColor = Color.Black;
-                UserFilter FilterSettings = new UserFilter();
-                FilterSettings.MemberName = txtSearch.Text;
-                DataManager DM = new DataManager();
-                List<Member> FilterResults = DM.GetFilterResults(FilterSettings);
-
-                SearchResults.Controls.Clear();
-
-                int MaxResults = 10;
-                int LoadedResults = 0;
-                foreach(Member FilterResult in FilterResults)
-                {
-                    LoadQuickResult(FilterResult);
-                    LoadedResults++;
-                    if(LoadedResults >= MaxResults)
-                    {
-                        break;
-                    }
-                }
-            }
-        }
+        
 
         private void HomePanel_Load(object sender, EventArgs e)
         {
@@ -114,65 +84,12 @@ namespace Deacon_Database_Manager.GUI
             }
         }
 
-        private void txtSearch_Enter(object sender, EventArgs e)
-        {
-            if (txtSearch.Text == "Search For Members")
-            {
-                txtSearch.Text = "";
-                txtSearch.ForeColor = Color.Black;
-            }
-        }
-
         private void SearchResults_Paint(object sender, PaintEventArgs e)
         {
 
         }
 
-        private void LoadQuickResult(Member FilterResult)
-        {
-            Label ResultLabel = new Label();
-            ResultLabel.AutoSize = true;
-            ResultLabel.Text = Regex.Replace(FilterResult.FirstName + ' ' + 
-                FilterResult.MiddleName + ' ' + FilterResult.LastName, "[ ]{2,}", " ");
-
-            PictureBox PicBox = new PictureBox();
-            PicBox.SizeMode = PictureBoxSizeMode.StretchImage;
-            PicBox.Height = 127;
-            PicBox.Width = 102;
-            PicBox.Name = FilterResult.Id.ToString();
-
-            PicBox.Image = FilterResult.ProfilePicture;
-
-            Control LastControl = null;
-            if (SearchResults.Controls.Count == 0)
-            {
-                PicBox.Top = 0;
-                //PicBox.Left = 10;
-            }
-            else
-            {
-                LastControl = SearchResults.Controls[SearchResults.Controls.Count - 1];
-                PicBox.Top = LastControl.Top + LastControl.Height + 10;
-            }
-
-            ResultLabel.Left = PicBox.Left;
-            ResultLabel.Top = PicBox.Top + PicBox.Height + 10;
-
-            ResultLabel.Visible = true;
-            PicBox.Visible = true;
-            SearchResults.Controls.Add(PicBox);
-            SearchResults.Controls.Add(ResultLabel);
-            PicBox.Click += new EventHandler(PicBox_OnClick);
-        }
-
-        private void txtSearch_Leave(object sender, EventArgs e)
-        {
-            if(string.IsNullOrEmpty(txtSearch.Text))
-            {
-                txtSearch.Text = "Search For Members";
-                txtSearch.ForeColor = Color.LightGray;
-            }
-        }
+        
 
         private void PicBox_OnClick(object sender, EventArgs e)
         {
@@ -235,6 +152,16 @@ namespace Deacon_Database_Manager.GUI
         private void dataGridUpcomingAnniversaries_DoubleClick(object sender, EventArgs e)
         {
             LoadMemberView(dataGridUpcomingAnniversaries);
+        }
+
+        private void label4_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dataGridUpcomingContacts_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }

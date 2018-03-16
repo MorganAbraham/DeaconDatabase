@@ -84,6 +84,11 @@
             this.Relationship = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.colStatus = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.tabPage7 = new System.Windows.Forms.TabPage();
+            this.dtNextContactDate = new System.Windows.Forms.DateTimePicker();
+            this.label23 = new System.Windows.Forms.Label();
+            this.dtLastContactDate = new System.Windows.Forms.DateTimePicker();
+            this.label22 = new System.Windows.Forms.Label();
             this.tabPage6 = new System.Windows.Forms.TabPage();
             this.label20 = new System.Windows.Forms.Label();
             this.txtComments = new System.Windows.Forms.TextBox();
@@ -93,11 +98,6 @@
             this.btnChangePicture = new System.Windows.Forms.Button();
             this.btnDeletePic = new System.Windows.Forms.Button();
             this.picboxProfile = new System.Windows.Forms.PictureBox();
-            this.tabPage7 = new System.Windows.Forms.TabPage();
-            this.dtLastContactDate = new System.Windows.Forms.DateTimePicker();
-            this.label22 = new System.Windows.Forms.Label();
-            this.dtNextContactDate = new System.Windows.Forms.DateTimePicker();
-            this.label23 = new System.Windows.Forms.Label();
             this.panel3.SuspendLayout();
             this.panel4.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -108,9 +108,9 @@
             this.panel1.SuspendLayout();
             this.tabPage4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridRelatives)).BeginInit();
+            this.tabPage7.SuspendLayout();
             this.tabPage6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picboxProfile)).BeginInit();
-            this.tabPage7.SuspendLayout();
             this.SuspendLayout();
             // 
             // txtFirstName
@@ -769,6 +769,53 @@
             this.tabPage5.Text = "Church  Info";
             this.tabPage5.UseVisualStyleBackColor = true;
             // 
+            // tabPage7
+            // 
+            this.tabPage7.Controls.Add(this.dtNextContactDate);
+            this.tabPage7.Controls.Add(this.label23);
+            this.tabPage7.Controls.Add(this.dtLastContactDate);
+            this.tabPage7.Controls.Add(this.label22);
+            this.tabPage7.Location = new System.Drawing.Point(4, 22);
+            this.tabPage7.Name = "tabPage7";
+            this.tabPage7.Size = new System.Drawing.Size(826, 376);
+            this.tabPage7.TabIndex = 6;
+            this.tabPage7.Text = "Contact Schedule";
+            this.tabPage7.UseVisualStyleBackColor = true;
+            // 
+            // dtNextContactDate
+            // 
+            this.dtNextContactDate.Location = new System.Drawing.Point(25, 105);
+            this.dtNextContactDate.Name = "dtNextContactDate";
+            this.dtNextContactDate.Size = new System.Drawing.Size(231, 20);
+            this.dtNextContactDate.TabIndex = 20;
+            this.dtNextContactDate.ValueChanged += new System.EventHandler(this.dtNextContactDate_ValueChanged);
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Location = new System.Drawing.Point(22, 89);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(95, 13);
+            this.label23.TabIndex = 19;
+            this.label23.Text = "Next Contact Date";
+            // 
+            // dtLastContactDate
+            // 
+            this.dtLastContactDate.Location = new System.Drawing.Point(25, 44);
+            this.dtLastContactDate.Name = "dtLastContactDate";
+            this.dtLastContactDate.Size = new System.Drawing.Size(231, 20);
+            this.dtLastContactDate.TabIndex = 18;
+            this.dtLastContactDate.ValueChanged += new System.EventHandler(this.dtLastContactDate_ValueChanged);
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Location = new System.Drawing.Point(22, 28);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(93, 13);
+            this.label22.TabIndex = 17;
+            this.label22.Text = "Last Contact Date";
+            // 
             // tabPage6
             // 
             this.tabPage6.Controls.Add(this.label20);
@@ -858,57 +905,11 @@
             this.picboxProfile.TabIndex = 0;
             this.picboxProfile.TabStop = false;
             // 
-            // tabPage7
-            // 
-            this.tabPage7.Controls.Add(this.dtNextContactDate);
-            this.tabPage7.Controls.Add(this.label23);
-            this.tabPage7.Controls.Add(this.dtLastContactDate);
-            this.tabPage7.Controls.Add(this.label22);
-            this.tabPage7.Location = new System.Drawing.Point(4, 22);
-            this.tabPage7.Name = "tabPage7";
-            this.tabPage7.Size = new System.Drawing.Size(826, 376);
-            this.tabPage7.TabIndex = 6;
-            this.tabPage7.Text = "Contact Schedule";
-            this.tabPage7.UseVisualStyleBackColor = true;
-            // 
-            // dtLastContactDate
-            // 
-            this.dtLastContactDate.Location = new System.Drawing.Point(25, 44);
-            this.dtLastContactDate.Name = "dtLastContactDate";
-            this.dtLastContactDate.Size = new System.Drawing.Size(231, 20);
-            this.dtLastContactDate.TabIndex = 18;
-            this.dtLastContactDate.ValueChanged += new System.EventHandler(this.dtLastContactDate_ValueChanged);
-            // 
-            // label22
-            // 
-            this.label22.AutoSize = true;
-            this.label22.Location = new System.Drawing.Point(22, 28);
-            this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(93, 13);
-            this.label22.TabIndex = 17;
-            this.label22.Text = "Last Contact Date";
-            // 
-            // dtNextContactDate
-            // 
-            this.dtNextContactDate.Location = new System.Drawing.Point(25, 105);
-            this.dtNextContactDate.Name = "dtNextContactDate";
-            this.dtNextContactDate.Size = new System.Drawing.Size(231, 20);
-            this.dtNextContactDate.TabIndex = 20;
-            this.dtNextContactDate.ValueChanged += new System.EventHandler(this.dtNextContactDate_ValueChanged);
-            // 
-            // label23
-            // 
-            this.label23.AutoSize = true;
-            this.label23.Location = new System.Drawing.Point(22, 89);
-            this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(95, 13);
-            this.label23.TabIndex = 19;
-            this.label23.Text = "Next Contact Date";
-            // 
             // MemberView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(867, 623);
             this.Controls.Add(this.btnDeletePic);
             this.Controls.Add(this.btnChangePicture);
@@ -937,11 +938,11 @@
             this.tabPage4.ResumeLayout(false);
             this.tabPage4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridRelatives)).EndInit();
+            this.tabPage7.ResumeLayout(false);
+            this.tabPage7.PerformLayout();
             this.tabPage6.ResumeLayout(false);
             this.tabPage6.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picboxProfile)).EndInit();
-            this.tabPage7.ResumeLayout(false);
-            this.tabPage7.PerformLayout();
             this.ResumeLayout(false);
 
         }

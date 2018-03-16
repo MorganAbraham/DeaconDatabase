@@ -66,6 +66,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data" />
@@ -162,6 +163,8 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <DependentUpon>MemberDatabase.mdf</DependentUpon>
     </Content>
+    <None Include="Resources\LoadingImage.gif" />
+    <None Include="Resources\open_research_data_keyvisual_560x260.jpg" />
     <None Include="Resources\NoPhoto.jpeg" />
   </ItemGroup>
   <ItemGroup>
