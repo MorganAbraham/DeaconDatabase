@@ -28,49 +28,26 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.txtSearch = new System.Windows.Forms.TextBox();
-            this.SearchResults = new System.Windows.Forms.Panel();
             this.UpcomingBirthdays = new System.Windows.Forms.DataGridView();
+            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colMemberName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colBirthDay = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.dataGridUpcomingAnniversaries = new System.Windows.Forms.DataGridView();
+            this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label4 = new System.Windows.Forms.Label();
             this.dataGridUpcomingContacts = new System.Windows.Forms.DataGridView();
             this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colLastContactDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colNextContactDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colMemberName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colBirthDay = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.UpcomingBirthdays)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridUpcomingAnniversaries)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridUpcomingContacts)).BeginInit();
             this.SuspendLayout();
-            // 
-            // txtSearch
-            // 
-            this.txtSearch.ForeColor = System.Drawing.Color.LightGray;
-            this.txtSearch.Location = new System.Drawing.Point(637, 13);
-            this.txtSearch.Name = "txtSearch";
-            this.txtSearch.Size = new System.Drawing.Size(161, 20);
-            this.txtSearch.TabIndex = 0;
-            this.txtSearch.Text = "Search For Members";
-            this.txtSearch.TextChanged += new System.EventHandler(this.txtSearch_TextChanged);
-            this.txtSearch.Enter += new System.EventHandler(this.txtSearch_Enter);
-            this.txtSearch.Leave += new System.EventHandler(this.txtSearch_Leave);
-            // 
-            // SearchResults
-            // 
-            this.SearchResults.AutoScroll = true;
-            this.SearchResults.Location = new System.Drawing.Point(637, 56);
-            this.SearchResults.Name = "SearchResults";
-            this.SearchResults.Size = new System.Drawing.Size(161, 516);
-            this.SearchResults.TabIndex = 1;
-            this.SearchResults.Paint += new System.Windows.Forms.PaintEventHandler(this.SearchResults_Paint);
             // 
             // UpcomingBirthdays
             // 
@@ -89,6 +66,25 @@
             this.UpcomingBirthdays.Size = new System.Drawing.Size(270, 172);
             this.UpcomingBirthdays.TabIndex = 2;
             this.UpcomingBirthdays.DoubleClick += new System.EventHandler(this.UpcomingBirthdays_DoubleClick);
+            // 
+            // Column4
+            // 
+            this.Column4.HeaderText = "Member ID";
+            this.Column4.Name = "Column4";
+            this.Column4.ReadOnly = true;
+            this.Column4.Visible = false;
+            // 
+            // colMemberName
+            // 
+            this.colMemberName.HeaderText = "Member Name";
+            this.colMemberName.Name = "colMemberName";
+            this.colMemberName.ReadOnly = true;
+            // 
+            // colBirthDay
+            // 
+            this.colBirthDay.HeaderText = "Birth Day";
+            this.colBirthDay.Name = "colBirthDay";
+            this.colBirthDay.ReadOnly = true;
             // 
             // label1
             // 
@@ -125,6 +121,25 @@
             this.dataGridUpcomingAnniversaries.Size = new System.Drawing.Size(270, 172);
             this.dataGridUpcomingAnniversaries.TabIndex = 4;
             this.dataGridUpcomingAnniversaries.DoubleClick += new System.EventHandler(this.dataGridUpcomingAnniversaries_DoubleClick);
+            // 
+            // Column5
+            // 
+            this.Column5.HeaderText = "Member ID";
+            this.Column5.Name = "Column5";
+            this.Column5.ReadOnly = true;
+            this.Column5.Visible = false;
+            // 
+            // Column1
+            // 
+            this.Column1.HeaderText = "Member Name";
+            this.Column1.Name = "Column1";
+            this.Column1.ReadOnly = true;
+            // 
+            // Column2
+            // 
+            this.Column2.HeaderText = "Anniversary Date";
+            this.Column2.Name = "Column2";
+            this.Column2.ReadOnly = true;
             // 
             // label4
             // 
@@ -179,44 +194,6 @@
             this.colNextContactDate.Name = "colNextContactDate";
             this.colNextContactDate.ReadOnly = true;
             // 
-            // Column4
-            // 
-            this.Column4.HeaderText = "Member ID";
-            this.Column4.Name = "Column4";
-            this.Column4.ReadOnly = true;
-            this.Column4.Visible = false;
-            // 
-            // colMemberName
-            // 
-            this.colMemberName.HeaderText = "Member Name";
-            this.colMemberName.Name = "colMemberName";
-            this.colMemberName.ReadOnly = true;
-            // 
-            // colBirthDay
-            // 
-            this.colBirthDay.HeaderText = "Birth Day";
-            this.colBirthDay.Name = "colBirthDay";
-            this.colBirthDay.ReadOnly = true;
-            // 
-            // Column5
-            // 
-            this.Column5.HeaderText = "Member ID";
-            this.Column5.Name = "Column5";
-            this.Column5.ReadOnly = true;
-            this.Column5.Visible = false;
-            // 
-            // Column1
-            // 
-            this.Column1.HeaderText = "Member Name";
-            this.Column1.Name = "Column1";
-            this.Column1.ReadOnly = true;
-            // 
-            // Column2
-            // 
-            this.Column2.HeaderText = "Anniversary Date";
-            this.Column2.Name = "Column2";
-            this.Column2.ReadOnly = true;
-            // 
             // HomePanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -229,8 +206,6 @@
             this.Controls.Add(this.dataGridUpcomingAnniversaries);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.UpcomingBirthdays);
-            this.Controls.Add(this.SearchResults);
-            this.Controls.Add(this.txtSearch);
             this.ForeColor = System.Drawing.SystemColors.ControlText;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "HomePanel";
@@ -245,9 +220,6 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.TextBox txtSearch;
-        private System.Windows.Forms.Panel SearchResults;
         private System.Windows.Forms.DataGridView UpcomingBirthdays;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
