@@ -243,8 +243,19 @@ namespace Deacon_Database_Manager.GUI
             Grid.Columns[0].Visible = false;
             Grid.Columns[0].Width = 0;
 
-            foreach(Member SearchResult in SearchResults)
+            int MaxLoadCount;
+            if (!int.TryParse(cmboMaxResults.Text, out MaxLoadCount))
             {
+                MaxLoadCount = 50;
+            }
+
+            int LoadedResults = 0;
+            foreach (Member SearchResult in SearchResults)
+            {
+                if(LoadedResults > MaxLoadCount)
+                {
+                    break;
+                }
                 string BirthDate = SearchResult.BirthDate == 
                     DateTime.MinValue ? "" : SearchResult.BirthDate.ToShortDateString();
                 string HomeAddress = Regex.Replace(SearchResult.Address.Street + ' ' + 
@@ -257,6 +268,7 @@ namespace Deacon_Database_Manager.GUI
                 Grid.Rows.Add(SearchResult.Id, Regex.Replace(SearchResult.FirstName + ' ' +
                     SearchResult.MiddleName + ' ' + SearchResult.LastName, "[ ]{2,}", " "),
                     DeaconName, BirthDate, HomeAddress, AnniversaryDate);
+                LoadedResults++;
             }
             this.Invoke(new MethodInvoker(delegate { panelResults.Controls.Add(Grid); }));
             
