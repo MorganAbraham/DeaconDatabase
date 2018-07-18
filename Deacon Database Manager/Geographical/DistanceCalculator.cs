@@ -1,25 +1,29 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Deacon_Database_Manager.Geographical
 {
     class DistanceCalculator
     {
-        public DistanceCalculator()
+        /// <summary>
+        /// Gets the distance between two addresses in miles
+        /// </summary>
+        /// <param name="address1">An address starting point</param>
+        /// <param name="address2">An address end point</param>
+        /// <returns>The distance between two addresses in miles</returns>
+        public static double GetDistance(string address1, string address2)
         {
-
+            return GetDistance(new Location(address1), new Location(address2));
         }
 
-        public static double GetDistance(string Address1, string Address2)
+        /// <summary>
+        /// Gets the distance between two addresses in miles.
+        /// </summary>
+        /// <param name="location1">An address starting point</param>
+        /// <param name="location2">An address end point</param>
+        /// <returns>The distance between two addresses in miles</returns>
+        public static double GetDistance(Location location1, Location location2)
         {
-            return GetDistance(new Location(Address1), new Location(Address2));
-        }
-
-        public static double GetDistance(Location Location1, Location Location2)
-        {
-            if (Location1 == null || Location2 == null)
+            if (location1 == null || location2 == null)
             {
                 return -1;
             }
@@ -38,16 +42,16 @@ namespace Deacon_Database_Manager.Geographical
                 {
                     int R = 3959;
 
-                    double Lat1 = Location1.Latitude;
-                    double Lon1 = Location1.Longitude;
-                    double Lat2 = Location2.Latitude;
-                    double Lon2 = Location2.Longitude;
+                    double lat1 = location1.Latitude;
+                    double lon1 = location1.Longitude;
+                    double lat2 = location2.Latitude;
+                    double lon2 = location2.Longitude;
 
-                    double LatDelta = GetRadians(Lat2 - Lat1);
-                    double LonDelta = GetRadians(Lon2 - Lon1);
-                    double a = Math.Sin(LatDelta / 2) * Math.Sin(LatDelta / 2) +
-                        Math.Cos(GetRadians(Lat1)) * Math.Cos(GetRadians(Lat2)) *
-                        Math.Sin(LonDelta / 2) * Math.Sin(LonDelta / 2);
+                    double latDelta = GetRadians(lat2 - lat1);
+                    double lonDelta = GetRadians(lon2 - lon1);
+                    double a = Math.Sin(latDelta / 2) * Math.Sin(latDelta / 2) +
+                        Math.Cos(GetRadians(lat1)) * Math.Cos(GetRadians(lat2)) *
+                        Math.Sin(lonDelta / 2) * Math.Sin(lonDelta / 2);
                     double c = 2 * Math.Atan2(Math.Sqrt(a), Math.Sqrt(1 - a));
                     double d = R * c;
                     return d;

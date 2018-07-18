@@ -8,7 +8,7 @@ namespace Deacon_Database_Manager.Geographical
         /// <summary>
         /// Finds the latitude or longitude of an address
         /// </summary>
-        /// <param name="searchAddress"></param>
+        /// <param name="searchAddress">A string representing a full or parital address</param>
         /// <returns>An array containing the latitude and longitude of a given address</returns>
         public static double[] GetCoordinates(string searchAddress)
         {

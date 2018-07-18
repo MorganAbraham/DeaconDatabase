@@ -7,9 +7,15 @@ namespace Deacon_Database_Manager.Geographical
 {
     class StateInformation
     {
-        public static string GetStateAbbreviation(string StateName)
+        /// <summary>
+        /// Converts a full state name into it's two digit abbreviation
+        /// </summary>
+        /// <param name="stateName">The full state name of a U.S. state or territory</param>
+        /// <returns>The two digit abbreviation of a given state</returns>
+        public static string GetStateAbbreviation(string stateName)
         {
-            Dictionary<string, string> StateData = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
+            Dictionary<string, string> stateDictionary = 
+                new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
             {
                 { "Alabama", "AL" },
                 { "Alaska", "AK" },
@@ -141,15 +147,19 @@ namespace Deacon_Database_Manager.Geographical
 
             };
 
-            string Result;
-            if(!StateData.TryGetValue(StateName, out Result))
+            if (!stateDictionary.TryGetValue(stateName, out string result))
             {
-                Result = "";
+                result = String.Empty;
             }
-            return Result;
+            return result;
         }
 
-        public static string GetStateName(string Abbreviation)
+        /// <summary>
+        /// Converts a two digit state abbreviation to it's full name
+        /// </summary>
+        /// <param name="abbreviation">The two digit abbreviation of an U.S. state or territory</param>
+        /// <returns>The name of an U.S. state or territory</returns>
+        public static string GetStateName(string abbreviation)
         {
             Dictionary<string, string> StateData = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
             {
@@ -275,16 +285,13 @@ namespace Deacon_Database_Manager.Geographical
                 { "Virgin Islands", "Virgin Islands" },
                 { "Armed Forces Americas", "Armed Forces Americas" },
                 { "Armed Forces Pacific", "Armed Forces Pacific" }
-
-
             };
 
-            string Result;
-            if (!StateData.TryGetValue(Abbreviation, out Result))
+            if (!StateData.TryGetValue(abbreviation, out string result))
             {
-                Result = "";
+                result = String.Empty;
             }
-            return Result;
+            return result;
         }
     }
 }
