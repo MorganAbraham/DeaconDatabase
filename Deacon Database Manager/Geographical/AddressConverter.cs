@@ -1,28 +1,29 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
 using System.Xml;
 
 namespace Deacon_Database_Manager.Geographical
 {
     class AddressConverter
     {
-        public static double[] GetCoordinates(string SearchAddress)
+        /// <summary>
+        /// Finds the latitude or longitude of an address
+        /// </summary>
+        /// <param name="searchAddress"></param>
+        /// <returns>An array containing the latitude and longitude of a given address</returns>
+        public static double[] GetCoordinates(string searchAddress)
         {
-            double[] Result = new double[] { 0.0, 0.0 };
-            string UrlString = @"http://maps.googleapis.com/maps/api/geocode/xml?&address=" + SearchAddress;
-            XmlDocument XmlDoc = new XmlDocument();
-            XmlDoc.Load(UrlString);
-            XmlNodeList LocationNode = XmlDoc.GetElementsByTagName("location");
+            double[] result = new double[] { 0.0, 0.0 };
+            string urlString = @"http://maps.googleapis.com/maps/api/geocode/xml?&address=" + searchAddress;
+            XmlDocument xmlDoc = new XmlDocument();
+            xmlDoc.Load(urlString);
+            XmlNodeList locationNode = xmlDoc.GetElementsByTagName("location");
 
-            string Lat = "";
-            string Lon = "";
+            string lat = String.Empty;
+            string lon = String.Empty;
             try
             {
-                Lat = LocationNode.Item(0)["lat"].InnerText;
-                Lon = LocationNode.Item(0)["lng"].InnerText;
+                lat = locationNode.Item(0)["lat"].InnerText;
+                lon = locationNode.Item(0)["lng"].InnerText;
             }
             catch(Exception e)
             {
@@ -30,16 +31,16 @@ namespace Deacon_Database_Manager.Geographical
             }
 
             double d;
-            if(double.TryParse(Lat, out d))
+            if(double.TryParse(lat, out d))
             {
-                Result[0] = d;
+                result[0] = d;
             }
-            if(double.TryParse(Lon, out d))
+            if(double.TryParse(lon, out d))
             {
-                Result[1] = d;
+                result[1] = d;
             }
 
-            return Result;
+            return result;
         }
     }
 }
