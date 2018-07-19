@@ -9,10 +9,10 @@ namespace Deacon_Database_Manager.MemberData
     class Deacon : IComparable<Deacon>
     {
         private int id = -1;
-        private string firstName = "";
-        private string lastName = "";
-        private string region = "";
-        private int memberCount = 0;
+        private string firstName;
+        private string lastName;
+        private string region;
+        private int memberCount;
 
         public int Id
         {
@@ -31,7 +31,7 @@ namespace Deacon_Database_Manager.MemberData
         {
             get
             {
-                return firstName;
+                return firstName ?? String.Empty;
             }
 
             set
@@ -44,7 +44,7 @@ namespace Deacon_Database_Manager.MemberData
         {
             get
             {
-                return lastName;
+                return lastName ?? String.Empty;
             }
 
             set
@@ -70,7 +70,7 @@ namespace Deacon_Database_Manager.MemberData
         {
             get
             {
-                return region;
+                return region ?? String.Empty;
             }
 
             set

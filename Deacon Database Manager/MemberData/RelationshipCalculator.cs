@@ -8,11 +8,11 @@ namespace Deacon_Database_Manager.MemberData
 {
     class RelationshipCalculator
     {
-        private Dictionary<Member, string> Relationships = new Dictionary<Member, string>();
-        private Dictionary<int, int> CheckedMembers = new Dictionary<int, int>();
-        private int LevelsDeep = 0;
-        private Member LookupMember;
-        private Dictionary<string, string> RelationDict = new Dictionary<string, string>()
+        private Dictionary<Member, string> relationships = new Dictionary<Member, string>();
+        private Dictionary<int, int> checkedMembers = new Dictionary<int, int>();
+        private int levelsDeep = 0;
+        private Member lookupMember;
+        private Dictionary<string, string> relationDict = new Dictionary<string, string>()
         {
             {"Spouse","Spouse"},
             {"Parent","Child"},
@@ -32,73 +32,87 @@ namespace Deacon_Database_Manager.MemberData
             {"Cousin","Cousin"}
         };
 
+        /// <summary>
+        /// Finds All Members that are related to a given member
+        /// </summary>
+        /// <param name="member">The base level member to match other members to</param>
+        /// <returns>A Dictionary of relatives with a member as the key and the relationship as the value</returns>
         public Dictionary<Member, string> GetAllRelationships(Member member)
         {
-            LookupMember = member;
+            lookupMember = member;
             AddRelative(member, "member");
-            return Relationships;
+            return relationships;
         }
 
-        private void AddRelative(Member member, string RelationToMember, bool DirectConnection = true)
+        private void AddRelative(Member member, string relationToMember, bool DirectConnection = true)
         {
-            if(RelationToMember == null)
+            if(relationToMember == null)
             {
                 return;
             }
 
-            if(!Relationships.ContainsKey(member) && member.Id != LookupMember.Id)
+            if(!relationships.ContainsKey(member) && member.Id != lookupMember.Id)
             {
-                Relationships.Add(member, RelationToMember);
+                relationships.Add(member, relationToMember);
             }
 
-            DataManager DM = new DataManager();
-            Dictionary<Member, string[]> KnownRelatives = DM.GetRelatives(member.Id);
-            foreach (KeyValuePair<Member, string[]> KnownRelative in KnownRelatives)
+            DataManager dataManager = new DataManager();
+            Dictionary<Member, string[]> knownRelatives = dataManager.GetRelatives(member.Id);
+            foreach (KeyValuePair<Member, string[]> knownRelative in knownRelatives)
             {
-                if (!CheckedMembers.ContainsKey(KnownRelative.Key.Id))
+                if (!checkedMembers.ContainsKey(knownRelative.Key.Id))
                 {
-                    CheckedMembers.Add(KnownRelative.Key.Id, KnownRelative.Key.Id);
+                    checkedMembers.Add(knownRelative.Key.Id, knownRelative.Key.Id);
                 }
                 else
                 {
                     continue;
                 }
-                if (KnownRelative.Key.Id != LookupMember.Id)
+                if (knownRelative.Key.Id != lookupMember.Id)
                 {
-                    if (RelationToMember == "member")
+                    if (relationToMember == "member")
                     {
-                        AddRelative(KnownRelative.Key, KnownRelative.Value[0]);
+                        AddRelative(knownRelative.Key, knownRelative.Value[0]);
                     }
                     else
                     {
-                        if (member.Id != LookupMember.Id)
+                        if (member.Id != lookupMember.Id)
                         {
-                            string RelationToRelation = KnownRelative.Value[0];
-                            if (LevelsDeep > 0)
+                            string relationToRelation = knownRelative.Value[0];
+                            if (levelsDeep > 0)
                             {
                                 
-                                if(!RelationDict.TryGetValue(RelationToRelation, out RelationToRelation))
+                                if(!relationDict.TryGetValue(relationToRelation, out relationToRelation))
                                 {
-                                    RelationToRelation = "";
+                                    relationToRelation = "";
                                 }
                             }
-                            string MyRelationship = GetRelationship(RelationToMember, RelationToRelation, LevelsDeep > 0);
-                            LevelsDeep += 1;
-                            AddRelative(KnownRelative.Key, MyRelationship, false);
+                            string myRelationship = 
+                                GetRelationship(relationToMember, relationToRelation, levelsDeep > 0);
+                            levelsDeep += 1;
+                            AddRelative(knownRelative.Key, myRelationship, false);
                         }
                         else
                         {
-                            Relationships.Add(KnownRelative.Key, KnownRelative.Value[0]);
+                            relationships.Add(knownRelative.Key, knownRelative.Value[0]);
                         }
                     }
                 }
             }
         }
 
-        public string GetRelationship(string RelationToMember, string RelationToRelation, bool DirectConnection = false)
+        /// <summary>
+        /// Finds the relationship bewtween two different family members
+        /// </summary>
+        /// <param name="relationToMember">The relationship to the base member</param>
+        /// <param name="relationToRelation">The relationship to the relative</param>
+        /// <param name="directConnection">true if the relationship is direct, else false</param>
+        /// <returns>The relationship between two family members. Null if there is no relationship</returns>
+        public string GetRelationship(string relationToMember, string relationToRelation, 
+            bool directConnection = false)
         {
            
-            string[,] Matrix = new string[,]
+            string[,] matrix = new string[,]
             {
                 {"My is your ->","Spouse","Parent","Aunt/Uncle","Grandparent","Parent-In-Law","Child","Sibling","Grandchild","Great-Grandparent","Great-Great Grandparent","Great Aunt/Uncle","Niece/Nephew","Great-Grandchild","Great-Great Grandchild","Sibling-In-Law","Child-In-Law","Cousin"},
                 {"Spouse","-","Child","Niece/Nephew","Grandchild","Child-In-Law","Parent-In-Law","Sibling-In-Law","-","Great-Grandparent","Great-Great Grandparent","Great Aunt/Uncle","-","-","-","Sibling","Parent","-"},
@@ -119,71 +133,71 @@ namespace Deacon_Database_Manager.MemberData
                 {"Child-In-Law","Child","Grandchild","-","Great-Grandchild","-","-","-","-","Great-Great Grandchild","-","-","-","-","-","-","-","-"},
                 {"Cousin","-","Cousin","-","-","-","Aunt/Uncle","Cousin","Grandparent","-","-","-","-","-","-","-","-","-"}
             };
-            string Result = null;
+            string result = null;
 
-            int RowIndex = -1;
-            int ColumnIndex = -1;
+            int rowIndex = -1;
+            int columnIndex = -1;
 
-            if (!DirectConnection)
+            if (!directConnection)
             {
-                for (int Column = 1; Column < Matrix.GetLength(1); Column++)
+                for (int column = 1; column < matrix.GetLength(1); column++)
                 {
-                    if (Matrix[0, Column] == RelationToRelation)
+                    if (matrix[0, column] == relationToRelation)
                     {
-                        ColumnIndex = Column;
+                        columnIndex = column;
                         break;
                     }
                 }
 
-                if (ColumnIndex > -1)
+                if (columnIndex > -1)
                 {
 
-                    for (int Row = 1; Row < Matrix.GetLength(0); Row++)
+                    for (int row = 1; row < matrix.GetLength(0); row++)
                     {
-                        if (Matrix[Row, ColumnIndex] == RelationToMember)
+                        if (matrix[row, columnIndex] == relationToMember)
                         {
-                            RowIndex = Row;
+                            rowIndex = row;
                             break;
                         }
                     }
                 }
-                if (RowIndex > -1 && ColumnIndex > -1)
+                if (rowIndex > -1 && columnIndex > -1)
                 {
                     //Result = Matrix[RowIndex, ColumnIndex];
-                    Result = Matrix[RowIndex, 0];
+                    result = matrix[rowIndex, 0];
                 }
             }
             else
             {
-                for (int Column = 1; Column < Matrix.GetLength(1); Column++)
+                for (int column = 1; column < matrix.GetLength(1); column++)
                 {
-                    if (Matrix[0, Column] == RelationToRelation)
+                    if (matrix[0, column] == relationToRelation)
                     {
-                        ColumnIndex = Column;
+                        columnIndex = column;
                         break;
                     }
                 }
 
-                for (int Row = 1; Row < Matrix.GetLength(0); Row++)
+                for (int row = 1; row < matrix.GetLength(0); row++)
                 {
-                    if (Matrix[Row, 0] == RelationToMember)
+                    if (matrix[row, 0] == relationToMember)
                     {
-                        RowIndex = Row;
+                        rowIndex = row;
                         break;
                     }
                 }
 
-                if (RowIndex > -1 && ColumnIndex > -1)
+                if (rowIndex > -1 && columnIndex > -1)
                 {
-                    Result = Matrix[RowIndex, ColumnIndex];
+                    result = matrix[rowIndex, columnIndex];
                 }
             }
 
-            if (!string.IsNullOrEmpty(Result) && (Result == "-" || Result.IndexOf(@"/") > -1))
+            if (!string.IsNullOrEmpty(result) && (result == "-" || result.IndexOf(@"/") > -1))
             {
-                Result = null;
+                result = null;
             }
-            return Result;
+            return result;
         }
     }
 

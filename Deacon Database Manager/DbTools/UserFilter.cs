@@ -7,20 +7,20 @@ namespace Deacon_Database_Manager.DbTools
 {
     class UserFilter
     {
-        private string memberName = "";
+        private string memberName;
         private int deaconId = -1;
-        private string birthMonth = "";
-        private string memberAddress = "";
-        private int milesFromAddresss = 0;
-        private int minimumAge = 0;
+        private string birthMonth;
+        private string memberAddress;
+        private int milesFromAddress;
+        private int minimumAge;
         private int maximumAge = 150;
-        private int minimumMembership = 0;
+        private int minimumMembership;
 
         public string MemberName
         {
             get
             {
-                return memberName;
+                return memberName ?? String.Empty;
             }
 
             set
@@ -33,7 +33,7 @@ namespace Deacon_Database_Manager.DbTools
         {
             get
             {
-                return birthMonth;
+                return birthMonth ?? String.Empty;
             }
 
             set
@@ -46,7 +46,7 @@ namespace Deacon_Database_Manager.DbTools
         {
             get
             {
-                return memberAddress;
+                return memberAddress ?? String.Empty;
             }
 
             set
@@ -59,12 +59,12 @@ namespace Deacon_Database_Manager.DbTools
         {
             get
             {
-                return milesFromAddresss;
+                return milesFromAddress;
             }
 
             set
             {
-                milesFromAddresss = value;
+                milesFromAddress = value;
             }
         }
 

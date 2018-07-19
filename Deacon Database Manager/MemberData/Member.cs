@@ -1,38 +1,34 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Deacon_Database_Manager.Geographical;
-using System.Text.RegularExpressions;
-using System.Reflection;
+﻿using Deacon_Database_Manager.Geographical;
+using System;
 using System.Drawing;
+using System.Reflection;
+using System.Text.RegularExpressions;
 
 namespace Deacon_Database_Manager.MemberData
 {
-   
+
     public class Member : IComparable<Member>
     {
         
         private int id;
-        private string firstName = "";
-        private string middleName = "";
-        private string lastName = "";
-        private string suffix = "";
+        private string firstName;
+        private string middleName;
+        private string lastName;
+        private string suffix;
         private Image profilePicture = Properties.Resources.NoPhoto;
 
-
-        private string gender = "";
+        private string gender;
         private DateTime birthDate;
-        private string ethnicity = "";
+        private string ethnicity;
 
-        private string homeEmail = "";
-        private string homePhone = "";
-        private string emergencyContact = "";
-        private string emergencyNumber = "";
+        private string homeEmail;
+        private string homePhone;
+        private string emergencyContact;
+        private string emergencyNumber;
 
         private DateTime membershipStart;
         private DateTime membershipEnd;
-        private string previousChurch = "";
+        private string previousChurch;
 
         private Location address = new Location();
         private Deacon deaconInfo = new Deacon();
@@ -40,7 +36,8 @@ namespace Deacon_Database_Manager.MemberData
         private DateTime lastContactDate = DateTime.MinValue;
         private DateTime nextContactDate = DateTime.MinValue;
 
-        private string comments = "";
+        private string comments;
+
         public  Member()
         {
             //Image img 
@@ -62,12 +59,12 @@ namespace Deacon_Database_Manager.MemberData
         {
             get
             {
-                return firstName;
+                return firstName ?? String.Empty;
             }
 
             set
             {
-                firstName = string.IsNullOrEmpty(value) ? "" : value;
+                firstName = value ?? String.Empty;
             }
         }
 
@@ -75,12 +72,12 @@ namespace Deacon_Database_Manager.MemberData
         {
             get
             {
-                return middleName;
+                return middleName ?? String.Empty;
             }
 
             set
             {
-                middleName = string.IsNullOrEmpty(value) ? "" : value;
+                middleName = value ?? String.Empty;
             }
         }
 
@@ -88,12 +85,12 @@ namespace Deacon_Database_Manager.MemberData
         {
             get
             {
-                return lastName;
+                return lastName ?? String.Empty;
             }
 
             set
             {
-                lastName = string.IsNullOrEmpty(value) ? "" : value;
+                lastName = value ?? String.Empty;
             }
         }
 
@@ -101,12 +98,12 @@ namespace Deacon_Database_Manager.MemberData
         {
             get
             {
-                return suffix;
+                return suffix ?? String.Empty;
             }
 
             set
             {
-                suffix = value;
+                suffix = value ?? String.Empty;
             }
         }
 
@@ -127,12 +124,12 @@ namespace Deacon_Database_Manager.MemberData
         {
             get
             {
-                return gender;
+                return gender ?? String.Empty;
             }
 
             set
             {
-                gender = value;
+                gender = value ?? String.Empty;
             }
         }
 
@@ -153,12 +150,12 @@ namespace Deacon_Database_Manager.MemberData
         {
             get
             {
-                return ethnicity;
+                return ethnicity ?? String.Empty;
             }
 
             set
             {
-                ethnicity = value;
+                ethnicity = value ?? String.Empty;
             }
         }
 
@@ -166,12 +163,12 @@ namespace Deacon_Database_Manager.MemberData
         {
             get
             {
-                return homeEmail;
+                return homeEmail ?? String.Empty;
             }
 
             set
             {
-                homeEmail = value;
+                homeEmail = value ?? String.Empty;
             }
         }
 
@@ -179,16 +176,13 @@ namespace Deacon_Database_Manager.MemberData
         {
             get
             {
-                return homePhone;
+                return homePhone ?? String.Empty;
             }
 
             set
             {
-                homePhone = value;
-                if(!string.IsNullOrEmpty(homePhone))
-                {
-                    homePhone = Regex.Replace(homePhone, "[^0-9]", "");
-                }
+                homePhone = value ?? String.Empty;
+                homePhone = Regex.Replace(homePhone, "[^0-9]", String.Empty);
             }
         }
 
@@ -196,12 +190,12 @@ namespace Deacon_Database_Manager.MemberData
         {
             get
             {
-                return emergencyContact;
+                return emergencyContact ?? String.Empty;
             }
 
             set
             {
-                emergencyContact = value;
+                emergencyContact = value ?? String.Empty;
             }
         }
 
@@ -209,16 +203,13 @@ namespace Deacon_Database_Manager.MemberData
         {
             get
             {
-                return emergencyNumber;
+                return emergencyNumber ?? String.Empty;
             }
 
             set
             {
-                emergencyNumber = value;
-                if(!string.IsNullOrEmpty(emergencyNumber))
-                {
-                    emergencyNumber = Regex.Replace(emergencyNumber, "[^0-9]", "");
-                }
+                emergencyNumber = value ?? String.Empty;
+                emergencyNumber = Regex.Replace(emergencyNumber, "[^0-9]", String.Empty);
             }
         }
 
@@ -252,12 +243,12 @@ namespace Deacon_Database_Manager.MemberData
         {
             get
             {
-                return previousChurch;
+                return previousChurch ?? String.Empty;
             }
 
             set
             {
-                previousChurch = value;
+                previousChurch = value ?? String.Empty;
             }
         }
 
@@ -273,7 +264,6 @@ namespace Deacon_Database_Manager.MemberData
                 profilePicture = value;
             }
         }
-
 
         internal Deacon DeaconInfo
         {
@@ -292,12 +282,12 @@ namespace Deacon_Database_Manager.MemberData
         {
             get
             {
-                return comments;
+                return comments ?? String.Empty;
             }
 
             set
             {
-                comments = value;
+                comments = value ?? String.Empty;
             }
         }
 
@@ -337,15 +327,15 @@ namespace Deacon_Database_Manager.MemberData
             {
                 return false;
             }
-            PropertyInfo[] MyFields = this.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance);
-            PropertyInfo[] ObjFields = obj.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance);
-            for (int i = 0; i < MyFields.Length; i++)
+            PropertyInfo[] myFields = this.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance);
+            PropertyInfo[] objFields = obj.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance);
+            for (int i = 0; i < myFields.Length; i++)
             {
-                if(MyFields[i].GetValue(this,null).GetType() == typeof(Bitmap))
+                if(myFields[i].GetValue(this,null).GetType() == typeof(Bitmap))
                 {
                     continue;
                 }
-                if (!MyFields[i].GetValue(this, null).Equals(ObjFields[i].GetValue(obj, null)))
+                if (!myFields[i].GetValue(this, null).Equals(objFields[i].GetValue(obj, null)))
                 {
                     return false;
                 }

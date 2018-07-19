@@ -30,8 +30,7 @@ namespace Deacon_Database_Manager.Geographical
                 System.Diagnostics.Debug.Print(e.Message);
             }
 
-            double d;
-            if(double.TryParse(lat, out d))
+            if(double.TryParse(lat, out double d))
             {
                 result[0] = d;
             }

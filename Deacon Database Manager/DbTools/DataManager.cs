@@ -24,11 +24,13 @@ namespace Deacon_Database_Manager.DbTools
             {
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
-                    SqlCommand cmd = new SqlCommand("GetNextId");
-                    cmd.CommandType = CommandType.StoredProcedure;
+                    SqlCommand cmd = new SqlCommand("GetNextId")
+                    {
+                        CommandType = CommandType.StoredProcedure,
+                        Connection = conn
+                    };
                     SqlParameter returnValue = cmd.Parameters.Add("@MemberId", SqlDbType.Int);
                     returnValue.Direction = ParameterDirection.Output;
-                    cmd.Connection = conn;
 
                     conn.Open();
                     cmd.ExecuteNonQuery();
@@ -54,9 +56,11 @@ namespace Deacon_Database_Manager.DbTools
             {
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
-                    SqlCommand cmd = new SqlCommand("CreateMember");
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Connection = conn;
+                    SqlCommand cmd = new SqlCommand("CreateMember")
+                    {
+                        CommandType = CommandType.StoredProcedure,
+                        Connection = conn
+                    };
              
                     conn.Open();
                     cmd.ExecuteNonQuery();
@@ -84,9 +88,11 @@ namespace Deacon_Database_Manager.DbTools
             {
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
-                    SqlCommand cmd = new SqlCommand("UpdateMember");
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Connection = conn;
+                    SqlCommand cmd = new SqlCommand("UpdateMember")
+                    {
+                        CommandType = CommandType.StoredProcedure,
+                        Connection = conn
+                    }; 
 
                     //Demographics
                     cmd.Parameters.AddWithValue("@MemberId", member.Id);
@@ -149,9 +155,11 @@ namespace Deacon_Database_Manager.DbTools
                 {
                     using (SqlConnection conn = new SqlConnection(connectionString))
                     {
-                        SqlCommand cmd = new SqlCommand("UpdateRelationships");
-                        cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.Connection = conn;
+                        SqlCommand cmd = new SqlCommand("UpdateRelationships")
+                        {
+                            CommandType = CommandType.StoredProcedure,
+                            Connection = conn
+                        };
                         cmd.Parameters.AddWithValue("@MemberId", member.Id);
                         cmd.Parameters.AddWithValue("@Relative_Member_Id", 
                             Convert.ToInt32(relativeUpdates[i, 0]));
@@ -179,17 +187,18 @@ namespace Deacon_Database_Manager.DbTools
         public Member GetMember(int memberId)
         {
             Member Result = null;
-            using(SqlConnection Conn = new SqlConnection(connectionString))
+            using (SqlConnection Conn = new SqlConnection(connectionString))
             {
-                SqlCommand Cmd = new SqlCommand("GetMember");
-                Cmd.CommandType = CommandType.StoredProcedure;
-                Cmd.Connection = Conn;
-   
-                Cmd.Parameters.AddWithValue("@MemberId", memberId);
+                SqlCommand cmd = new SqlCommand("GetMember")
+                {
+                    CommandType = CommandType.StoredProcedure,
+                    Connection = Conn
+                };
+                cmd.Parameters.AddWithValue("@MemberId", memberId);
 
                 Conn.Open();
 
-                using (SqlDataReader Reader = Cmd.ExecuteReader())
+                using (SqlDataReader Reader = cmd.ExecuteReader())
                 {
                     while (Reader.Read())
                     {
@@ -330,10 +339,11 @@ namespace Deacon_Database_Manager.DbTools
             List<Member> result = new List<Member>();
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
-                SqlCommand cmd = new SqlCommand("GetMember");
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Connection = conn;
-
+                SqlCommand cmd = new SqlCommand("GetMember")
+                {
+                    CommandType = CommandType.StoredProcedure,
+                    Connection = conn
+                };
                 cmd.Parameters.AddWithValue("@MemberId", -1);
 
                 conn.Open();
@@ -355,16 +365,18 @@ namespace Deacon_Database_Manager.DbTools
 
         private Member GetMemberReaderResult(SqlDataReader reader)
         {
-            Member result = new Member();
+            Member result = new Member
+            {
 
-            //Demographic Info
-            result.Id = GetIntValue(reader, "Id");
-            result.FirstName = GetStringValue(reader, "First Name");
-            result.MiddleName = GetStringValue(reader, "Middle Name");
-            result.LastName = GetStringValue(reader, "Last Name");
-            result.BirthDate = GetDateValue(reader, "BirthDate");
-            result.Ethnicity = GetStringValue(reader, "Ethnicity");
-            result.Gender = GetStringValue(reader, "Gender");
+                //Demographic Info
+                Id = GetIntValue(reader, "Id"),
+                FirstName = GetStringValue(reader, "First Name"),
+                MiddleName = GetStringValue(reader, "Middle Name"),
+                LastName = GetStringValue(reader, "Last Name"),
+                BirthDate = GetDateValue(reader, "BirthDate"),
+                Ethnicity = GetStringValue(reader, "Ethnicity"),
+                Gender = GetStringValue(reader, "Gender")
+            };
 
             //Address Info
             result.Address.Street = GetStringValue(reader, "Street 1");
@@ -415,9 +427,11 @@ namespace Deacon_Database_Manager.DbTools
 
         private Location GetAddressReaderResult(SqlDataReader reader)
         {
-            Location Result = new Location();
-            Result.Latitude = GetDoubleValue(reader, "Latitude");
-            Result.Longitude = GetDoubleValue(reader, "Longitude");
+            Location Result = new Location()
+            {
+                Latitude = GetDoubleValue(reader, "Latitude"),
+                Longitude = GetDoubleValue(reader, "Longitude")
+            };
             return Result;
         }
 
@@ -522,15 +536,14 @@ namespace Deacon_Database_Manager.DbTools
                         if (!result.ContainsKey(member))
                         {
                            
-                            string LookupValue;
-                            if (!relationDict.TryGetValue(GetStringValue(reader, "Description"), out LookupValue))
+                            if (!relationDict.TryGetValue(GetStringValue(reader, "Description"), out string lookupValue))
                             {
-                                LookupValue = null;
+                                lookupValue = null;
                             }
 
-                            if (!string.IsNullOrEmpty(LookupValue))
+                            if (!string.IsNullOrEmpty(lookupValue))
                             {
-                                result.Add(member, new string[2] { LookupValue, "Indirect" });
+                                result.Add(member, new string[2] { lookupValue, "Indirect" });
                             }
                         }
                     }
@@ -560,12 +573,15 @@ namespace Deacon_Database_Manager.DbTools
                 {
                     while (reader.Read())
                     {
-                        Deacon deacon = new Deacon();
-                        deacon.Id = GetIntValue(reader, "Deacon_Id");
-                        deacon.FirstName = GetStringValue(reader, "First Name");
-                        deacon.LastName = GetStringValue(reader, "Last Name");
-                        deacon.Region = GetStringValue(reader, "Region_Description");
-                        deacon.MemberCount = GetIntValue(reader, "MemberCount");
+                        Deacon deacon = new Deacon()
+                        {
+                            Id = GetIntValue(reader, "Deacon_Id"),
+                            FirstName = GetStringValue(reader, "First Name"),
+                            LastName = GetStringValue(reader, "Last Name"),
+                            Region = GetStringValue(reader, "Region_Description"),
+                            MemberCount = GetIntValue(reader, "MemberCount")
+                        };
+
                         if (deacon != null)
                         {
                             result.Add(deacon);
