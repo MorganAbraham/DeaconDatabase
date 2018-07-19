@@ -1,37 +1,38 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using Deacon_Database_Manager.Geographical;
 using Deacon_Database_Manager.MemberData;
-using System.Data.SqlClient;
+using System;
+using System.Collections.Generic;
 using System.Data;
-using Deacon_Database_Manager.Geographical;
-using System.IO;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Drawing.Imaging;
-using System.Text.RegularExpressions;
+using System.IO;
 
 namespace Deacon_Database_Manager.DbTools
 {
     class DataManager
     {
-        private readonly string ConnectionString = global::Deacon_Database_Manager.Properties.Settings.Default.MemberDatabaseConnectionString;
+        private readonly string connectionString = Properties.Settings.Default.MemberDatabaseConnectionString;
 
+        /// <summary>
+        /// Finds the next available ID number for a member
+        /// </summary>
+        /// <returns>The next available ID number as an integer</returns>
         public int GetNextId()
         {
             try
             {
-                using (SqlConnection Conn = new SqlConnection(ConnectionString))
+                using (SqlConnection conn = new SqlConnection(connectionString))
                 {
-                    SqlCommand Cmd = new SqlCommand("GetNextId");
-                    Cmd.CommandType = CommandType.StoredProcedure;
-                    SqlParameter ReturnValue = Cmd.Parameters.Add("@MemberId", SqlDbType.Int);
-                    ReturnValue.Direction = ParameterDirection.Output;
-                    Cmd.Connection = Conn;
+                    SqlCommand cmd = new SqlCommand("GetNextId");
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    SqlParameter returnValue = cmd.Parameters.Add("@MemberId", SqlDbType.Int);
+                    returnValue.Direction = ParameterDirection.Output;
+                    cmd.Connection = conn;
 
-                    Conn.Open();
-                    Cmd.ExecuteNonQuery();
-                    return (int)Cmd.Parameters["@MemberId"].Value;
+                    conn.Open();
+                    cmd.ExecuteNonQuery();
+                    return (int)cmd.Parameters["@MemberId"].Value;
                 }
             }
             catch(Exception e)
@@ -40,21 +41,28 @@ namespace Deacon_Database_Manager.DbTools
                 return -1;
             }
         }
-        public bool TryCreateMember(Member member, string[,] RelativeUpdates)
+
+        /// <summary>
+        /// Creates a new member record in the database
+        /// </summary>
+        /// <param name="member">A member object to add as a database entry</param>
+        /// <param name="relativeUpdates">A 2d array representing relative data</param>
+        /// <returns>true if the member creation is successful, else false</returns>
+        public bool TryCreateMember(Member member, string[,] relativeUpdates)
         {
             try
             {
-                using (SqlConnection Conn = new SqlConnection(ConnectionString))
+                using (SqlConnection conn = new SqlConnection(connectionString))
                 {
-                    SqlCommand Cmd = new SqlCommand("CreateMember");
-                    Cmd.CommandType = CommandType.StoredProcedure;
-                    Cmd.Connection = Conn;
+                    SqlCommand cmd = new SqlCommand("CreateMember");
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Connection = conn;
              
-                    Conn.Open();
-                    Cmd.ExecuteNonQuery();
+                    conn.Open();
+                    cmd.ExecuteNonQuery();
                 }
 
-                TryUpdateMember(member, RelativeUpdates);
+                TryUpdateMember(member, relativeUpdates);
                 return true;
             }
             catch(Exception e)
@@ -63,88 +71,95 @@ namespace Deacon_Database_Manager.DbTools
                 return false;
             }
         }
-        public bool TryUpdateMember(Member member, string[,] RelativeUpdates)
+
+        /// <summary>
+        /// Updates a member record in the database
+        /// </summary>
+        /// <param name="member">A member object to be updated</param>
+        /// <param name="relativeUpdates">A 2d array representingr relative data</param>
+        /// <returns>true if the update is successful, else false</returns>
+        public bool TryUpdateMember(Member member, string[,] relativeUpdates)
         {
             try
             {
-                using (SqlConnection Conn = new SqlConnection(ConnectionString))
+                using (SqlConnection conn = new SqlConnection(connectionString))
                 {
-                    SqlCommand Cmd = new SqlCommand("UpdateMember");
-                    Cmd.CommandType = CommandType.StoredProcedure;
-                    Cmd.Connection = Conn;
+                    SqlCommand cmd = new SqlCommand("UpdateMember");
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Connection = conn;
 
                     //Demographics
-                    Cmd.Parameters.AddWithValue("@MemberId", member.Id);
-                    Cmd.Parameters.AddWithValue("@FirstName", member.FirstName);
-                    Cmd.Parameters.AddWithValue("@MiddleName", member.MiddleName);
-                    Cmd.Parameters.AddWithValue("@LastName", member.LastName);
-                    Cmd.Parameters.AddWithValue("@Suffix", member.Suffix);
+                    cmd.Parameters.AddWithValue("@MemberId", member.Id);
+                    cmd.Parameters.AddWithValue("@FirstName", member.FirstName);
+                    cmd.Parameters.AddWithValue("@MiddleName", member.MiddleName);
+                    cmd.Parameters.AddWithValue("@LastName", member.LastName);
+                    cmd.Parameters.AddWithValue("@Suffix", member.Suffix);
 
-                    DateTime MinDate = DateTime.Parse("1/1/1753");
-                    DateTime MaxDate = DateTime.Parse("12/31/9999");
-                    if(member.BirthDate < MinDate || member.BirthDate > MaxDate)
+                    DateTime minDate = DateTime.Parse("1/1/1753");
+                    DateTime maxDate = DateTime.Parse("12/31/9999");
+                    if(member.BirthDate < minDate || member.BirthDate > maxDate)
                     {
-                        member.BirthDate = MinDate;
+                        member.BirthDate = minDate;
                     }
-                    Cmd.Parameters.AddWithValue("@BirthDate", member.BirthDate);
-                    Cmd.Parameters.AddWithValue("@Ethnicity", member.Ethnicity);
-                    Cmd.Parameters.AddWithValue("@Gender", member.Gender);
+                    cmd.Parameters.AddWithValue("@BirthDate", member.BirthDate);
+                    cmd.Parameters.AddWithValue("@Ethnicity", member.Ethnicity);
+                    cmd.Parameters.AddWithValue("@Gender", member.Gender);
 
                     //Address and Contact Info
-                    Cmd.Parameters.AddWithValue("@Street1", member.Address.Street);
-                    Cmd.Parameters.AddWithValue("@Street2", member.Address.Street2);
-                    Cmd.Parameters.AddWithValue("@City", member.Address.City);
-                    Cmd.Parameters.AddWithValue("@State", member.Address.State);
-                    Cmd.Parameters.AddWithValue("@Zip", member.Address.Zip);
+                    cmd.Parameters.AddWithValue("@Street1", member.Address.Street);
+                    cmd.Parameters.AddWithValue("@Street2", member.Address.Street2);
+                    cmd.Parameters.AddWithValue("@City", member.Address.City);
+                    cmd.Parameters.AddWithValue("@State", member.Address.State);
+                    cmd.Parameters.AddWithValue("@Zip", member.Address.Zip);
 
-                    Cmd.Parameters.AddWithValue("@HomeEmail", member.HomeEmail);
-                    Cmd.Parameters.AddWithValue("@WorkEmail", ""); //Not Currently in use
-                    Cmd.Parameters.AddWithValue("@HomePhone", member.HomePhone);
-                    Cmd.Parameters.AddWithValue("@CellPhone", ""); //Not  Currently in use
-                    Cmd.Parameters.AddWithValue("@WorkPhone", ""); //Not Currenly in use
-                    Cmd.Parameters.AddWithValue("@Latitude", member.Address.Latitude);
-                    Cmd.Parameters.AddWithValue("@Longitude", member.Address.Longitude);
+                    cmd.Parameters.AddWithValue("@HomeEmail", member.HomeEmail);
+                    cmd.Parameters.AddWithValue("@WorkEmail", ""); //Not Currently in use
+                    cmd.Parameters.AddWithValue("@HomePhone", member.HomePhone);
+                    cmd.Parameters.AddWithValue("@CellPhone", ""); //Not  Currently in use
+                    cmd.Parameters.AddWithValue("@WorkPhone", ""); //Not Currenly in use
+                    cmd.Parameters.AddWithValue("@Latitude", member.Address.Latitude);
+                    cmd.Parameters.AddWithValue("@Longitude", member.Address.Longitude);
 
                     //Emergency Info
-                    Cmd.Parameters.AddWithValue("@EmergencyName", member.EmergencyContact);
-                    Cmd.Parameters.AddWithValue("@EmergencyNumber", member.EmergencyNumber);
+                    cmd.Parameters.AddWithValue("@EmergencyName", member.EmergencyContact);
+                    cmd.Parameters.AddWithValue("@EmergencyNumber", member.EmergencyNumber);
 
                     //Church Info
                     //TODO
 
                     //Profile Picutre
-                    using (MemoryStream Stream = new MemoryStream())
+                    using (MemoryStream stream = new MemoryStream())
                     {
-                        new Bitmap(member.ProfilePicture).Save(Stream, ImageFormat.Jpeg);
-                        Cmd.Parameters.AddWithValue("@ProfilePicture", Stream.ToArray());
+                        new Bitmap(member.ProfilePicture).Save(stream, ImageFormat.Jpeg);
+                        cmd.Parameters.AddWithValue("@ProfilePicture", stream.ToArray());
                     }
 
                     //Comments
-                    Cmd.Parameters.AddWithValue("@Comments", member.Comments);
+                    cmd.Parameters.AddWithValue("@Comments", member.Comments);
 
                     //Contact Date
-                    Cmd.Parameters.AddWithValue("@LastContactDate", member.LastContactDate);
-                    Cmd.Parameters.AddWithValue("@NextContactDate", member.NextContactDate);
+                    cmd.Parameters.AddWithValue("@LastContactDate", member.LastContactDate);
+                    cmd.Parameters.AddWithValue("@NextContactDate", member.NextContactDate);
 
-                    Conn.Open();
-                    Cmd.ExecuteNonQuery();
+                    conn.Open();
+                    cmd.ExecuteNonQuery();
                 }
 
-                for (int i = 0; i < RelativeUpdates.GetLength(0); i++)
+                for (int i = 0; i < relativeUpdates.GetLength(0); i++)
                 {
-                    using (SqlConnection Conn = new SqlConnection(ConnectionString))
+                    using (SqlConnection conn = new SqlConnection(connectionString))
                     {
-                        SqlCommand Cmd = new SqlCommand("UpdateRelationships");
-                        Cmd.CommandType = CommandType.StoredProcedure;
-                        Cmd.Connection = Conn;
-                        Cmd.Parameters.AddWithValue("@MemberId", member.Id);
-                        Cmd.Parameters.AddWithValue("@Relative_Member_Id", 
-                            Convert.ToInt32(RelativeUpdates[i, 0]));
-                        Cmd.Parameters.AddWithValue("@Description", RelativeUpdates[i, 1]);
-                        Cmd.Parameters.AddWithValue("@RelationshipStatus", RelativeUpdates[i, 2]);
+                        SqlCommand cmd = new SqlCommand("UpdateRelationships");
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Connection = conn;
+                        cmd.Parameters.AddWithValue("@MemberId", member.Id);
+                        cmd.Parameters.AddWithValue("@Relative_Member_Id", 
+                            Convert.ToInt32(relativeUpdates[i, 0]));
+                        cmd.Parameters.AddWithValue("@Description", relativeUpdates[i, 1]);
+                        cmd.Parameters.AddWithValue("@RelationshipStatus", relativeUpdates[i, 2]);
 
-                        Conn.Open();
-                        Cmd.ExecuteNonQuery();
+                        conn.Open();
+                        cmd.ExecuteNonQuery();
                     }
                 }
                 return true;
@@ -156,16 +171,21 @@ namespace Deacon_Database_Manager.DbTools
             }
         }
 
-        public Member GetMember(int MemberId)
+        /// <summary>
+        /// Obtains a member object from the database matching a given ID number
+        /// </summary>
+        /// <param name="memberId">The Id of the member to be returned</param>
+        /// <returns>A member object</returns>
+        public Member GetMember(int memberId)
         {
             Member Result = null;
-            using(SqlConnection Conn = new SqlConnection(ConnectionString))
+            using(SqlConnection Conn = new SqlConnection(connectionString))
             {
                 SqlCommand Cmd = new SqlCommand("GetMember");
                 Cmd.CommandType = CommandType.StoredProcedure;
                 Cmd.Connection = Conn;
    
-                Cmd.Parameters.AddWithValue("@MemberId", MemberId);
+                Cmd.Parameters.AddWithValue("@MemberId", memberId);
 
                 Conn.Open();
 
@@ -234,224 +254,247 @@ namespace Deacon_Database_Manager.DbTools
             return Result;
         }
 
-        public List<Member> GetFilterResults(UserFilter FilterSettings, List<Member> AllMembers = null)
+        /// <summary>
+        /// Obtains members matching a given set of filter parameters
+        /// </summary>
+        /// <param name="filterSettings">A set of parameters to use to filter the search</param>
+        /// <param name="allMembers">A list of members to search</param>
+        /// <returns>A list of members matching the filter criteria</returns>
+        public List<Member> GetFilterResults(UserFilter filterSettings, List<Member> allMembers = null)
         {
-            List<Member> Results;
-            if (AllMembers == null)
+            List<Member> results;
+            if (allMembers == null)
             {
-                Results = GetAllMembers();
+                results = GetAllMembers();
             }
             else
             {
-                Results = AllMembers;
+                results = allMembers;
             }
             //Filter for Member Name
-            if (Results != null && !string.IsNullOrWhiteSpace(FilterSettings.MemberName))
+            if (results != null && !string.IsNullOrWhiteSpace(filterSettings.MemberName))
             {
-                Results = Results.FindAll(x => (x.FirstName + ' ' + x.MiddleName + ' ' + x.LastName).IndexOf(FilterSettings.MemberName, StringComparison.OrdinalIgnoreCase) > -1 ||
-                    ((x.FirstName + ' ' + x.LastName).IndexOf(FilterSettings.MemberName, StringComparison.OrdinalIgnoreCase) > -1));
+                results = results.FindAll(x => (x.FirstName + ' ' + x.MiddleName + ' ' + x.LastName).IndexOf(filterSettings.MemberName, StringComparison.OrdinalIgnoreCase) > -1 ||
+                    ((x.FirstName + ' ' + x.LastName).IndexOf(filterSettings.MemberName, StringComparison.OrdinalIgnoreCase) > -1));
             }
 
             //Filter for Deacon
-            if(Results != null && FilterSettings.DeaconId > -1)
+            if(results != null && filterSettings.DeaconId > -1)
             {
-                Results = Results.FindAll(x => x.DeaconInfo.Id == FilterSettings.DeaconId);
+                results = results.FindAll(x => x.DeaconInfo.Id == filterSettings.DeaconId);
             }
 
             //Filter for Birth Month
-            if(Results != null && !string.IsNullOrEmpty(FilterSettings.BirthMonth))
+            if(results != null && !string.IsNullOrEmpty(filterSettings.BirthMonth))
             {
-                Results = Results.FindAll(x => x.BirthDate != null && x.BirthDate.ToString("MMMM").Equals(FilterSettings.BirthMonth));
+                results = results.FindAll(x => x.BirthDate != null && x.BirthDate.ToString("MMMM").Equals(filterSettings.BirthMonth));
             }
 
             //Filter for Age
-            if(Results != null && !(FilterSettings.MinimumAge == 0 && FilterSettings.MaximumAge == 150))
+            if(results != null && !(filterSettings.MinimumAge == 0 && filterSettings.MaximumAge == 150))
             {
-                Results = Results.FindAll(x => x.BirthDate != DateTime.MinValue && DateTime.Now >= x.BirthDate.Date.AddYears(FilterSettings.MinimumAge) &&
-                DateTime.Now <= x.BirthDate.Date.AddYears(FilterSettings.MaximumAge + 1));
+                results = results.FindAll(x => x.BirthDate != DateTime.MinValue && DateTime.Now >= x.BirthDate.Date.AddYears(filterSettings.MinimumAge) &&
+                DateTime.Now <= x.BirthDate.Date.AddYears(filterSettings.MaximumAge + 1));
             }
 
             //Filter for Membership Lengh
-            if(Results != null && (FilterSettings.MinimumMembership > 0))
+            if(results != null && (filterSettings.MinimumMembership > 0))
             {
-                Results = Results.FindAll(x =>
+                results = results.FindAll(x =>
                     x.MembershipStart != DateTime.MinValue && x.MembershipEnd == DateTime.MinValue &&
-                    (DateTime.Now.Year - x.MembershipStart.Year) >= FilterSettings.MinimumMembership);
+                    (DateTime.Now.Year - x.MembershipStart.Year) >= filterSettings.MinimumMembership);
             }
             
             //Filter for Address
-            if(Results != null && !string.IsNullOrWhiteSpace(FilterSettings.MemberAddress))
+            if(results != null && !string.IsNullOrWhiteSpace(filterSettings.MemberAddress))
             {
-                double[] Coordinates = AddressConverter.GetCoordinates(FilterSettings.MemberAddress);
+                double[] Coordinates = AddressConverter.GetCoordinates(filterSettings.MemberAddress);
                 Location SearchLocation = new Location(Coordinates[0], Coordinates[1]);
-                Results = Results.FindAll(x => 
-                    DistanceCalculator.GetDistance(SearchLocation, x.Address) <= (double)FilterSettings.MilesFromAddress);
+                results = results.FindAll(x => 
+                    DistanceCalculator.GetDistance(SearchLocation, x.Address) <= (double)filterSettings.MilesFromAddress);
             }
 
-            if(Results == null)
+            if(results == null)
             {
-                Results = new List<Member>();
+                results = new List<Member>();
             }
-            return Results;
+            return results;
         }
 
+        /// <summary>
+        /// Gets a list of all members in the database
+        /// </summary>
+        /// <returns>A list of members</returns>
         public List<Member> GetAllMembers()
         {
-            List<Member> Result = new List<Member>();
-            using (SqlConnection Conn = new SqlConnection(ConnectionString))
+            List<Member> result = new List<Member>();
+            using (SqlConnection conn = new SqlConnection(connectionString))
             {
-                SqlCommand Cmd = new SqlCommand("GetMember");
-                Cmd.CommandType = CommandType.StoredProcedure;
-                Cmd.Connection = Conn;
+                SqlCommand cmd = new SqlCommand("GetMember");
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Connection = conn;
 
-                Cmd.Parameters.AddWithValue("@MemberId", -1);
+                cmd.Parameters.AddWithValue("@MemberId", -1);
 
-                Conn.Open();
+                conn.Open();
 
-                using (SqlDataReader Reader = Cmd.ExecuteReader())
+                using (SqlDataReader reader = cmd.ExecuteReader())
                 {
-                    while (Reader.Read())
+                    while (reader.Read())
                     {
-                        Member ReaderResult = GetMemberReaderResult(Reader);
-                        if(ReaderResult != null)
+                        Member readerResult = GetMemberReaderResult(reader);
+                        if(readerResult != null)
                         {
-                            Result.Add(ReaderResult);
+                            result.Add(readerResult);
                         }
                     }
                 }
             }
-            return Result;
+            return result;
         }
 
-        private Member GetMemberReaderResult(SqlDataReader Reader)
+        private Member GetMemberReaderResult(SqlDataReader reader)
         {
-            Member Result = new Member();
+            Member result = new Member();
 
             //Demographic Info
-            Result.Id = GetIntValue(Reader, "Id");
-            Result.FirstName = GetStringValue(Reader, "First Name");
-            Result.MiddleName = GetStringValue(Reader, "Middle Name");
-            Result.LastName = GetStringValue(Reader, "Last Name");
-            Result.BirthDate = GetDateValue(Reader, "BirthDate");
-            Result.Ethnicity = GetStringValue(Reader, "Ethnicity");
-            Result.Gender = GetStringValue(Reader, "Gender");
+            result.Id = GetIntValue(reader, "Id");
+            result.FirstName = GetStringValue(reader, "First Name");
+            result.MiddleName = GetStringValue(reader, "Middle Name");
+            result.LastName = GetStringValue(reader, "Last Name");
+            result.BirthDate = GetDateValue(reader, "BirthDate");
+            result.Ethnicity = GetStringValue(reader, "Ethnicity");
+            result.Gender = GetStringValue(reader, "Gender");
 
             //Address Info
-            Result.Address.Street = GetStringValue(Reader, "Street 1");
-            Result.Address.Street2 = GetStringValue(Reader, "Street 2");
-            Result.Address.City = GetStringValue(Reader, "City");
-            Result.Address.State = GetStringValue(Reader, "State");
-            Result.Address.Zip = GetStringValue(Reader, "Zip");
-            Result.Address.Latitude = GetDoubleValue(Reader, "Latitude");
-            Result.Address.Longitude = GetDoubleValue(Reader, "Longitude");
+            result.Address.Street = GetStringValue(reader, "Street 1");
+            result.Address.Street2 = GetStringValue(reader, "Street 2");
+            result.Address.City = GetStringValue(reader, "City");
+            result.Address.State = GetStringValue(reader, "State");
+            result.Address.Zip = GetStringValue(reader, "Zip");
+            result.Address.Latitude = GetDoubleValue(reader, "Latitude");
+            result.Address.Longitude = GetDoubleValue(reader, "Longitude");
 
             //Contact Info
-            Result.HomeEmail = GetStringValue(Reader, "HomeEmail");
-            Result.HomePhone = GetStringValue(Reader, "HomePhone");
+            result.HomeEmail = GetStringValue(reader, "HomeEmail");
+            result.HomePhone = GetStringValue(reader, "HomePhone");
 
             //Emergency Info
-            Result.EmergencyContact = GetStringValue(Reader, "EmergencyName");
-            Result.EmergencyNumber = GetStringValue(Reader, "EmergencyNumber");
+            result.EmergencyContact = GetStringValue(reader, "EmergencyName");
+            result.EmergencyNumber = GetStringValue(reader, "EmergencyNumber");
 
             //Deacon Info
-            Result.DeaconInfo.FirstName = GetStringValue(Reader, "Deacon_First_Name");
-            Result.DeaconInfo.LastName = GetStringValue(Reader, "Deacon_Last_Name");
-            Result.DeaconInfo.Id = GetIntValue(Reader, "Deacon_Id");
-            Result.DeaconInfo.Region = GetStringValue(Reader, "Deacon_Region");
+            result.DeaconInfo.FirstName = GetStringValue(reader, "Deacon_First_Name");
+            result.DeaconInfo.LastName = GetStringValue(reader, "Deacon_Last_Name");
+            result.DeaconInfo.Id = GetIntValue(reader, "Deacon_Id");
+            result.DeaconInfo.Region = GetStringValue(reader, "Deacon_Region");
 
             //Membership Info
-            Result.MembershipStart = GetDateValue(Reader, "Membership_Start");
-            Result.MembershipEnd = GetDateValue(Reader, "Membership_End");
-            Result.PreviousChurch = GetStringValue(Reader, "Previous_Church");
+            result.MembershipStart = GetDateValue(reader, "Membership_Start");
+            result.MembershipEnd = GetDateValue(reader, "Membership_End");
+            result.PreviousChurch = GetStringValue(reader, "Previous_Church");
 
             //Profile Picture
-            byte[] PicData = (byte[])Reader["ProfilePicture"];
+            byte[] PicData = (byte[])reader["ProfilePicture"];
             using (MemoryStream Stream = new MemoryStream(PicData))
             {
-                Result.ProfilePicture = Image.FromStream(Stream);
+                result.ProfilePicture = Image.FromStream(Stream);
             }
 
             //Comments
-            Result.Comments = GetStringValue(Reader, "Comments");
+            result.Comments = GetStringValue(reader, "Comments");
 
             //Contact Schedule
-            Result.LastContactDate = GetDateValue(Reader, "LAST_CONTACT_DATE");
-            Result.NextContactDate = GetDateValue(Reader, "NEXT_CONTACT_DATE");
+            result.LastContactDate = GetDateValue(reader, "LAST_CONTACT_DATE");
+            result.NextContactDate = GetDateValue(reader, "NEXT_CONTACT_DATE");
 
-            return Result;
+            return result;
 
         }
 
 
-        private Location GetAddressReaderResult(SqlDataReader Reader)
+        private Location GetAddressReaderResult(SqlDataReader reader)
         {
             Location Result = new Location();
-            Result.Latitude = GetDoubleValue(Reader, "Latitude");
-            Result.Longitude = GetDoubleValue(Reader, "Longitude");
+            Result.Latitude = GetDoubleValue(reader, "Latitude");
+            Result.Longitude = GetDoubleValue(reader, "Longitude");
             return Result;
         }
 
         private List<Location> GetAllCoordinates()
         {
-            List<Location> Result = new List<Location>();
-            using (SqlConnection Conn = new SqlConnection(ConnectionString))
+            List<Location> result = new List<Location>();
+            using (SqlConnection conn = new SqlConnection(connectionString))
             {
-                SqlCommand Cmd = new SqlCommand("GetAllCoordinates");
-                Cmd.CommandType = CommandType.StoredProcedure;
-                Cmd.Connection = Conn;
-
-                Conn.Open();
-
-                using (SqlDataReader Reader = Cmd.ExecuteReader())
+                SqlCommand cmd = new SqlCommand("GetAllCoordinates")
                 {
-                    while (Reader.Read())
+                    CommandType = CommandType.StoredProcedure,
+                    Connection = conn
+                };
+
+                conn.Open();
+
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
                     {
-                        Location ReaderResult = GetAddressReaderResult(Reader);
-                        if (ReaderResult != null)
+                        Location readerResult = GetAddressReaderResult(reader);
+                        if (readerResult != null)
                         {
-                            Result.Add(ReaderResult);
+                            result.Add(readerResult);
                         }
                     }
                 }
             }
-            return Result;
+            return result;
         }
 
-
-        public Dictionary<Member, string[]> GetRelatives(int MemberId)
+        /// <summary>
+        /// Finds all members related to a specified member and 
+        /// how they are related
+        /// </summary>
+        /// <param name="memberId">The ID number of the member to find relatives for</param>
+        /// <returns>A dictionary of Relatives with Member as the key and relation as value as
+        /// [relation name, connection type]</returns>
+        public Dictionary<Member, string[]> GetRelatives(int memberId)
         {
-            Dictionary<Member, string[]> Result = new Dictionary<Member, string[]>();
+            Dictionary<Member, string[]> result = new Dictionary<Member, string[]>();
 
-            using (SqlConnection Conn = new SqlConnection(ConnectionString))
+            using (SqlConnection conn = new SqlConnection(connectionString))
             {
-                SqlCommand Cmd = new SqlCommand("GetAllRelatives");
-                Cmd.CommandType = CommandType.StoredProcedure;
-                Cmd.Parameters.AddWithValue("@MemberId", MemberId);
-                Cmd.Connection = Conn;
-                Conn.Open();
-
-                using (SqlDataReader Reader = Cmd.ExecuteReader())
+                SqlCommand cmd = new SqlCommand("GetAllRelatives")
                 {
-                    while (Reader.Read())
+                    CommandType = CommandType.StoredProcedure,
+                    Connection = conn
+                };
+                cmd.Parameters.AddWithValue("@MemberId", memberId);
+
+                conn.Open();
+
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
                     {
-                        Member member = GetMember(GetIntValue(Reader, "Relative_Member_Id"));
-                        if (!Result.ContainsKey(member))
+                        Member member = GetMember(GetIntValue(reader, "Relative_Member_Id"));
+                        if (!result.ContainsKey(member))
                         {
-                            Result.Add(member, new string[2] { GetStringValue(Reader, "Description"), "Direct" });
+                            result.Add(member, new string[2] { GetStringValue(reader, "Description"), "Direct" });
                         }
                     }
                 }
             }
 
-            using (SqlConnection Conn = new SqlConnection(ConnectionString))
+            using (SqlConnection conn = new SqlConnection(connectionString))
             {
-                SqlCommand Cmd = new SqlCommand("GetMembersRelatedTo");
-                Cmd.CommandType = CommandType.StoredProcedure;
-                Cmd.Parameters.AddWithValue("@MemberId", MemberId);
-                Cmd.Connection = Conn;
-                Conn.Open();
+                SqlCommand cmd = new SqlCommand("GetMembersRelatedTo")
+                {
+                    CommandType = CommandType.StoredProcedure,
+                    Connection = conn
+                };
+                cmd.Parameters.AddWithValue("@MemberId", memberId);
+                conn.Open();
 
-                Dictionary<string, string> RelationDict = new Dictionary<string, string>()
+                Dictionary<string, string> relationDict = new Dictionary<string, string>()
                 {
                     {"Spouse","Spouse"},
                     {"Parent","Child"},
@@ -471,60 +514,66 @@ namespace Deacon_Database_Manager.DbTools
                     {"Cousin","Cousin"}
                 };
 
-                using (SqlDataReader Reader = Cmd.ExecuteReader())
+                using (SqlDataReader reader = cmd.ExecuteReader())
                 {
-                    while (Reader.Read())
+                    while (reader.Read())
                     {
-                        Member member = GetMember(GetIntValue(Reader, "Member_Id"));
-                        if (!Result.ContainsKey(member))
+                        Member member = GetMember(GetIntValue(reader, "Member_Id"));
+                        if (!result.ContainsKey(member))
                         {
                            
                             string LookupValue;
-                            if (!RelationDict.TryGetValue(GetStringValue(Reader, "Description"), out LookupValue))
+                            if (!relationDict.TryGetValue(GetStringValue(reader, "Description"), out LookupValue))
                             {
                                 LookupValue = null;
                             }
 
                             if (!string.IsNullOrEmpty(LookupValue))
                             {
-                                Result.Add(member, new string[2] { LookupValue, "Indirect" });
+                                result.Add(member, new string[2] { LookupValue, "Indirect" });
                             }
                         }
                     }
                 }
             }
 
-            return Result;
+            return result;
         }
+
+        /// <summary>
+        /// Finds All Members in Database listed as Deacons
+        /// </summary>
+        /// <returns>A list of Deacons</returns>
         public List<Deacon> GetAllDeacons()
         {
-            List<Deacon> Result = new List<Deacon>();
-            using (SqlConnection Conn = new SqlConnection(ConnectionString))
+            List<Deacon> result = new List<Deacon>();
+            using (SqlConnection conn = new SqlConnection(connectionString))
             {
-                SqlCommand Cmd = new SqlCommand("GetDeaconInfo");
-                Cmd.CommandType = CommandType.StoredProcedure;
-                Cmd.Connection = Conn;
-
-                Conn.Open();
-
-                using (SqlDataReader Reader = Cmd.ExecuteReader())
+                SqlCommand Cmd = new SqlCommand("GetDeaconInfo")
                 {
-                    while (Reader.Read())
+                    CommandType = CommandType.StoredProcedure,
+                    Connection = conn
+                };
+                conn.Open();
+
+                using (SqlDataReader reader = Cmd.ExecuteReader())
+                {
+                    while (reader.Read())
                     {
                         Deacon deacon = new Deacon();
-                        deacon.Id = GetIntValue(Reader, "Deacon_Id");
-                        deacon.FirstName = GetStringValue(Reader, "First Name");
-                        deacon.LastName = GetStringValue(Reader, "Last Name");
-                        deacon.Region = GetStringValue(Reader, "Region_Description");
-                        deacon.MemberCount = GetIntValue(Reader, "MemberCount");
+                        deacon.Id = GetIntValue(reader, "Deacon_Id");
+                        deacon.FirstName = GetStringValue(reader, "First Name");
+                        deacon.LastName = GetStringValue(reader, "Last Name");
+                        deacon.Region = GetStringValue(reader, "Region_Description");
+                        deacon.MemberCount = GetIntValue(reader, "MemberCount");
                         if (deacon != null)
                         {
-                            Result.Add(deacon);
+                            result.Add(deacon);
                         }
                     }
                 }
             }
-            return Result;
+            return result;
         }
     }
 
