@@ -76,25 +76,29 @@ namespace Deacon_Database_Manager.GUI
             int ColumnCount = 0;
             foreach (Member SearchResult in SearchResults)
             {
-                PictureBox PicBox = new PictureBox();
-                PicBox.Visible = true;
-                PicBox.Height = PicHeight;
-                PicBox.Width = PicWidth;
+                PictureBox PicBox = new PictureBox()
+                {
+                    Visible = true,
+                    Height = PicHeight,
+                    Width = PicWidth,
+                    SizeMode = PictureBoxSizeMode.StretchImage,
+                    Image = SearchResult.ProfilePicture,
+                    BorderStyle = BorderStyle.FixedSingle
+                };
 
-                PicBox.SizeMode = PictureBoxSizeMode.StretchImage;
-                PicBox.Image = SearchResult.ProfilePicture;
-                PicBox.BorderStyle = BorderStyle.FixedSingle;
 
                 PicBox.Name = SearchResult.Id.ToString();
                 PicBox.Click += new EventHandler(PicBox_OnClick);
 
-                Label MemberLabel = new Label();
-                MemberLabel.Visible = true;
-                MemberLabel.Text = Regex.Replace(SearchResult.FirstName +
-                    ' ' + SearchResult.LastName, "[ ], {2,}", " ");
-                MemberLabel.Width = PicBox.Width;
-                MemberLabel.Height = LabelHeight;
-                MemberLabel.AutoSize = true;
+                Label MemberLabel = new Label()
+                {
+                    Visible = true,
+                    Text = Regex.Replace(SearchResult.FirstName +
+                        ' ' + SearchResult.LastName, "[ ], {2,}", " "),
+                    Width = PicBox.Width,
+                    Height = LabelHeight,
+                    AutoSize = true
+                };
 
                 PicBox.Location = new Point(x, y);
                 MemberLabel.Location = new Point(x, y + PicBox.Height);
