@@ -337,28 +337,35 @@ namespace Deacon_Database_Manager.DbTools
         public List<Member> GetAllMembers()
         {
             List<Member> result = new List<Member>();
-            using (SqlConnection conn = new SqlConnection(connectionString))
+            try
             {
-                SqlCommand cmd = new SqlCommand("GetMember")
+                using (SqlConnection conn = new SqlConnection(connectionString))
                 {
-                    CommandType = CommandType.StoredProcedure,
-                    Connection = conn
-                };
-                cmd.Parameters.AddWithValue("@MemberId", -1);
-
-                conn.Open();
-
-                using (SqlDataReader reader = cmd.ExecuteReader())
-                {
-                    while (reader.Read())
+                    SqlCommand cmd = new SqlCommand("GetMember")
                     {
-                        Member readerResult = GetMemberReaderResult(reader);
-                        if(readerResult != null)
+                        CommandType = CommandType.StoredProcedure,
+                        Connection = conn
+                    };
+                    cmd.Parameters.AddWithValue("@MemberId", -1);
+
+                    conn.Open();
+
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
                         {
-                            result.Add(readerResult);
+                            Member readerResult = GetMemberReaderResult(reader);
+                            if (readerResult != null)
+                            {
+                                result.Add(readerResult);
+                            }
                         }
                     }
                 }
+            }
+            catch(Exception e)
+            {
+                System.Diagnostics.Debugger.Break();
             }
             return result;
         }
@@ -535,8 +542,8 @@ namespace Deacon_Database_Manager.DbTools
                         Member member = GetMember(GetIntValue(reader, "Member_Id"));
                         if (!result.ContainsKey(member))
                         {
-                           
-                            if (!relationDict.TryGetValue(GetStringValue(reader, "Description"), out string lookupValue))
+                           string lookupValue;
+                            if (!relationDict.TryGetValue(GetStringValue(reader, "Description"), out lookupValue))
                             {
                                 lookupValue = null;
                             }

@@ -147,7 +147,8 @@ namespace Deacon_Database_Manager.Geographical
 
             };
 
-            if (!stateDictionary.TryGetValue(stateName, out string result))
+            string result;
+            if (!stateDictionary.TryGetValue(stateName, out result))
             {
                 result = String.Empty;
             }
@@ -287,7 +288,8 @@ namespace Deacon_Database_Manager.Geographical
                 { "Armed Forces Pacific", "Armed Forces Pacific" }
             };
 
-            if (!StateData.TryGetValue(abbreviation, out string result))
+            string result;
+            if (!StateData.TryGetValue(abbreviation, out result))
             {
                 result = String.Empty;
             }
