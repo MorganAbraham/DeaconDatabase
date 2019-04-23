@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace Deacon_Database_Manager.Geographical
+namespace DeaconBaseLib.Geographical
 {
-    class DistanceCalculator
+    public class DistanceCalculator
     {
         /// <summary>
         /// Gets the distance between two addresses in miles

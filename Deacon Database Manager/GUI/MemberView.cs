@@ -9,7 +9,7 @@ using System.Windows.Forms;
 using Deacon_Database_Manager.MemberData;
 using System.Resources;
 using Deacon_Database_Manager.DbTools;
-using Deacon_Database_Manager.Geographical;
+using DeaconBaseLib.Geographical;
 using System.Text.RegularExpressions;
 
 namespace Deacon_Database_Manager.GUI

@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Reflection;
 
-namespace Deacon_Database_Manager.Geographical
+namespace DeaconBaseLib.Geographical
 {
-    class Location
+    public class Location
     {
         private string street;
         private string street2;

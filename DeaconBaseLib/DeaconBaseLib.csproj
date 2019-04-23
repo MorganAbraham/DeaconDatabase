@@ -39,6 +39,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Geographical\AddressConverter.cs" />
+    <Compile Include="Geographical\DistanceCalculator.cs" />
+    <Compile Include="Geographical\Location.cs" />
+    <Compile Include="Geographical\StateInformation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

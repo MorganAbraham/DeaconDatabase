@@ -1,8 +1,8 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Deacon_Database_Manager.Geographical;
+using DeaconBaseLib.Geographical;
 
-namespace DatabaseManagerTests
+namespace DeaconBaseLibTests
 {
     [TestClass]
     public class DistanceCalculatorTest

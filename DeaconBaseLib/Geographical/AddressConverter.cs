@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Xml;
 
-namespace Deacon_Database_Manager.Geographical
+namespace DeaconBaseLib.Geographical
 {
-    class AddressConverter
+    public class AddressConverter
     {
         /// <summary>
         /// Finds the latitude or longitude of an address

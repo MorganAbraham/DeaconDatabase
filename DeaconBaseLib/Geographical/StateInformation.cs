@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Deacon_Database_Manager.Geographical
+namespace DeaconBaseLib.Geographical
 {
-    class StateInformation
+    public class StateInformation
     {
         /// <summary>
         /// Converts a full state name into it's two digit abbreviation

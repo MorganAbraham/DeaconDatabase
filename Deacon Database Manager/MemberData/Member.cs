@@ -1,4 +1,4 @@
-﻿using Deacon_Database_Manager.Geographical;
+﻿using DeaconBaseLib.Geographical;
 using System;
 using System.Drawing;
 using System.Reflection;

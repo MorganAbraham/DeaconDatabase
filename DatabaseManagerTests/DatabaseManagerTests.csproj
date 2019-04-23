@@ -56,10 +56,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="AddressConverterTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="DistanceCalculatorTest.cs" />
-    <Compile Include="LocationTests.cs" />
     <Compile Include="MemberTests.cs" />
     <Compile Include="RelationshipCalculatorTests.cs" />
   </ItemGroup>

@@ -1,4 +1,4 @@
-﻿using Deacon_Database_Manager.Geographical;
+﻿using DeaconBaseLib.Geographical;
 using Deacon_Database_Manager.MemberData;
 using System;
 using System.Collections.Generic;

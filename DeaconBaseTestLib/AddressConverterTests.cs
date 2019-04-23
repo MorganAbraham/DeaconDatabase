@@ -1,7 +1,8 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Deacon_Database_Manager.Geographical;
-namespace DatabaseManagerTests
+using DeaconBaseLib.Geographical;
+
+namespace DeaconBaseLibTests
 {
     [TestClass]
     public class AddressConverterTests

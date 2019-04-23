@@ -71,7 +71,6 @@
   <ItemGroup>
     <Compile Include="DbTools\DataManager.cs" />
     <Compile Include="DbTools\UserFilter.cs" />
-    <Compile Include="Geographical\StateInformation.cs" />
     <Compile Include="GUI\DeaconPanel.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -90,9 +89,6 @@
     <Compile Include="GUI\HomeScreen.Designer.cs">
       <DependentUpon>HomeScreen.cs</DependentUpon>
     </Compile>
-    <Compile Include="Geographical\AddressConverter.cs" />
-    <Compile Include="Geographical\DistanceCalculator.cs" />
-    <Compile Include="Geographical\Location.cs" />
     <Compile Include="GUI\MemberView.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -164,7 +160,12 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\DeaconBaseLib\DeaconBaseLib.csproj">
+      <Project>{d92a8415-cd88-47f4-a991-484929646bcb}</Project>
+      <Name>DeaconBaseLib</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

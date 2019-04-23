@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DatabaseManagerTests", "Dat
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeaconBaseLib", "DeaconBaseLib\DeaconBaseLib.csproj", "{D92A8415-CD88-47F4-A991-484929646BCB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeaconBaseTestLib", "DeaconBaseTestLib\DeaconBaseTestLib.csproj", "{F73D911A-29F3-499A-AA6F-0F7568C5E44F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeaconBaseLibTests", "DeaconBaseTestLib\DeaconBaseLibTests.csproj", "{F73D911A-29F3-499A-AA6F-0F7568C5E44F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
