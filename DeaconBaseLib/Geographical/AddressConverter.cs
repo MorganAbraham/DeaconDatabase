@@ -3,6 +3,11 @@ using System.Xml;
 
 namespace DeaconBaseLib.Geographical
 {
+    /*
+     * This class currently won't work. Google updated the API to require an API key. Until an API key is obtained. This 
+     * class will be marked obsolete
+     */
+    [Obsolete]
     public class AddressConverter
     {
         /// <summary>

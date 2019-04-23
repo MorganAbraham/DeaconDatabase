@@ -131,7 +131,7 @@ namespace DeaconBaseLib.Geographical
         public Location(string fullAddress)
         {
             this.Address = fullAddress;
-            ConvertAddress();
+            //ConvertAddress();
         }
 
         /// <summary>
@@ -151,7 +151,7 @@ namespace DeaconBaseLib.Geographical
             this.Zip = zip;
 
             this.Address = street + ' ' + street2 + ',' + city + ',' + state + ' ' + zip;
-            ConvertAddress();
+            //ConvertAddress();
         }
 
         /// <summary>
@@ -165,12 +165,12 @@ namespace DeaconBaseLib.Geographical
             this.Longitude = longitude;
         }
 
-        private void ConvertAddress()
-        {
-            double[] Coordinates = AddressConverter.GetCoordinates(Address);
-            Latitude = Coordinates[0];
-            Longitude = Coordinates[1];
-        }
+        //private void ConvertAddress()
+        //{
+        //    //double[] Coordinates = AddressConverter.GetCoordinates(Address);
+        //    //Latitude = Coordinates[0];
+        //    //Longitude = Coordinates[1];
+        //}
 
         public override bool Equals(object obj)
         {
