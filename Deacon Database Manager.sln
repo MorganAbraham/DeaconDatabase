@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.21005.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.27428.2005
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Deacon Database Manager", "Deacon Database Manager\Deacon Database Manager.csproj", "{11D39323-C45F-486A-910E-9D4F3031D246}"
 EndProject
@@ -10,6 +10,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeaconBaseLib", "DeaconBaseLib\DeaconBaseLib.csproj", "{D92A8415-CD88-47F4-A991-484929646BCB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeaconBaseLibTests", "DeaconBaseTestLib\DeaconBaseLibTests.csproj", "{F73D911A-29F3-499A-AA6F-0F7568C5E44F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DeaconBaseDataLib", "DeaconBaseDataLib\DeaconBaseDataLib.csproj", "{292E9991-853C-45B8-B175-14C1DB06F74F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,8 +35,15 @@ Global
 		{F73D911A-29F3-499A-AA6F-0F7568C5E44F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F73D911A-29F3-499A-AA6F-0F7568C5E44F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F73D911A-29F3-499A-AA6F-0F7568C5E44F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{292E9991-853C-45B8-B175-14C1DB06F74F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{292E9991-853C-45B8-B175-14C1DB06F74F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{292E9991-853C-45B8-B175-14C1DB06F74F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{292E9991-853C-45B8-B175-14C1DB06F74F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F34B6C42-F4E4-4C2A-B93D-3E5E74FBF4DD}
 	EndGlobalSection
 EndGlobal
